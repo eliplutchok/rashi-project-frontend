@@ -1,0 +1,27 @@
+/* styles.css */
+
+.posts-container {
+    padding: 20px;
+  }
+  
+  .posts-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .posts-container ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .posts-container li {
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .posts-container li h2 {
+    margin: 0;
+  }

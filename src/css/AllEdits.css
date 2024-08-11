@@ -1,0 +1,224 @@
+.all-edits {
+    padding: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+.all-edits h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex: 1 1 200px;
+}
+
+.select-and-action {
+    display: flex;
+    gap: 10px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.actions select,
+.actions button {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+    vertical-align: top;
+    max-width: 250px;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tr.expanded-text td {
+    white-space: normal;
+}
+
+.truncated-text {
+    cursor: pointer;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.pagination span {
+    padding: 8px 12px;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 800px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.modal-details {
+    width: 100%;
+    margin-top: 40px; /* Add margin to avoid overlap with close button */
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-title {
+    font-weight: bold;
+    color: #333;
+}
+
+.detail-value {
+    flex: 1;
+    text-align: right;
+    padding-left: 20px;
+    color: #555;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.button-group button {
+    padding: 8px 16px;
+    margin-left: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    font-size: 14px;
+    color: #333;
+    border-radius: 4px;
+}
+
+.button-group button:hover {
+    background-color: #f1f1f1;
+}
+
+.page-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    color: #333;
+    text-decoration: none;
+    border-radius: 4px;
+    align-self: flex-end;
+}
+
+.page-link:hover {
+    background-color: #f1f1f1;
+}
+
+.close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    color: #333;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.close-button:hover {
+    background: #f1f1f1;
+}
+
+.modal-content .button-group {
+    margin-top: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.modal-content .button-group button {
+    margin-right: 10px;
+}

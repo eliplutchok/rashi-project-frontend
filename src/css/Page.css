@@ -1,0 +1,303 @@
+/* Page.css */
+
+@font-face {
+  font-family: 'Vilna';
+  src: url('../assets/fonts/Mekorot-Vilna.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Vilna';
+  src: url('../assets/fonts/Mekorot-Vilna-Bold.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Rashi';
+  src: url('../assets/fonts/NotoRashiHebrew-Regular.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Rashi';
+  src: url('../assets/fonts/NotoRashiHebrew-Bold.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: bold;
+  font-style: normal;
+}
+
+.page-container {
+    display: flex;
+    justify-content: center;
+    /* padding: 10px; */
+    /* padding-left: 300px;
+    padding-right: 300px; */
+    background-color: rgb(253, 251, 242);
+    /* padding-bottom: 60px; */
+  }
+
+  .content-and-translation-container {
+    max-width: 70%;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* padding: 10px; */
+    /* padding-left: 200px;
+    padding-right: 200px;
+    background-color: rgb(253, 251, 242); */
+  }
+
+  .content-container {
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    /* padding: 10px; */
+    
+    /* background-color: rgb(253, 251, 242); */
+    height: 100%;
+    max-width: 100%;
+
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    /* border: 1px solid #cccccc; */
+    margin: 10px;
+    overflow: hidden;
+    text-align: justify;
+    text-align-last: right;
+    direction: rtl;
+    flex-grow: 1;
+    font-size: 1.2em;
+    line-height: 1.6em;
+  }
+  .column.talmud {
+    font-family: 'Vilna', sans-serif;
+    font-size: 1.4em;
+    line-height: 1.6em;
+  }
+  .column.rashi {
+    font-family:  'Rashi', 'Noto Rashi Hebrew', sans-serif;
+    font-weight: bold;
+  }
+  .not-rashi-header {
+    font-family: 'Rashi', 'Noto Rashi Hebrew', sans-serif;
+    /* font-size: 1.4em;
+    line-height: 1.6em; */
+    font-weight: normal;
+    /* color: red; */
+  }
+
+  .text-container {
+    /* display: flex;
+    flex-direction: column; */
+    height: 100%;
+  }
+  
+  .text-segment {
+    padding: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .text-segment:hover {
+    /* background-color: #f0f0f0; */
+    color: rgb(43, 51, 200);
+    cursor: pointer;
+    /* background-color: rgb(171, 148, 47); */
+    /* border-bottom: 3px solid #ccc; */
+  }
+  .text-segment.selected {
+    /* color: rgb(130, 120, 34); */
+    background-color: rgb(118, 202, 255);
+  }
+  .text-segment.selected:hover {
+    color: black;
+  }
+  
+   .page-h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .fixed-page-butn {
+    position: fixed;
+    top: 40%;
+    left: 5%;
+    /* background: white; */
+    /* padding: 10px; */
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    width: 100px;
+  }
+
+  .fixed-page-butn button {
+    background: none;
+    font-size: 25px;
+  }
+
+  .page-butn-div {
+    padding: 5px;
+    font-weight: bold;
+  }
+  
+  .sticky-header button {
+    /* margin: 0 5px; */
+  }
+  
+  .sticky-translation-footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%; 
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sticky-translation-footer-content {
+    width: 100%;
+    max-width: 100%; 
+    background: rgb(255, 254, 251);
+    opacity: 0.95;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  
+  .translation-box {
+    width: 100%;
+    max-width: 90%;
+    text-align: center;
+  }
+  
+  .translation-box h3 {
+    margin-top: 0;
+  }
+  
+  .translation-box p {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: bold;
+  }
+  
+  .translation-box button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(253, 251, 242);
+    }
+
+  .translation-box button:hover {
+    background-color: rgb(171, 148, 47);
+    color: white;
+  }
+
+  .translation-nav-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: rgb(17, 17, 17);
+    /* border-radius: 4px; */
+    text-align: center;
+    font-size: 16px;
+    font-size: 30px;
+  }
+
+  .translation-nav-button:hover {
+    /* background-color: rgb(240, 238, 224); */
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    position: relative;
+    padding-top: 30px;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-size: 18px;
+  }
+  
+  .modal-content textarea {
+    width: 95%;
+    max-width: 100%;
+    height: 200px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .modal-content button {
+    /* margin-top: 10px;
+    padding: 10px; */
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .rating-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    width: 100%;
+    }
+    
+    .rating-option {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 1px solid #ccc;
+    }
+
+    .rating-option:hover {
+    background-color: rgb(253, 252, 242);
+    /* border-radius: 5px; */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    }
+    
+    .rating-option.selected {
+    background-color: rgb(253, 247, 152);
+    /* border-radius: 5px; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    }
+
+   

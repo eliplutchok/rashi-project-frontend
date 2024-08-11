@@ -1,0 +1,129 @@
+.book-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+.back-button {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  background-color: transparent;
+  border: 1px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  color: #333;
+  border-radius: 4px;
+}
+
+.back-button:hover {
+  background-color: #e0e0e0;
+}
+
+h3 {
+  margin: 20px 0;
+}
+
+.carousel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.carousel {
+  display: flex;
+  gap: 5px;
+  transition: transform 0.3s ease;
+}
+
+.carousel-item {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s, opacity 0.3s, transform 0.3s;
+  border-radius: 4px;
+  flex: 0 0 auto;
+  opacity: 0.5;
+  transform: scale(0.85);
+  width: 30px;
+}
+
+.carousel-item.active {
+  opacity: 1;
+  transform: scale(1);
+  background-color: #e0e0e0;
+}
+
+.carousel-item:hover {
+  background-color: #d0d0d0;
+}
+
+.carousel-button {
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.carousel-button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.carousel-button:not(:disabled):hover {
+  color: #007bff;
+}
+
+.carousel-item:first-of-type {
+  transform: scale(0.70);
+  opacity: 0.4;
+  margin-right: -8px;
+}
+
+.carousel-item:last-of-type {
+  transform: scale(0.70);
+  opacity: 0.4;
+  margin-left: -8px;
+}
+
+.jump-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.jump-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.jump-form button {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.jump-form button:hover {
+  background-color: #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

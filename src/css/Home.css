@@ -1,0 +1,44 @@
+.home-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.home-container h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.home-container ul {
+    text-align: left;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.home-container li {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .home-container h3 {
+        font-size: 24px;
+    }
+
+    .home-container li {
+        font-size: 14px;
+    }
+}
