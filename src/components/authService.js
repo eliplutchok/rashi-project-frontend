@@ -1,8 +1,17 @@
 // authService.js
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import { io } from 'socket.io-client';
 
 const AUTH_URL = process.env.REACT_APP_AUTH_URL;
+const SOCKET_URL = process.env.REACT_APP_API_SOCKET_URL
+
+const axiosStandardInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
 
 // Create an Axios instance with default settings
 const apiClient = axios.create({
@@ -44,6 +53,29 @@ apiClient.interceptors.response.use(response => response, async (error) => {
   return Promise.reject(error);
 });
 
+let socket;
+
+const connectWebSocket = (token) => {
+  socket = io(SOCKET_URL, {
+    transports: ['websocket'],
+    auth: {
+      token: `Bearer ${token}`
+    }
+  });
+
+  socket.on('connect', () => {
+    console.log('Connected to WebSocket server');
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Disconnected from WebSocket server');
+  });
+
+  socket.on('message', (data) => {
+    console.log('Received message:', data);
+  });
+};
+
 const register = async (credentials) => {
   const response = await apiClient.post('/users/signup', {
     name: credentials.email,
@@ -53,10 +85,17 @@ const register = async (credentials) => {
   localStorage.setItem('accessToken', accessToken);
   localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('username', credentials.email);
+  connectWebSocket(accessToken);
   return response.data;
 };
 
 const login = async (credentials) => {
+  // try clearing the local storage
+  try {
+    localStorage.clear();
+  } catch (error) {
+    console.error('Error clearing local storage:', error);
+  }
   try {
     const response = await apiClient.post('/users/login', {
       username: credentials.username,
@@ -68,6 +107,7 @@ const login = async (credentials) => {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('username', credentials.username);
     localStorage.setItem('privilegeLevel', privilege_level);
+    connectWebSocket(accessToken);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 403) {
@@ -103,20 +143,36 @@ const getPrivilegeLevel = () => {
   return localStorage.getItem('privilegeLevel');
 };
 
+// const getCurrentToken = async () => {
+//   let accessToken = localStorage.getItem('accessToken');
+//   if (!accessToken) return null;
+//   const decodedToken = jwtDecode(accessToken);
+//   if (decodedToken.exp < Date.now() / 1000) {
+//     accessToken = await refreshAccessToken();
+//   }
+//   return accessToken;
+// };
+
 const getCurrentToken = async () => {
   let accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken'); // Get the refresh token
+
   if (!accessToken) return null;
   const decodedToken = jwtDecode(accessToken);
+
   if (decodedToken.exp < Date.now() / 1000) {
-    accessToken = await refreshAccessToken();
+    if (!refreshToken) return null; // Ensure refresh token is available
+    accessToken = await refreshAccessToken(refreshToken); // Pass the refresh token
   }
+
   return accessToken;
 };
 
 const refreshAccessToken = async (refreshToken) => {
-  const response = await apiClient.post('/token', { token: refreshToken });
+  const response = await axiosStandardInstance.post('/token', { token: refreshToken });
   const { accessToken } = response.data;
   localStorage.setItem('accessToken', accessToken);
+  connectWebSocket(accessToken);
   return accessToken;
 };
 
