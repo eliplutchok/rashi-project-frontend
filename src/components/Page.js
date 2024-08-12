@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from './axiosInstance';
 import '../css/Page.css';
-import useWebSocket from './useWebSocket';
+// import useWebSocket from './useWebSocket';
 
 const Page = () => {
   const { book, page } = useParams();
@@ -20,10 +20,10 @@ const Page = () => {
   const [rating, setRating] = useState(3);
   const [feedback, setFeedback] = useState('');
 
-  useWebSocket((data) => {
-    // Handle the received message here
-    console.log('WebSocket message in Page component:', data);
-  });
+  // useWebSocket((data) => {
+  //   // Handle the received message here
+  //   console.log('WebSocket message in Page component:', data);
+  // });
 
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');

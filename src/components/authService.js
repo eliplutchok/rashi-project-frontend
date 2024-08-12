@@ -6,6 +6,7 @@ import { io } from 'socket.io-client';
 const AUTH_URL = process.env.REACT_APP_AUTH_URL;
 const SOCKET_URL = process.env.REACT_APP_API_SOCKET_URL
 
+
 const axiosStandardInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
@@ -53,28 +54,28 @@ apiClient.interceptors.response.use(response => response, async (error) => {
   return Promise.reject(error);
 });
 
-let socket;
+// let socket;
 
-const connectWebSocket = (token) => {
-  socket = io(SOCKET_URL, {
-    transports: ['websocket'],
-    auth: {
-      token: `Bearer ${token}`
-    }
-  });
+// const connectWebSocket = (token) => {
+//   socket = io(SOCKET_URL, {
+//     transports: ['websocket'],
+//     auth: {
+//       token: `Bearer ${token}`
+//     }
+//   });
 
-  socket.on('connect', () => {
-    console.log('Connected to WebSocket server');
-  });
+//   socket.on('connect', () => {
+//     console.log('Connected to WebSocket server');
+//   });
 
-  socket.on('disconnect', () => {
-    console.log('Disconnected from WebSocket server');
-  });
+//   socket.on('disconnect', () => {
+//     console.log('Disconnected from WebSocket server');
+//   });
 
-  socket.on('message', (data) => {
-    console.log('Received message:', data);
-  });
-};
+//   socket.on('message', (data) => {
+//     console.log('Received message:', data);
+//   });
+// };
 
 const register = async (credentials) => {
   const response = await apiClient.post('/users/signup', {
@@ -85,7 +86,7 @@ const register = async (credentials) => {
   localStorage.setItem('accessToken', accessToken);
   localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('username', credentials.email);
-  connectWebSocket(accessToken);
+  // connectWebSocket(accessToken);
   return response.data;
 };
 
@@ -107,7 +108,7 @@ const login = async (credentials) => {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('username', credentials.username);
     localStorage.setItem('privilegeLevel', privilege_level);
-    connectWebSocket(accessToken);
+    // connectWebSocket(accessToken);
     return response.data;
   } catch (error) {
     if (error.response && error.response.status === 403) {
@@ -172,7 +173,7 @@ const refreshAccessToken = async (refreshToken) => {
   const response = await axiosStandardInstance.post('/token', { token: refreshToken });
   const { accessToken } = response.data;
   localStorage.setItem('accessToken', accessToken);
-  connectWebSocket(accessToken);
+  // connectWebSocket(accessToken);
   return accessToken;
 };
 
