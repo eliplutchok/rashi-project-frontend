@@ -21,7 +21,6 @@ const Page = () => {
 
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
-    console.log('passageIdFromURL', passageIdFromURL);
     if (passageIdFromURL) {
         setSelectedPassageId(parseInt(passageIdFromURL));
     }
@@ -119,7 +118,6 @@ const Page = () => {
 
   const renderText = (textArray) => {
     textArray.sort((a, b) => a.passage_number - b.passage_number);
-    console.log('textArray', textArray[0]);
     return textArray.map((obj, index) => (
       <span
         key={index}
