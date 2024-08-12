@@ -1,12 +1,51 @@
 // authService.js
-
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 
 const AUTH_URL = process.env.REACT_APP_AUTH_URL;
 
+// Create an Axios instance with default settings
+const apiClient = axios.create({
+  baseURL: AUTH_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Request interceptor to include tokens in requests
+apiClient.interceptors.request.use(async (config) => {
+  const token = await getCurrentToken();
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+// Response interceptor to handle errors globally
+apiClient.interceptors.response.use(response => response, async (error) => {
+  if (error.response && error.response.status === 403) {
+    console.error('Access denied. Please check your credentials.');
+  } else if (error.response && error.response.status === 401) {
+    // Handle token expiration and refresh logic here
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (refreshToken) {
+      try {
+        const response = await refreshAccessToken(refreshToken);
+        localStorage.setItem('accessToken', response.data.accessToken);
+        error.config.headers['Authorization'] = 'Bearer ' + response.data.accessToken;
+        return axios(error.config);
+      } catch (refreshError) {
+        logout();
+      }
+    }
+  }
+  return Promise.reject(error);
+});
+
 const register = async (credentials) => {
-  const response = await axios.post(`${AUTH_URL}/users/signup`, {
+  const response = await apiClient.post('/users/signup', {
     name: credentials.email,
     password: credentials.password,
   });
@@ -15,15 +54,15 @@ const register = async (credentials) => {
   localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('username', credentials.email);
   return response.data;
-}
+};
 
 const login = async (credentials) => {
   try {
-    const response = await axios.post(`${AUTH_URL}/users/login`, {
+    const response = await apiClient.post('/users/login', {
       username: credentials.username,
       password: credentials.password,
     });
-    const { accessToken, refreshToken, privilege_level} = response.data;
+    const { accessToken, refreshToken, privilege_level } = response.data;
     console.log('user', privilege_level);
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
@@ -43,7 +82,7 @@ const logout = async () => {
     const refreshToken = localStorage.getItem('refreshToken');
     if (!refreshToken) throw new Error('No refresh token available');
 
-    await axios.delete(`${AUTH_URL}/logout`, {
+    await apiClient.delete('/logout', {
       data: { token: refreshToken }
     });
 
@@ -62,10 +101,9 @@ const getCurrentUserName = () => {
 
 const getPrivilegeLevel = () => {
   return localStorage.getItem('privilegeLevel');
-}
+};
 
 const getCurrentToken = async () => {
-  // if the token is expired, refresh it
   let accessToken = localStorage.getItem('accessToken');
   if (!accessToken) return null;
   const decodedToken = jwtDecode(accessToken);
@@ -73,12 +111,10 @@ const getCurrentToken = async () => {
     accessToken = await refreshAccessToken();
   }
   return accessToken;
-}
+};
 
-const refreshAccessToken = async () => {
-  const refreshToken = localStorage.getItem('refreshToken');
-  if (!refreshToken) throw new Error('No refresh token available');
-  const response = await axios.post(`${AUTH_URL}/token`, { token: refreshToken });
+const refreshAccessToken = async (refreshToken) => {
+  const response = await apiClient.post('/token', { token: refreshToken });
   const { accessToken } = response.data;
   localStorage.setItem('accessToken', accessToken);
   return accessToken;

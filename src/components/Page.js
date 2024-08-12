@@ -121,7 +121,7 @@ const Page = () => {
     return textArray.map((obj, index) => (
       <span
         key={index}
-        className={`text-segment ${selectedPassageId === obj.id ? 'selected' : ''}`}
+        className={`fade-in-element text-segment ${selectedPassageId === obj.id ? 'selected' : ''}`}
         onClick={() => handleTextClick(obj.hebrew_text, obj.english_text, obj.id, obj.translation_id)}
         dangerouslySetInnerHTML={{ __html: obj.hebrew_text }}
       />

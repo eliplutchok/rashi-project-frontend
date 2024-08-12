@@ -12,7 +12,6 @@ const AllRatings = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [selectedAction, setSelectedAction] = useState('');
 
-  
   const fetchRatings = useCallback(async () => {
     try {
       const responseUrl = `${process.env.REACT_APP_API_URL}/allRatings`;
@@ -33,7 +32,6 @@ const AllRatings = () => {
   useEffect(() => {
     fetchRatings();
   }, [fetchRatings]);
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -100,7 +98,7 @@ const AllRatings = () => {
         rating.feedback,
         new Date(rating.creation_date).toLocaleString(),
         rating.status
-      ])
+      ].map(field => `"${String(field).replace(/"/g, '""')}"`)) // Wrap each field in double quotes and escape existing double quotes
     ]
       .map(e => e.join(','))
       .join('\n');
