@@ -108,13 +108,14 @@ const Page = () => {
 
   const handleRateSubmit = async () => {
     try {
+      closeRateModal();
       await axiosInstance.post(`${process.env.REACT_APP_API_URL}/ratings`, {
         passage_id: selectedPassageId,
         rating,
         feedback,
         translation_id: selectedTranslationId,
       });
-      closeRateModal();
+      
     } catch (error) {
       console.error('Error submitting rating:', error);
     }
