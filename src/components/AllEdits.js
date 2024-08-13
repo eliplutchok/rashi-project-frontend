@@ -83,6 +83,7 @@ const AllEdits = () => {
       const responseUrl = `${process.env.REACT_APP_API_URL}/edits/${action}`;
       await axiosInstance.post(responseUrl, { translation_ids: [id] });
       fetchEdits();
+      handleCloseModal();
     } catch (error) {
       console.error(`Error performing ${action} on edit:`, error);
     }
@@ -130,6 +131,13 @@ const AllEdits = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+
+  const removeRashiPrefix = (bookName) => {
+    if (bookName.startsWith("Rashi_on_")) {
+        return bookName.replace("Rashi_on_", "");
+    }
+    return bookName;
+};
 
   return (
     <div className="all-edits">
@@ -198,26 +206,26 @@ const AllEdits = () => {
             <tbody>
             {edits.map(edit => (
                 <tr key={edit.translation_id}>
-                <td>
-                    <input
-                    type="checkbox"
-                    checked={selectedEdits.includes(edit.translation_id)}
-                    onChange={() => handleCheckboxChange(edit.translation_id)}
-                    />
-                </td>
-                <td>{edit.book_name}</td>
-                <td>{edit.page_number}</td>
-                <td><span dangerouslySetInnerHTML={{ __html: edit.hebrew_text }} /></td>
-                <td
-                    className={expandedEdit && expandedEdit.translation_id === edit.translation_id ? 'expanded-text' : 'truncated-text'}
-                    onClick={() => handleExpandClick(edit)}
-                >
-                    {edit.text}
-                </td>
-                <td>{edit.notes}</td>
-                <td>{new Date(edit.creation_date).toLocaleString()}</td>
-                <td>{edit.status}</td>
-                <td>{edit.username}</td>
+                  <td>
+                      <input
+                      type="checkbox"
+                      checked={selectedEdits.includes(edit.translation_id)}
+                      onChange={() => handleCheckboxChange(edit.translation_id)}
+                      />
+                  </td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.book_name}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.page_number}</td>
+                  <td onClick={() => handleExpandClick(edit)}><span dangerouslySetInnerHTML={{ __html: edit.hebrew_text }} /></td>
+                  <td
+                      className={expandedEdit && expandedEdit.translation_id === edit.translation_id ? 'expanded-text' : 'truncated-text'}
+                      onClick={() => handleExpandClick(edit)}
+                  >
+                      {edit.text}
+                  </td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.notes}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{new Date(edit.creation_date).toLocaleString()}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.status}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.username}</td>
                 </tr>
             ))}
             </tbody>
@@ -273,7 +281,7 @@ const AllEdits = () => {
                 <button onClick={() => handleIndividualAction('publish', expandedEdit.translation_id)}>Publish</button>
             </div>
             <a
-                href={`/page/${expandedEdit.book_name}/${expandedEdit.page_number}?passageId=${expandedEdit.passage_id}`}
+                href={`/page/${removeRashiPrefix(expandedEdit.book_name)}/${expandedEdit.page_number}?passageId=${expandedEdit.passage_id}`}
                 className="page-link"
             >
                 Go to Passage

@@ -22,7 +22,7 @@
 .library-sections button {
   flex: 1;
   /* min-width: 150px; */
-  max-width: 150px;
+  max-width: 400px;
   background-color: #fff;
   border-radius: 8px;
   padding: 10px;
@@ -44,7 +44,7 @@
 }
 
 .library-sections button.active {
-  background-color: #0363ca;
+  background-color: #298ffc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   color: #fff;
 }

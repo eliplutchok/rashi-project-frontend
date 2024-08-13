@@ -1,30 +1,40 @@
 import '../css/Book.css';
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from './axiosInstance';
 
 const Book = ({ book, onBack }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollTimeout = useRef(null);
   const carouselRef = useRef(null);
   const [jumpPage, setJumpPage] = useState('');
+  const [bookInfo, setBookInfo] = useState({});
 
-  let numPages = 2;
-  if (book === 'Berakhot') {
-    numPages = 64;
-  } else if (book === 'Shabbat') {
-    numPages = 157;
-  } else if (book === 'Megillah') {
-    numPages = 32;
-  }
+  useEffect(() => {
+    const fetchBookInfo = async () => {
+      const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/bookInfo`, { params: { book } });
+      const data =  response.data;
+      setBookInfo(data);
+    }
+    fetchBookInfo();
+    console.log('fetching book info');
+  }, [book]);
+
+  console.log(bookInfo);
+
+  let numPages = bookInfo ? Math.ceil(bookInfo.length / 2) : 0;
 
   const generatePages = (numPages) => {
     const pages = [];
     const letters = ['a', 'b'];
+  
     for (let i = 2; i <= numPages; i++) {
-      letters.forEach(letter => {
-        pages.push(`${i}${letter}`);
-      });
+      pages.push(`${i}${letters[0]}`);
+      if (i !== numPages || bookInfo.length % 2 === 0) {
+        pages.push(`${i}${letters[1]}`);
+      }
     }
+  
     return pages;
   };
 

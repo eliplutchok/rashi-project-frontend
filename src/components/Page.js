@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from './axiosInstance';
 import '../css/Page.css';
@@ -17,8 +17,10 @@ const Page = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isRateModalOpen, setIsRateModalOpen] = useState(false);
   const [editedTranslation, setEditedTranslation] = useState('');
+  const [editNotes, setEditNotes] = useState('');
   const [rating, setRating] = useState(3);
   const [feedback, setFeedback] = useState('');
+  const selectedElementRef = useRef(null);
 
   // useWebSocket((data) => {
   //   // Handle the received message here
@@ -28,47 +30,42 @@ const Page = () => {
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
     if (passageIdFromURL) {
-        setSelectedPassageId(parseInt(passageIdFromURL));
+      setSelectedPassageId(parseInt(passageIdFromURL));
     }
 
-    const fetchTalmud = async () => {
+    const fetchTexts = async () => {
       try {
-        const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book, page } });
-        const data = response.data;
-        setTalmudText(data);
+        const [talmudResponse, rashiResponse] = await Promise.all([
+          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book, page } }),
+          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book: `Rashi_on_${book}`, page } }),
+        ]);
+
+        const formatRashiText = (text) => {
+          let textCopy = text;
+          if (textCopy.includes('–')) {
+            textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
+          } else {
+            textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
+          }
+          return textCopy;
+        };
+
+        const rashiData = rashiResponse.data.map(passage => ({ ...passage, hebrew_text: formatRashiText(passage.hebrew_text) }));
+        setTalmudText(talmudResponse.data);
+        setRashiText(rashiData);
+
         if (passageIdFromURL) {
-          const selectedPassage = data.find(passage => passage.id === parseInt(passageIdFromURL));
+          const selectedPassage = talmudResponse.data.find(passage => passage.id === parseInt(passageIdFromURL));
           if (selectedPassage) {
             handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
           }
         }
       } catch (error) {
-        console.error('Error fetching Talmud text:', error);
+        console.error('Error fetching texts:', error);
       }
     };
 
-    const formatRashiText = (text) => {
-      let textCopy = text;
-      if (textCopy.includes('–')) {
-          textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-      } else {
-          textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-      }
-      return textCopy;
-    };
-
-    const fetchRashi = async () => {
-      try {
-        const response = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book: `Rashi_on_${book}`, page } });
-        const data = response.data;
-        setRashiText(data.map(passage => ({ ...passage, hebrew_text: formatRashiText(passage.hebrew_text) })));
-      } catch (error) {
-        console.error('Error fetching Rashi text:', error);
-      }
-    };
-
-    fetchTalmud();
-    fetchRashi();
+    fetchTexts();
   }, [book, page, location]);
 
   const handleTextClick = (text, translation, passageId, translationId) => {
@@ -89,12 +86,13 @@ const Page = () => {
 
   const handleEditSubmit = async () => {
     try {
+      closeEditModal();
       await axiosInstance.post(`${process.env.REACT_APP_API_URL}/edits`, {
         passage_id: selectedPassageId,
         edited_text: editedTranslation,
-        notes: 'User edited translation',
+        notes: editNotes,
       });
-      closeEditModal();
+      
     } catch (error) {
       console.error('Error submitting edit:', error);
     }
@@ -122,11 +120,31 @@ const Page = () => {
     }
   };
 
+  // setSelectedText rashiText with lowest passage_number
+  useEffect(() => {
+    const selectInitialText = async () => {
+      if (rashiText.length > 0) {
+        const lowestPassageNumber = Math.min(...rashiText.map(passage => passage.passage_number));
+        const selectedPassage = rashiText.find(passage => passage.passage_number === lowestPassageNumber);
+        handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
+      }
+    };
+
+    selectInitialText();
+  }, [rashiText]);
+
+  useEffect(() => {
+    if (selectedElementRef.current) {
+      selectedElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [selectedText]);
+
   const renderText = (textArray) => {
     textArray.sort((a, b) => a.passage_number - b.passage_number);
     return textArray.map((obj, index) => (
       <span
         key={index}
+        ref={selectedPassageId === obj.id ? selectedElementRef : null}
         className={`fade-in-element text-segment ${selectedPassageId === obj.id ? 'selected' : ''}`}
         onClick={() => handleTextClick(obj.hebrew_text, obj.english_text, obj.id, obj.translation_id)}
         dangerouslySetInnerHTML={{ __html: obj.hebrew_text }}
@@ -151,40 +169,43 @@ const Page = () => {
   };
 
   const handleNextPage = () => {
+    let bookLength = (rashiText && rashiText[0] && rashiText[0].length + 2) || 0;
+    let lastPage = bookLength % 2 === 0 ? `${bookLength / 2}b` : `${(bookLength - 1)/2}a`;
+    if (page === lastPage) return;
     const nextPage = getNextPage(page);
     if (nextPage) navigate(`/page/${book}/${nextPage}`);
   };
 
   const handlePreviousPage = () => {
+    if (page === '2a') return;
     const previousPage = getPreviousPage(page);
     if (previousPage) navigate(`/page/${book}/${previousPage}`);
   };
 
   const handleNextTranslation = () => {
-    let textToSearch = rashiText
+    let textToSearch = rashiText;
     // if selected text is not in rashiText, search in talmudText
     if (!rashiText.find(passage => passage.id === selectedPassageId)) {
-        textToSearch = talmudText;
+      textToSearch = talmudText;
     }
     const curentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
     const nextPassage = textToSearch.find(passage => passage.passage_number === curentPassageNumber + 1);
     if (nextPassage) {
       handleTextClick(nextPassage.hebrew_text, nextPassage.english_text, nextPassage.id, nextPassage.translation_id);
     }
-
   };
 
   const handlePreviousTranslation = () => {
-    let textToSearch = rashiText
+    let textToSearch = rashiText;
     if (!rashiText.find(passage => passage.id === selectedPassageId)) {
-        textToSearch = talmudText;
+      textToSearch = talmudText;
     }
     const curentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
     const previousPassage = textToSearch.find(passage => passage.passage_number === curentPassageNumber - 1);
     if (previousPassage) {
-        handleTextClick(previousPassage.hebrew_text, previousPassage.english_text, previousPassage.id, previousPassage.translation_id);
+      handleTextClick(previousPassage.hebrew_text, previousPassage.english_text, previousPassage.id, previousPassage.translation_id);
     }
-}
+  };
 
   return (
     <div className="page-container">
@@ -212,8 +233,10 @@ const Page = () => {
             <button className="translation-nav-button" onClick={handleNextTranslation}>&#8249;</button>
               <div className="translation-box">
                 <p>{selectedTranslation}</p>
-                <button onClick={openEditModal}>Edit</button>
-                <button onClick={openRateModal}>Rate</button>
+                <div className="translation-buttons">
+                  <button onClick={openEditModal}>Edit</button>
+                  <button onClick={openRateModal}>Rate</button>
+                </div>
               </div>
               <button className="translation-nav-button" onClick={handlePreviousTranslation}>&#8250;</button>
               
@@ -221,39 +244,35 @@ const Page = () => {
           </div>
         )}
       </div>
-      {isEditModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3>Edit Translation</h3>
-              <button className="close-button" onClick={closeEditModal}>X</button>
-            </div>
-            <h3
-                dangerouslySetInnerHTML={{ __html: selectedText }}
-            />
-            <textarea
-              value={editedTranslation}
-              onChange={(e) => setEditedTranslation(e.target.value)}
-            />
-            <button onClick={handleEditSubmit}>Submit</button>
-          </div>
-        </div>
-      )}
             {isEditModalOpen && (
         <div className="modal">
           <div className="modal-content">
             <div className="modal-header">
-              <h3>Edit Translation</h3>
-              <button className="close-button" onClick={closeEditModal}>X</button>
+              <h3>Propose New Translation</h3>
+              <button className="close-button" onClick={closeEditModal}>✖</button>
             </div>
             <h3
                 dangerouslySetInnerHTML={{ __html: selectedText }}
             />
+            
+            <div className="edit-translation-header">
+              Edit translation:
+            </div>
             <textarea
+              className='edit-translation'
               value={editedTranslation}
               onChange={(e) => setEditedTranslation(e.target.value)}
             />
-            <button onClick={handleEditSubmit}>Submit</button>
+            <div className="edit-notes-header">
+              Add notes about your edit (optional):
+            </div>
+            <textarea
+              placeholder="Add notes here..."
+              className='edit-notes'
+              value={editNotes}
+              onChange={(e) => setEditNotes(e.target.value)}
+            />
+            <button className="modal-submit-button" onClick={handleEditSubmit}>Submit</button>
           </div>
         </div>
       )}
@@ -264,9 +283,16 @@ const Page = () => {
               <h3>Rate Translation</h3>
               <button className="close-button" onClick={closeRateModal}>X</button>
             </div>
-            <h3
-                dangerouslySetInnerHTML={{ __html: selectedText }}
-            />
+            <div className="text-and-trans-for-rating">
+              <div
+                  className="hebrew-div"
+                  dangerouslySetInnerHTML={{ __html: selectedText }}
+              />
+              <div
+                  className="translation-div"
+                  dangerouslySetInnerHTML={{ __html: selectedTranslation }}
+              />
+            </div>
             <div className="rating-container">
               <span className={`rating-option ${rating === 1 ? 'selected' : ''}`} onClick={() => setRating(1)}>1<br />Terrible</span>
               <span className={`rating-option ${rating === 2 ? 'selected' : ''}`} onClick={() => setRating(2)}>2<br />Poor</span>
@@ -275,6 +301,7 @@ const Page = () => {
               <span className={`rating-option ${rating === 5 ? 'selected' : ''}`} onClick={() => setRating(5)}>5<br />Great</span>
             </div>
             <textarea
+              className="rate-modal-text-area"
               placeholder="Leave your feedback here..."
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}

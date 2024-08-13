@@ -22,14 +22,13 @@ const App = () => {
     try {
       const data = await authService.login(credentials);
       console.log('Login successful:', data);
-       // Redirect to home page, dont use navigate here
-       window.location.href = '/home';
-
+      // Redirect to home page
+      window.location.href = '/home';
     } catch (error) {
       if (error.response) {
-        console.error('Login failed:', error.response.data);
+        throw new Error(error.response.data.message);
       } else {
-        console.error('Error:', error.message);
+        throw new Error(error.message);
       }
     }
   };
@@ -40,11 +39,7 @@ const App = () => {
       console.log('Registration successful:', data);
       window.location.href = '/home';
     } catch (error) {
-      if (error.response) {
-        console.error('Registration failed:', error.response.data);
-      } else {
-        console.error('Error:', error.message);
-      }
+      throw new Error(error.message);
     }
   };
 

@@ -12,35 +12,16 @@ const Section = ({ section, onBookSelect }) => {
       Taharot: ['Niddah'],
     },
     Tanach: {
-      Torah: ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'],
-      Prophets: ['Joshua', 'Judges', 'Samuel', 'Kings', 'Isaiah', 'Jeremiah', 'Ezekiel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi'],
-      Writings: ['Psalms', 'Proverbs', 'Job', 'Song of Songs', 'Ruth', 'Lamentations', 'Ecclesiastes', 'Esther', 'Daniel', 'Ezra', 'Nehemiah', 'Chronicles'],
     },
     Mishnah: {
-      Zeraim: ['Berakhot', 'Peah', 'Demai', 'Kilayim', 'Sheviit', 'Terumot', 'Maaserot', 'Maaser Sheni', 'Hallah', 'Orlah', 'Bikkurim'],
-      Moed: ['Shabbat', 'Eruvin', 'Pesahim', 'Shekalim', 'Yoma', 'Sukkah', 'Beitzah', 'Rosh Hashanah', 'Taanit', 'Megillah', 'Moed Katan', 'Hagigah'],
-      Nashim: ['Yevamot', 'Ketubot', 'Nedarim', 'Nazir', 'Sotah', 'Gittin', 'Kiddushin'],
-      Nezikin: ['Bava Kamma', 'Bava Metzia', 'Bava Batra', 'Sanhedrin', 'Makkot', 'Shevuot', 'Eduyot', 'Avodah Zarah', 'Avot', 'Horayot'],
-      Kodshim: ['Zevahim', 'Menahot', 'Chullin', 'Bechorot', 'Arachin', 'Temurah', 'Keritot', 'Meilah', 'Tamid', 'Middot', 'Kinnim'],
-      Taharot: ['Kelim', 'Ohalot', 'Nega\'im', 'Parah', 'Tohorot', 'Mikvaot', 'Niddah', 'Machshirin', 'Zavim', 'Tevul Yom', 'Yadayim', 'Uktzin'],
     },
-    Halacha: {
-      OrachChaim: ['Shulchan Aruch', 'Mishnah Berurah'],
-      YorehDeah: ['Shulchan Aruch', 'Mishnah Berurah'],
-    },
+    Halacha: {},
     Midrash: {
-      Rabbah: ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'],
     },
     Tosefta: {
-      Zeraim: ['Berakhot', 'Peah', 'Demai', 'Kilayim', 'Sheviit', 'Terumot', 'Maaserot', 'Maaser Sheni', 'Hallah', 'Orlah', 'Bikkurim'],
-      Moed: ['Shabbat', 'Eruvin', 'Pesahim', 'Shekalim', 'Yoma', 'Sukkah', 'Beitzah', 'Rosh Hashanah', 'Taanit', 'Megillah', 'Moed Katan', 'Hagigah'],
-      Nashim: ['Yevamot', 'Ketubot', 'Nedarim', 'Nazir', 'Sotah', 'Gittin', 'Kiddushin'],
-      Nezikin: ['Bava Kamma', 'Bava Metzia', 'Bava Batra', 'Sanhedrin', 'Makkot', 'Shevuot', 'Eduyot', 'Avodah Zarah', 'Avot', 'Horayot'],
-      Kodshim: ['Zevahim', 'Menahot', 'Chullin', 'Bechorot', 'Arachin', 'Temurah', 'Keritot', 'Meilah', 'Tamid', 'Middot', 'Kinnim'],
-      Taharot: ['Kelim', 'Ohalot', 'Nega\'im', 'Parah', 'Tohorot', 'Mikvaot', 'Niddah', 'Machshirin', 'Zavim', 'Tevul Yom', 'Yadayim', 'Uktzin'],
+
     },
     Kabbalah: {
-      Zohar: ['Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy'],
     },
   };
 

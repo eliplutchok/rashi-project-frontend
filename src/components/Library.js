@@ -44,7 +44,7 @@ const Library = () => {
 
   return (
     <div className="library-container">
-      {!activeSection && (
+      { (
         <div className="library-sections">
           {sections.map((section, index) => (
             <button

@@ -68,6 +68,7 @@ table td {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 table th {

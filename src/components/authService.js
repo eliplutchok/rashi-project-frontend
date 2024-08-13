@@ -1,10 +1,10 @@
 // authService.js
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
 
 const AUTH_URL = process.env.REACT_APP_AUTH_URL;
-const SOCKET_URL = process.env.REACT_APP_API_SOCKET_URL
+// const SOCKET_URL = process.env.REACT_APP_API_SOCKET_URL
 
 
 const axiosStandardInstance = axios.create({
@@ -90,31 +90,26 @@ const register = async (credentials) => {
   return response.data;
 };
 
+// auth service file
 const login = async (credentials) => {
-  // try clearing the local storage
   try {
     localStorage.clear();
-  } catch (error) {
-    console.error('Error clearing local storage:', error);
-  }
-  try {
     const response = await apiClient.post('/users/login', {
       username: credentials.username,
       password: credentials.password,
     });
     const { accessToken, refreshToken, privilege_level } = response.data;
-    console.log('user', privilege_level);
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('username', credentials.username);
     localStorage.setItem('privilegeLevel', privilege_level);
-    // connectWebSocket(accessToken);
     return response.data;
   } catch (error) {
-    if (error.response && error.response.status === 403) {
-      throw new Error('Access denied. Please check your credentials.');
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error('Network Error');
     }
-    throw error;
   }
 };
 
