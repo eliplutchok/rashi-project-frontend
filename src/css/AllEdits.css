@@ -146,18 +146,23 @@ button {
     justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid #ddd;
+    width: 100%;
+    gap: 20px;
 }
 
 .detail-title {
     font-weight: bold;
-    color: #333;
+    color: #7a8c93;
+    width: 20%;
+    text-align: right;
 }
 
 .detail-value {
     flex: 1;
-    text-align: right;
-    padding-left: 20px;
+    text-align: left;
+    /* padding-left: 20px; */
     color: #555;
+    width: 50%;
 }
 
 .button-group {
@@ -170,7 +175,7 @@ button {
 .button-group button {
     padding: 8px 16px;
     margin-left: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #7a8c93;
     background-color: #f9f9f9;
     cursor: pointer;
     font-size: 14px;
@@ -179,15 +184,16 @@ button {
 }
 
 .button-group button:hover {
-    background-color: #f1f1f1;
+    background-color: #7a8c93;
+    border-color: #f1f1f1;
 }
 
 .page-link {
     display: inline-block;
-    margin-top: 20px;
-    padding: 8px 16px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
+    margin-top: 10px;
+    padding: 5px 10px;
+    /* border: 1px solid #ccc; */
+    /* background-color: #f9f9f9; */
     color: #333;
     text-decoration: none;
     border-radius: 4px;

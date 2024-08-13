@@ -6,26 +6,38 @@ const Login = ({ onSubmit }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!username || !password) {
       setError('Both fields are required.');
+      setAnimationClass('shake');
+      setTimeout(() => setAnimationClass(''), 500); // Reset animation class
       return;
     }
     setError('');
+    setIsSubmitting(true);
     try {
       await onSubmit({ username, password });
+      setAnimationClass('lighting-up');
+      setTimeout(() => setAnimationClass(''), 500); // Reset animation class
     } catch (err) {
       setError(err.message);
+      setAnimationClass('shake');
+      setIsSubmitting(false);
+      setTimeout(() => setAnimationClass(''), 500); // Reset animation class
     }
   };
 
   return (
     <div className="login-wrapper">
-      <div className="login-container">
+      <div className={`login-container ${animationClass}`}>
         <h2>Login</h2>
-        {error && <p className="error-message">{error}</p>}
+        <div className="error-container">
+          {error && <p className="error-message">{error}</p>}
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="username">Username:</label>
@@ -41,13 +53,15 @@ const Login = ({ onSubmit }) => {
             <label htmlFor="password">Password:</label>
             <input
               type="password"
-              id="password"
+              id="password}"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" className="login-button" disabled={isSubmitting}>
+            {isSubmitting ? 'Logging in...' : 'Login'}
+          </button>
         </form>
       </div>
     </div>

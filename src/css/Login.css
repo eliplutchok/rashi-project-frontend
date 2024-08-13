@@ -9,11 +9,40 @@
   width: 350px;
   margin: 0 auto;
   padding: 20px;
-  border-radius: 10px; /* Slightly rounded corners for a modern look */
+  border-radius: 10px;
   background-color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   justify-self: center;
   align-self: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.login-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+}
+
+.login-container.shake {
+  animation: shake 0.5s;
+}
+
+.login-container.lighting-up {
+  animation: lightingUp 0.5s forwards;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+@keyframes lightingUp {
+  0% { background-color: #ffffff; }
+  100% { background-color: #e0ffe0; } /* Light green to indicate success */
 }
 
 .form-group {
@@ -23,39 +52,64 @@
 .form-group label {
   display: block;
   margin-bottom: 5px;
-  font-weight: 600; /* Slightly bolder for better readability */
-  color: #333; /* Darker color for better contrast */
+  font-weight: 600;
+  color: #333;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px; /* Increased padding for a more spacious feel */
+  padding: 10px;
   box-sizing: border-box;
-  border: 1px solid #ccc; /* Subtle border */
-  border-radius: 5px; /* Slightly rounded corners for a modern look */
-  font-size: 16px; /* Slightly larger font for better readability */
-  transition: border-color 0.3s ease; /* Smooth transition for border color */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
 }
 
 .form-group input:focus {
-  border-color: #007bff; /* Blue border on focus */
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Slight shadow for a more pronounced focus effect */
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.login-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.login-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.error-container {
+  min-height: 20px; /* Reserve space for error message */
+  margin-bottom: 10px;
 }
 
 .error-message {
   color: red;
-  margin-bottom: 10px;
-  font-weight: 600; /* Slightly bolder for better visibility */
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .login-wrapper {
     padding: 20px;
   }
-  
+
   .login-container {
-    width: 100%; /* Full width on smaller screens */
-    padding: 15px; /* Slightly reduced padding */
+    width: 100%;
+    padding: 15px;
   }
 }

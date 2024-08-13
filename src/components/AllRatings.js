@@ -119,6 +119,12 @@ const AllRatings = () => {
       setCurrentPage(currentPage - 1);
     }
   };
+  const removeRashiPrefix = (bookName) => {
+    if (bookName.startsWith("Rashi_on_")) {
+        return bookName.replace("Rashi_on_", "");
+    }
+    return bookName;
+  };
 
   return (
     <div className="all-edits">
@@ -191,10 +197,10 @@ const AllRatings = () => {
                 >
                     {rating.text}
                 </td>
-                <td>{rating.rating}</td>
-                <td>{rating.feedback}</td>
-                <td>{new Date(rating.creation_date).toLocaleString()}</td>
-                <td>{rating.status}</td>
+                <td onClick={() => handleExpandClick(rating)}>{rating.rating}</td>
+                <td onClick={() => handleExpandClick(rating)}>{rating.feedback}</td>
+                <td onClick={() => handleExpandClick(rating)}>{new Date(rating.creation_date).toLocaleString()}</td>
+                <td onClick={() => handleExpandClick(rating)}>{rating.status}</td>
                 </tr>
             ))}
             </tbody>
@@ -209,37 +215,52 @@ const AllRatings = () => {
       {expandedRating && (
         <div className="modal">
             <div className="modal-content">
-            <button className="close-button" onClick={handleCloseModal}>Close</button>
+            <button className="close-button" onClick={handleCloseModal}>✖</button>
             <div className="modal-details">
                 <div className="detail-row">
-                <span className="detail-title">Username:</span>
+                <span className="detail-title">Username</span>
                 <span className="detail-value">{expandedRating.username}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Translation:</span>
+                <span className="detail-title">Passage</span>
+                <span className="detail-value">{expandedRating.hebrew_text}</span>
+                </div>
+                <div className="detail-row">
+                <span className="detail-title">Translation</span>
                 <span className="detail-value">{expandedRating.text}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Rating:</span>
+                <span className="detail-title">Translation Status</span>
+                <span className="detail-value">{expandedRating.translation_status}</span>
+                </div>
+                <div className="detail-row">
+                <span className="detail-title">Rating</span>
                 <span className="detail-value">{expandedRating.rating}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Feedback:</span>
+                <span className="detail-title">Feedback</span>
                 <span className="detail-value">{expandedRating.feedback}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Creation Date:</span>
+                <span className="detail-title">Creation Date</span>
                 <span className="detail-value">{new Date(expandedRating.creation_date).toLocaleString()}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Status:</span>
+                <span className="detail-title">Status</span>
                 <span className="detail-value">{expandedRating.status}</span>
                 </div>
             </div>
             <div className="button-group">
                 <button onClick={() => handleIndividualAction('view', expandedRating.rating_id)}>Mark as Viewed</button>
                 <button onClick={() => handleIndividualAction('dismiss', expandedRating.rating_id)}>Dismiss</button>
+                
             </div>
+            <a
+                href={`/page/${removeRashiPrefix(expandedRating.book_name)}/${expandedRating.page_number}?passageId=${expandedRating.passage_id}`}
+                className="page-link"
+                >
+                    Go to Passage
+                </a>
             </div>
         </div>
         )}

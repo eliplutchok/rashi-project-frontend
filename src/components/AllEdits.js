@@ -137,7 +137,7 @@ const AllEdits = () => {
         return bookName.replace("Rashi_on_", "");
     }
     return bookName;
-};
+  };
 
   return (
     <div className="all-edits">
@@ -240,38 +240,38 @@ const AllEdits = () => {
       {expandedEdit && (
         <div className="modal">
             <div className="modal-content">
-            <button className="close-button" onClick={handleCloseModal}>Close</button>
+            <button className="close-button" onClick={handleCloseModal}>✖</button>
             <div className="modal-details">
                 <div className="detail-row">
-                <span className="detail-title">Book:</span>
+                <span className="detail-title">Book</span>
                 <span className="detail-value">{expandedEdit.book_name}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Page:</span>
+                <span className="detail-title">Page</span>
                 <span className="detail-value">{expandedEdit.page_number}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Passage:</span>
+                <span className="detail-title">Passage</span>
                 <span className="detail-value" dangerouslySetInnerHTML={{ __html: expandedEdit.hebrew_text }} />
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Translation:</span>
+                <span className="detail-title">Translation</span>
                 <span className="detail-value">{expandedEdit.text}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Notes:</span>
+                <span className="detail-title">Notes</span>
                 <span className="detail-value">{expandedEdit.notes}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Creation Date:</span>
+                <span className="detail-title">Creation Date</span>
                 <span className="detail-value">{new Date(expandedEdit.creation_date).toLocaleString()}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Status:</span>
+                <span className="detail-title">Status</span>
                 <span className="detail-value">{expandedEdit.status}</span>
                 </div>
                 <div className="detail-row">
-                <span className="detail-title">Username:</span>
+                <span className="detail-title">Username</span>
                 <span className="detail-value">{expandedEdit.username}</span>
                 </div>
             </div>

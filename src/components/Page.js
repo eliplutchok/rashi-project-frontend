@@ -282,7 +282,7 @@ const Page = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h3>Rate Translation</h3>
-              <button className="close-button" onClick={closeRateModal}>X</button>
+              <button className="close-button" onClick={closeRateModal}>✖</button>
             </div>
             <div className="text-and-trans-for-rating">
               <div

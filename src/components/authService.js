@@ -78,7 +78,7 @@ apiClient.interceptors.response.use(response => response, async (error) => {
 // };
 
 const register = async (credentials) => {
-  const response = await apiClient.post('/users/signup', {
+  const response = await apiClient.post('/signup', {
     name: credentials.email,
     password: credentials.password,
   });
@@ -94,7 +94,7 @@ const register = async (credentials) => {
 const login = async (credentials) => {
   try {
     localStorage.clear();
-    const response = await apiClient.post('/users/login', {
+    const response = await apiClient.post('/login', {
       username: credentials.username,
       password: credentials.password,
     });
