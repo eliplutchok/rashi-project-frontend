@@ -1,38 +1,23 @@
 import '../css/Section.css';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { books } from '../data/books';
 
 const Section = ({ section, onBookSelect }) => {
-  const books = {
-    Talmud: {
-      Zeraim: ['Berakhot'],
-      Moed: ['Shabbat', 'Eruvin', 'Pesahim', 'Shekalim', 'Rosh Hashanah', 'Yoma', 'Succah', 'Betzah', 'Ta\'anit', 'Megillah', 'Moed Katan', 'Hagigah'],
-      Nashim: ['Yevamot', 'Ketubot', 'Nedarim', 'Nazir', 'Sotah', 'Gittin', 'Kiddushin'],
-      Nezikin: ['Bava Kamma', 'Bava Metzia', 'Bava Batra', 'Sanhedrin', 'Makkot', 'Shevuot', 'Avodah Zarah', 'Horayot'],
-      Kodshim: ['Zevahim', 'Menahot', 'Hullin', 'Bekhorot', 'Arakhin', 'Temurah', 'Keretot', 'Me\'ilah'],
-      Taharot: ['Niddah'],
-    },
-    Tanach: {
-    },
-    Mishnah: {
-    },
-    Halacha: {},
-    Midrash: {
-    },
-    Tosefta: {
+  const sectionBooks = books[section];
 
-    },
-    Kabbalah: {
-    },
-  };
+  if (!sectionBooks) {
+    return <div className="section-container">Invalid section selected</div>;
+  }
 
   return (
     <div className="section-container">
       <div className="section-books">
-        {Object.keys(books[section]).map((subsection, index) => (
+        {Object.keys(sectionBooks).map((subsection, index) => (
           <div key={index} className="subsection">
             <h3>{subsection}</h3>
             <div className="books">
-              {books[section][subsection].map((book, index) => (
+              {sectionBooks[subsection].map((book, index) => (
                 <button key={index} onClick={() => onBookSelect(book)}>
                   {book}
                 </button>
@@ -43,6 +28,11 @@ const Section = ({ section, onBookSelect }) => {
       </div>
     </div>
   );
+};
+
+Section.propTypes = {
+  section: PropTypes.string.isRequired,
+  onBookSelect: PropTypes.func.isRequired,
 };
 
 export default Section;

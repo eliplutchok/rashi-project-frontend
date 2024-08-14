@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Section from './Section';
 import Book from './Book';
+import SectionButtons from './SectionButtons';
 import '../css/Library.css';
 
+const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah'];
+
 const Library = () => {
-  const sections = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah'];
   const { section: urlSection, book: urlBook } = useParams();
   const [activeSection, setActiveSection] = useState(urlSection || null);
   const [activeBook, setActiveBook] = useState(urlBook || null);
@@ -44,19 +46,11 @@ const Library = () => {
 
   return (
     <div className="library-container">
-      { (
-        <div className="library-sections">
-          {sections.map((section, index) => (
-            <button
-              key={index}
-              className={activeSection === section ? 'active' : ''}
-              onClick={() => handleSectionSelection(section)}
-            >
-              {section}
-            </button>
-          ))}
-        </div>
-      )}
+      <SectionButtons
+        sections={SECTIONS}
+        activeSection={activeSection}
+        onSelectSection={handleSectionSelection}
+      />
       {activeSection && !activeBook && (
         <Section section={activeSection} onBookSelect={handleBookSelection} />
       )}

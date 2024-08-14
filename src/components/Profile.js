@@ -1,5 +1,5 @@
 import React from 'react';
-import authService from './authService';
+import authService from '../utils/authService';
 import '../css/Profile.css'; // Make sure this path matches your project structure
 
 const Profile = () => {

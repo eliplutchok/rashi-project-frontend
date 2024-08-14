@@ -1,8 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../utils/axiosInstance';
 import '../css/Page.css';
-// import useWebSocket from './useWebSocket';
+import HeaderNavigation from './HeaderNavigation';
+import TextRenderer from './TextRenderer';
+import TranslationFooter from './TranslationFooter';
+import EditModal from './EditModal';
+import RateModal from './RateModal';
 
 const Page = () => {
   const { book, page } = useParams();
@@ -20,12 +24,6 @@ const Page = () => {
   const [editNotes, setEditNotes] = useState('');
   const [rating, setRating] = useState(3);
   const [feedback, setFeedback] = useState('');
-  const selectedElementRef = useRef(null);
-
-  // useWebSocket((data) => {
-  //   // Handle the received message here
-  //   console.log('WebSocket message in Page component:', data);
-  // });
 
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
@@ -92,7 +90,6 @@ const Page = () => {
         edited_text: editedTranslation,
         notes: editNotes,
       });
-      
     } catch (error) {
       console.error('Error submitting edit:', error);
     }
@@ -115,13 +112,11 @@ const Page = () => {
         feedback,
         translation_id: selectedTranslationId,
       });
-      
     } catch (error) {
       console.error('Error submitting rating:', error);
     }
   };
 
-  // setSelectedText rashiText with lowest passage_number
   useEffect(() => {
     const selectInitialText = async () => {
       if (rashiText.length > 0) {
@@ -133,25 +128,6 @@ const Page = () => {
 
     selectInitialText();
   }, [rashiText]);
-
-  useEffect(() => {
-    if (selectedElementRef.current) {
-      selectedElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, [selectedText]);
-
-  const renderText = (textArray) => {
-    textArray.sort((a, b) => a.passage_number - b.passage_number);
-    return textArray.map((obj, index) => (
-      <span
-        key={index}
-        ref={selectedPassageId === obj.id ? selectedElementRef : null}
-        className={`fade-in-element text-segment ${selectedPassageId === obj.id ? 'selected' : ''}`}
-        onClick={() => handleTextClick(obj.hebrew_text, obj.english_text, obj.id, obj.translation_id)}
-        dangerouslySetInnerHTML={{ __html: obj.hebrew_text }}
-      />
-    ));
-  };
 
   const getNextPage = (currentPage) => {
     const match = currentPage.match(/(\d+)([ab])/);
@@ -185,12 +161,11 @@ const Page = () => {
 
   const handleNextTranslation = () => {
     let textToSearch = rashiText;
-    // if selected text is not in rashiText, search in talmudText
     if (!rashiText.find(passage => passage.id === selectedPassageId)) {
       textToSearch = talmudText;
     }
-    const curentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
-    const nextPassage = textToSearch.find(passage => passage.passage_number === curentPassageNumber + 1);
+    const currentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
+    const nextPassage = textToSearch.find(passage => passage.passage_number === currentPassageNumber + 1);
     if (nextPassage) {
       handleTextClick(nextPassage.hebrew_text, nextPassage.english_text, nextPassage.id, nextPassage.translation_id);
     }
@@ -201,8 +176,8 @@ const Page = () => {
     if (!rashiText.find(passage => passage.id === selectedPassageId)) {
       textToSearch = talmudText;
     }
-    const curentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
-    const previousPassage = textToSearch.find(passage => passage.passage_number === curentPassageNumber - 1);
+    const currentPassageNumber = textToSearch.find(passage => passage.id === selectedPassageId).passage_number;
+    const previousPassage = textToSearch.find(passage => passage.passage_number === currentPassageNumber - 1);
     if (previousPassage) {
       handleTextClick(previousPassage.hebrew_text, previousPassage.english_text, previousPassage.id, previousPassage.translation_id);
     }
@@ -210,106 +185,63 @@ const Page = () => {
 
   return (
     <div className="page-container">
-      <div className="fixed-page-butn">
-        <button onClick={handleNextPage}>&#8249;</button>
-        <div className="page-butn-div">{page}</div>
-        <button onClick={handlePreviousPage}>&#8250;</button>
-      </div>
+      <HeaderNavigation
+        page={page}
+        handleNextPage={handleNextPage}
+        handlePreviousPage={handlePreviousPage}
+      />
       <div className="content-and-translation-container">
         <div className="content-container">
           <div className="column talmud">
             <div className="text-container">
-              {renderText(talmudText)}
+              <TextRenderer
+                textArray={talmudText}
+                selectedPassageId={selectedPassageId}
+                handleTextClick={handleTextClick}
+              />
             </div>
           </div>
           <div className="column rashi">
             <div className="text-container">
-              {renderText(rashiText)}
+              <TextRenderer
+                textArray={rashiText}
+                selectedPassageId={selectedPassageId}
+                handleTextClick={handleTextClick}
+              />
             </div>
           </div>
         </div>
-        {selectedText && (
-          <div className="sticky-translation-footer">
-            <div className='sticky-translation-footer-content'>
-            <button className="translation-nav-button" onClick={handleNextTranslation}>&#8249;</button>
-              <div className="translation-box">
-                <p>{selectedTranslation}</p>
-                <div className="translation-buttons">
-                  <button onClick={openEditModal}>Edit</button>
-                  <button onClick={openRateModal}>Rate</button>
-                </div>
-              </div>
-              <button className="translation-nav-button" onClick={handlePreviousTranslation}>&#8250;</button>
-              
-            </div>
-          </div>
-        )}
+        <TranslationFooter
+          selectedText={selectedText}
+          selectedTranslation={selectedTranslation}
+          openEditModal={openEditModal}
+          openRateModal={openRateModal}
+          handleNextTranslation={handleNextTranslation}
+          handlePreviousTranslation={handlePreviousTranslation}
+        />
       </div>
-            {isEditModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3>Propose New Translation</h3>
-              <button className="close-button" onClick={closeEditModal}>✖</button>
-            </div>
-            <h3
-                dangerouslySetInnerHTML={{ __html: selectedText }}
-            />
-            
-            <div className="edit-translation-header">
-              Edit translation:
-            </div>
-            <textarea
-              className='edit-translation'
-              value={editedTranslation}
-              onChange={(e) => setEditedTranslation(e.target.value)}
-            />
-            <div className="edit-notes-header">
-              Add notes about your edit (optional):
-            </div>
-            <textarea
-              placeholder="Add notes here..."
-              className='edit-notes'
-              value={editNotes}
-              onChange={(e) => setEditNotes(e.target.value)}
-            />
-            <button className="modal-submit-button" onClick={handleEditSubmit}>Submit</button>
-          </div>
-        </div>
+      {isEditModalOpen && (
+        <EditModal
+          selectedText={selectedText}
+          editedTranslation={editedTranslation}
+          editNotes={editNotes}
+          setEditedTranslation={setEditedTranslation}
+          setEditNotes={setEditNotes}
+          handleEditSubmit={handleEditSubmit}
+          closeEditModal={closeEditModal}
+        />
       )}
       {isRateModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h3>Rate Translation</h3>
-              <button className="close-button" onClick={closeRateModal}>✖</button>
-            </div>
-            <div className="text-and-trans-for-rating">
-              <div
-                  className="hebrew-div"
-                  dangerouslySetInnerHTML={{ __html: selectedText }}
-              />
-              <div
-                  className="translation-div"
-                  dangerouslySetInnerHTML={{ __html: selectedTranslation }}
-              />
-            </div>
-            <div className="rating-container">
-              <span className={`rating-option ${rating === 1 ? 'selected' : ''}`} onClick={() => setRating(1)}>1<br />Terrible</span>
-              <span className={`rating-option ${rating === 2 ? 'selected' : ''}`} onClick={() => setRating(2)}>2<br />Poor</span>
-              <span className={`rating-option ${rating === 3 ? 'selected' : ''}`} onClick={() => setRating(3)}>3<br />Okay</span>
-              <span className={`rating-option ${rating === 4 ? 'selected' : ''}`} onClick={() => setRating(4)}>4<br />Good</span>
-              <span className={`rating-option ${rating === 5 ? 'selected' : ''}`} onClick={() => setRating(5)}>5<br />Great</span>
-            </div>
-            <textarea
-              className="rate-modal-text-area"
-              placeholder="Leave your feedback here..."
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-            />
-            <button onClick={handleRateSubmit}>Submit</button>
-          </div>
-        </div>
+        <RateModal
+          selectedText={selectedText}
+          selectedTranslation={selectedTranslation}
+          rating={rating}
+          setRating={setRating}
+          feedback={feedback}
+          setFeedback={setFeedback}
+          handleRateSubmit={handleRateSubmit}
+          closeRateModal={closeRateModal}
+        />
       )}
     </div>
   );
