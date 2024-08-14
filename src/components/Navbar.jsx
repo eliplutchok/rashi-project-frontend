@@ -44,8 +44,23 @@ const Navbar = () => {
       }
     }
 
+    if (path.startsWith('/comparisonPage')) {
+      const parts = path.split('/');
+      if (parts.length >= 4) {
+        const book = parts[2];
+        const page = parts[3];
+        return `${book} ${page}`;
+      }
+    }
+
     return pageNameMapping[path] || 'Library';
   };
+
+  const isPageRoute = location.pathname.startsWith('/page');
+  const isComparisonPageRoute = location.pathname.startsWith('/comparisonPage');
+  const pageParts = location.pathname.split('/');
+  const book = isPageRoute || isComparisonPageRoute ? pageParts[2] : '';
+  const page = isPageRoute || isComparisonPageRoute ? pageParts[3] : '';
 
   return (
     <nav className="navbar">
@@ -57,6 +72,16 @@ const Navbar = () => {
           {getPageName()}
         </div>
         <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
+          {isPageRoute && (
+            <Link to={`/comparisonPage/${book}/${page}?version1=gpt-4o-naive&version2=claude-opus-naive`} className="navbar-compare-button">
+              Compare
+            </Link>
+          )}
+          {isComparisonPageRoute && (
+            <Link to={`/page/${book}/${page}`} className="navbar-compare-button">
+              Standard
+            </Link>
+          )}
           {isLoggedIn && <Link to="/profile">Profile</Link>}
           {isLoggedIn && <Link to="/library">Library</Link>}
           {isAdmin && isLoggedIn && <Link to="/admin">Admin</Link>}

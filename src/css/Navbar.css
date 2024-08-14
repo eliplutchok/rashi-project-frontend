@@ -74,22 +74,27 @@
   color: rgb(66, 112, 196);
 }
 
+.navbar-links .navbar-compare-button {
+  color: #273d86;
+  font-weight: bold;
+}
+
 @media (max-width: 768px) {
-  .navbar-links {
-    display: none;
+  .navbar-container {
     flex-direction: column;
-    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .navbar-logo {
     width: 100%;
-    text-align: center;
-    background-color: #fff;
-  }
-
-  .navbar-links.open {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .navbar-toggle {
-    display: block;
+  .navbar-logo a {
+    flex-grow: 1;
+    text-align: left;
   }
 
   .navbar-page-name {
@@ -97,5 +102,34 @@
     transform: none;
     text-align: center;
     margin-top: 10px;
+    width: 100%;
+  }
+
+  .navbar-toggle {
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+  }
+
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: #fff;
+    padding: 10px 0;
+  }
+
+  .navbar-links.open {
+    display: flex;
+  }
+
+  .navbar-links a,
+  .navbar-links button {
+    width: 100%;
+    padding: 10px 20px;
+    text-align: left;
   }
 }

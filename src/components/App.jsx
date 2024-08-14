@@ -7,6 +7,7 @@ import Navbar from './Navbar';
 import Profile from './Profile';
 import Library from './Library';
 import Page from './Page';
+import ComparisonPage from './ComparisonPage';
 import Admin from './AdminDashboard';
 import AllEdits from './AllEdits';
 import AllRatings from './AllRatings';
@@ -77,6 +78,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Page />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/comparisonPage/:book/:page"
+          element={
+            <PrivateRoute>
+              <ComparisonPage />
             </PrivateRoute>
           }
         />

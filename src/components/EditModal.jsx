@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/PageModal.css';
 
 const EditModal = ({ selectedText, editedTranslation, editNotes, setEditedTranslation, setEditNotes, handleEditSubmit, closeEditModal }) => (
   <div className="modal">

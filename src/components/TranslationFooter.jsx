@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/TranslationFooter.css';
 
 const TranslationFooter = ({ selectedText, selectedTranslation, openEditModal, openRateModal, handleNextTranslation, handlePreviousTranslation }) => (
   selectedText && (

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../css/PageModal.css';
 
 const RateModal = ({ selectedText, selectedTranslation, rating, setRating, feedback, setFeedback, handleRateSubmit, closeRateModal }) => (
   <div className="modal">

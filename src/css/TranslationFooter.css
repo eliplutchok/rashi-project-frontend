@@ -1,0 +1,77 @@
+.sticky-translation-footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sticky-translation-footer-content {
+    width: 100%;
+    max-width: 100%;
+    /* background: rgb(255, 254, 251); */
+    background: #eef7fd;
+    
+    opacity: 0.95;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 150px;
+    padding-top: 15px;
+  }
+  
+  .translation-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 90%;
+    text-align: center;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .translation-box p {
+    text-align: center;
+    align-content: center;
+    margin: 0;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: bold;
+    margin: 0px;
+  }
+  
+  .translation-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+  }
+  
+  .translation-buttons button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(253, 250, 239);
+  }
+  
+  .translation-buttons button:hover {
+    background-color: rgb(118, 202, 255);
+    color: white;
+  }
+  
+  .translation-nav-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: rgb(17, 17, 17);
+    font-size: 16px;
+    font-size: 30px;
+  }

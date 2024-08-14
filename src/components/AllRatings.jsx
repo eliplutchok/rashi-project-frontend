@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useRatings from '../hooks/useRatings';
 import { generateRatingsCSV } from '../utils/adminUtils';
 import AllRatingsFilter from './AllRatingsFilter';

@@ -1,0 +1,181 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  
+  .modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    padding-top: 30px;
+  }
+  
+  .modal-content h3 {
+    width: 100%;
+    margin: 10px;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    background: none;
+    font-size: 18px;
+    border: none;
+  }
+  
+  .edit-translation-header {
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #6b6b6b;
+  }
+  
+  .edit-translation {
+    width: 95%;
+    max-width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .edit-notes-header {
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    color: #6b6b6b;
+  }
+  
+  .edit-notes {
+    width: 95%;
+    max-width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    background-color: #e3e2e2;
+  }
+  
+  .modal-content button {
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    top: 5px;
+    right: 5px;
+  }
+  
+  .modal-submit-button {
+    background-color: rgb(229, 229, 226);
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .modal-submit-button:hover {
+    background-color: rgb(118, 202, 255);
+    color: white;
+  }
+  
+  .rating-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .rating-option {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    flex-grow: 1;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border: 1px solid #eeeeee;
+    font-weight: bold;
+  }
+  
+  .rating-option:hover {
+    background-color: rgb(197, 235, 252);
+  }
+  
+  .rating-option.selected {
+    background-color: rgb(107, 182, 251);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: white;
+  }
+  
+  .text-and-trans-for-rating {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .text-and-trans-for-rating .hebrew-div {
+    width: 48%;
+    text-align: right;
+  }
+  
+  .text-and-trans-for-rating .translation-div {
+    width: 48%;
+    text-align: left;
+  }
+  
+  .rate-modal-text-area {
+    margin-top: 30px;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: 150px;
+    margin-bottom: 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .modal-content button {
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .modal-content button:hover {
+    background-color: rgb(118, 202, 255);
+    color: white;
+  }
