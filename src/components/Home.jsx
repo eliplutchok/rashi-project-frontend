@@ -1,11 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import authService from '../utils/authService';
-import { Link } from 'react-router-dom';
+import { fetchReadingProgress } from '../utils/readingProgress';
 import '../css/Home.css';
 
 const Home = () => {
   const username = authService.getCurrentUserName();
-  const isAdmin = authService.isAdmin(); // Assume this function checks if the user is an admin
+  const isAdmin = authService.isAdmin();
+  const [lastProgress, setLastProgress] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchLastReadingProgress = async () => {
+      try {
+        const userId = authService.getUserId();
+        const progress = await fetchReadingProgress(userId);
+        setLastProgress(progress);
+      } catch (error) {
+        console.error('Error fetching last reading progress:', error);
+      }
+    };
+
+    fetchLastReadingProgress();
+  }, []);
+
+  const handleContinueReading = () => {
+    if (lastProgress) {
+      const { book_name, page_number, last_read_passage } = lastProgress;
+      navigate(`/page/${book_name}/${page_number}?passageId=${last_read_passage}`);
+    }
+  };
 
   return (
     <div className="home-container">
@@ -41,12 +65,16 @@ const Home = () => {
             <p>View and edit your profile.</p>
           </div>
         </Link>
-        <Link to="/continue-reading" className="home-card continue-reading-card link-card">
+        <div className="home-card continue-reading-card link-card" onClick={handleContinueReading}>
           <div className="card-content">
             <h4>Continue Reading</h4>
-            <p>Continue where you left off.</p>
+            <p>
+              {lastProgress
+                ? `${lastProgress.book_name} ${lastProgress.page_number}`
+                : 'Continue where you left off'}
+            </p>
           </div>
-        </Link>
+        </div>
         {isAdmin && (
           <>
             <Link to="/admin" className="home-card admin-dashboard-card link-card">

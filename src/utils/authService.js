@@ -59,6 +59,7 @@ const register = async (credentials) => {
   localStorage.setItem('accessToken', accessToken);
   localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('username', credentials.email);
+  localStorage.setItem('userId', response.data.id);
   // connectWebSocket(accessToken);
   return response.data;
 };
@@ -76,6 +77,7 @@ const login = async (credentials) => {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('username', credentials.username);
     localStorage.setItem('privilegeLevel', privilege_level);
+    localStorage.setItem('userId', response.data.user_id);
     return response.data;
   } catch (error) {
     if (error.response && error.response.data && error.response.data.message) {
@@ -106,6 +108,10 @@ const logout = async () => {
 
 const getCurrentUserName = () => {
   return localStorage.getItem('username');
+};
+
+const getUserId = () => {
+  return localStorage.getItem('userId');
 };
 
 const getPrivilegeLevel = () => {
@@ -142,6 +148,7 @@ const authService = {
   login,
   logout,
   getCurrentUserName,
+  getUserId,
   getCurrentToken,
   register,
   refreshAccessToken,

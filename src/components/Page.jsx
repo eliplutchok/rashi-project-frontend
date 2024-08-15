@@ -7,6 +7,9 @@ import TextRenderer from './TextRenderer';
 import TranslationFooter from './TranslationFooter';
 import EditModal from './EditModal';
 import RateModal from './RateModal';
+import { updateReadingProgress } from '../utils/readingProgress';
+import useBookInfo from '../hooks/useBookInfo';
+import authService from '../utils/authService';
 
 const Page = () => {
   const { book, page } = useParams();
@@ -24,6 +27,20 @@ const Page = () => {
   const [editNotes, setEditNotes] = useState('');
   const [rating, setRating] = useState(3);
   const [feedback, setFeedback] = useState('');
+  const [bookId, setBookId] = useState(null);
+  const [pageId, setPageId] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const bookInfo = useBookInfo(book);
+
+  useEffect(() => {
+    // Fetch the user ID when the component mounts
+    const fetchUserId = () => {
+      const id = authService.getUserId(); // Retrieve the user ID from authService
+      setUserId(id);
+    };
+    
+    fetchUserId();
+  }, []);
 
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
@@ -56,6 +73,11 @@ const Page = () => {
           const selectedPassage = talmudResponse.data.find(passage => passage.id === parseInt(passageIdFromURL));
           if (selectedPassage) {
             handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
+          } else {
+            const selectedRashiPassage = rashiData.find(passage => passage.id === parseInt(passageIdFromURL));
+            if (selectedRashiPassage) {
+              handleTextClick(selectedRashiPassage.hebrew_text, selectedRashiPassage.english_text, selectedRashiPassage.id, selectedRashiPassage.translation_id);
+            }
           }
         }
       } catch (error) {
@@ -66,11 +88,31 @@ const Page = () => {
     fetchTexts();
   }, [book, page, location]);
 
+  useEffect(() => {
+    const currentBookId = bookInfo ? bookInfo.book_id : null;
+    let currentPageId = null;
+    if (rashiText.length > 0) {
+      currentPageId = rashiText[0].page_id;
+    } else if (talmudText.length > 0) {
+      currentPageId = talmudText[0].page_id;
+    }
+    setBookId(currentBookId);
+    setPageId(currentPageId);
+    if (currentBookId && currentPageId) {
+      updateReadingProgress(userId, currentBookId, currentPageId, selectedPassageId || null);
+    }
+  }, [bookInfo, rashiText, talmudText, selectedPassageId, userId]);
+
   const handleTextClick = (text, translation, passageId, translationId) => {
     setSelectedText(text);
     setSelectedTranslation(translation);
     setSelectedPassageId(passageId);
     setSelectedTranslationId(translationId);
+
+    // Update reading progress when a passage is selected
+    if (bookId && pageId) {
+      updateReadingProgress(userId, bookId, pageId, passageId);
+    }
   };
 
   const openEditModal = () => {
@@ -119,7 +161,7 @@ const Page = () => {
 
   useEffect(() => {
     const selectInitialText = async () => {
-      if (rashiText.length > 0) {
+      if (rashiText.length > 0 && selectedPassageId === null) {
         const lowestPassageNumber = Math.min(...rashiText.map(passage => passage.passage_number));
         const selectedPassage = rashiText.find(passage => passage.passage_number === lowestPassageNumber);
         handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
@@ -145,18 +187,18 @@ const Page = () => {
     return letter === 'b' ? `${num}a` : num > 2 ? `${num - 1}b` : null;
   };
 
-  const handleNextPage = () => {
-    let bookLength = (rashiText && rashiText[0] && rashiText[0].length + 2) || 0;
-    let lastPage = bookLength % 2 === 0 ? `${bookLength / 2}b` : `${(bookLength - 1)/2}a`;
-    if (page === lastPage) return;
+  const handleNextPage = async () => {
     const nextPage = getNextPage(page);
-    if (nextPage) navigate(`/page/${book}/${nextPage}`);
+    if (nextPage) {
+      navigate(`/page/${book}/${nextPage}`);
+    }
   };
 
-  const handlePreviousPage = () => {
-    if (page === '2a') return;
+  const handlePreviousPage = async () => {
     const previousPage = getPreviousPage(page);
-    if (previousPage) navigate(`/page/${book}/${previousPage}`);
+    if (previousPage) {
+      navigate(`/page/${book}/${previousPage}`);
+    }
   };
 
   const handleNextTranslation = () => {
