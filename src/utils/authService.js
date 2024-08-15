@@ -112,6 +112,10 @@ const getPrivilegeLevel = () => {
   return localStorage.getItem('privilegeLevel');
 };
 
+const isAdmin = () => {
+  return getPrivilegeLevel() === 'admin';
+}
+
 const getCurrentToken = async () => {
   let accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken'); // Get the refresh token
@@ -142,6 +146,7 @@ const authService = {
   register,
   refreshAccessToken,
   getPrivilegeLevel,
+  isAdmin
 };
 
 export default authService;

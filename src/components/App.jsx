@@ -11,6 +11,8 @@ import ComparisonPage from './ComparisonPage';
 import Admin from './AdminDashboard';
 import AllEdits from './AllEdits';
 import AllRatings from './AllRatings';
+import AllComparisons from './AllComparisons';
+import About from './About';
 import authService from '../utils/authService';
 import PrivateRoute from './PrivateRoute';
 
@@ -47,6 +49,7 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login onSubmit={handleLogin} />} />
         <Route path="/register" element={<Register onSubmit={handleRegister} />} />
         <Route
@@ -110,6 +113,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <AllRatings />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/all-comparisons"
+          element={
+            <PrivateRoute>
+              <AllComparisons />
             </PrivateRoute>
           }
         />

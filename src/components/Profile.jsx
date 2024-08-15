@@ -6,7 +6,7 @@ const Profile = () => {
   const username = authService.getCurrentUserName();
 
   return (
-    <div className="home-container">
+    <div className="profile-home-container">
       <h3>Hi, {username}.</h3>
       <p>This will be your profile page.</p>
     </div>

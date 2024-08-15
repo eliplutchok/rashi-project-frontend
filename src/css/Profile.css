@@ -1,4 +1,4 @@
-.home-container {
+.profile-home-container {
     padding: 20px;
     max-width: 800px;
     margin: 50px auto;
@@ -8,20 +8,20 @@
     font-family: 'Arial', sans-serif;
 }
 
-.home-container h3 {
+.profile-home-container h3 {
     font-size: 28px;
     margin-bottom: 20px;
     color: #333;
     text-align: center;
 }
 
-.home-container ul {
+.profile-home-container ul {
     text-align: left;
     padding-left: 20px;
     list-style-type: disc;
 }
 
-.home-container li {
+.profile-home-container li {
     font-size: 16px;
     color: #555;
     margin: 10px 0;
@@ -29,16 +29,16 @@
 }
 
 @media (max-width: 768px) {
-    .home-container {
+    .profile-home-container {
         padding: 15px;
         margin: 20px auto;
     }
 
-    .home-container h3 {
+    .profile-home-container h3 {
         font-size: 24px;
     }
 
-    .home-container li {
+    .profile-home-container li {
         font-size: 14px;
     }
 }

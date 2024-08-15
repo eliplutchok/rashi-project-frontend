@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import useRatings from '../hooks/useRatings';
-import { generateRatingsCSV } from '../utils/adminUtils';
-import AllRatingsFilter from './AllRatingsFilter';
-import AllRatingsActions from './AllRatingsActions';
-import AllRatingsModal from './AllRatingsModal';
+import useComparisons from '../hooks/useComparisons'; // Custom hook for fetching comparisons
+import { generateComparisonsCSV } from '../utils/adminUtils';
+import AllComparisonsFilter from './AllComparisonsFilter';
+import AllComparisonsActions from './AllComparisonsActions';
+import AllComparisonsModal from './AllComparisonsModal';
 import axiosInstance from '../utils/axiosInstance';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 import ConfirmationModal from './ConfirmationModal';
 import '../css/AllEdits.css';
 
-const AllRatings = () => {
-  const [filters, setFilters] = useState({ username: '', translation_status: '', rating_status: 'not viewed', version_name: '' });
-  const [expandedRating, setExpandedRating] = useState(null);
-  const [selectedRatings, setSelectedRatings] = useState([]);
+const AllComparisons = () => {
+  const [filters, setFilters] = useState({ translation_one_id: '', translation_two_id: '', version_name: '', status: 'all' });
+  const [expandedComparison, setExpandedComparison] = useState(null);
+  const [selectedComparisons, setSelectedComparisons] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedAction, setSelectedAction] = useState('');
@@ -24,32 +24,32 @@ const AllRatings = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [allPagesSelected, setAllPagesSelected] = useState(false);
 
-  const { ratings, totalPages, fetchRatings } = useRatings(filters, currentPage, sortField, sortOrder);
+  const { comparisons, totalPages, fetchComparisons } = useComparisons(filters, currentPage, sortField, sortOrder);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFilters({ ...filters, [name]: value });
   };
 
-  const handleExpandClick = (rating) => {
-    setExpandedRating(rating);
+  const handleExpandClick = (comparison) => {
+    setExpandedComparison(comparison);
   };
 
   const handleCloseModal = () => {
-    setExpandedRating(null);
+    setExpandedComparison(null);
   };
 
   const handleCheckboxChange = (id) => {
-    setSelectedRatings((prevSelected) =>
-      prevSelected.includes(id) ? prevSelected.filter(ratingId => ratingId !== id) : [...prevSelected, id]
+    setSelectedComparisons((prevSelected) =>
+      prevSelected.includes(id) ? prevSelected.filter(comparisonId => comparisonId !== id) : [...prevSelected, id]
     );
   };
 
   const handleSelectAllChange = () => {
     if (selectAll) {
-      setSelectedRatings([]);
+      setSelectedComparisons([]);
     } else {
-      setSelectedRatings(ratings.map(rating => rating.rating_id));
+      setSelectedComparisons(comparisons.map(comparison => comparison.comparison_id));
     }
     setSelectAll(!selectAll);
   };
@@ -62,11 +62,10 @@ const AllRatings = () => {
     setShowConfirmation(false);
     setIsLoadingAllPages(true);
     try {
-      const responseUrl = `${process.env.REACT_APP_API_URL}/allRatings`;
+      const responseUrl = `${process.env.REACT_APP_API_URL}/allComparisons`;
       const response = await axiosInstance.get(responseUrl, { params: { ...filters, fetchAll: true } });
-      const allRatings = response.data.ratings.map(rating => rating.rating_id);
-      console.log('All ratings:', allRatings);
-      setSelectedRatings(allRatings);
+      const allComparisons = response.data.comparisons.map(comparison => comparison.comparison_id);
+      setSelectedComparisons(allComparisons);
       setAllPagesSelected(true);
     } catch (error) {
       console.error('Error selecting all pages:', error);
@@ -76,7 +75,7 @@ const AllRatings = () => {
   };
 
   const handleDeselectAllPages = () => {
-    setSelectedRatings([]);
+    setSelectedComparisons([]);
     setAllPagesSelected(false);
   };
 
@@ -85,17 +84,17 @@ const AllRatings = () => {
   };
 
   const handleConfirmAction = async () => {
-    if (selectedRatings.length === 0 || !selectedAction) return;
+    if (selectedComparisons.length === 0 || !selectedAction) return;
     setIsLoading(true);
     try {
-      const responseUrl = `${process.env.REACT_APP_API_URL}/ratings/${selectedAction}`;
-      await axiosInstance.post(responseUrl, { rating_ids: selectedRatings });
-      fetchRatings();
-      setSelectedRatings([]);
+      const responseUrl = `${process.env.REACT_APP_API_URL}/comparisons/${selectedAction}`;
+      await axiosInstance.post(responseUrl, { comparison_ids: selectedComparisons });
+      fetchComparisons();
+      setSelectedComparisons([]);
       setSelectAll(false);
       setAllPagesSelected(false);
     } catch (error) {
-      console.error(`Error performing ${selectedAction} on ratings:`, error);
+      console.error(`Error performing ${selectedAction} on comparisons:`, error);
     } finally {
       setIsLoading(false);
     }
@@ -104,21 +103,21 @@ const AllRatings = () => {
   const handleIndividualAction = async (action, id) => {
     try {
       handleCloseModal();
-      const responseUrl = `${process.env.REACT_APP_API_URL}/ratings/${action}`;
-      await axiosInstance.post(responseUrl, { rating_ids: [id] });
-      fetchRatings();
+      const responseUrl = `${process.env.REACT_APP_API_URL}/comparisons/${action}`;
+      await axiosInstance.post(responseUrl, { comparison_ids: [id] });
+      fetchComparisons();
     } catch (error) {
-      console.error(`Error performing ${action} on rating:`, error);
+      console.error(`Error performing ${action} on comparison:`, error);
     }
   };
 
   const handleDownloadCSV = () => {
-    const csvContent = generateRatingsCSV(ratings);
+    const csvContent = generateComparisonsCSV(comparisons);
 
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
-    link.setAttribute('download', 'ratings.csv');
+    link.setAttribute('download', 'comparisons.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -155,16 +154,15 @@ const AllRatings = () => {
 
   useEffect(() => {
     if (selectAll) {
-      setSelectedRatings(ratings.map(rating => rating.rating_id));
+      setSelectedComparisons(comparisons.map(comparison => comparison.comparison_id));
     }
-  }, [selectAll, ratings]);
-
+  }, [selectAll, comparisons]);
   return (
     <div className="all-edits">
-      <AllRatingsFilter filters={filters} handleInputChange={handleInputChange} />
-      <AllRatingsActions
+      <AllComparisonsFilter filters={filters} handleInputChange={handleInputChange} />
+      <AllComparisonsActions
         selectedAction={selectedAction}
-        selectedRatings={selectedRatings}
+        selectedComparisons={selectedComparisons}
         handleActionSelect={handleActionSelect}
         handleConfirmAction={handleConfirmAction}
         handleDownloadCSV={handleDownloadCSV}
@@ -178,52 +176,57 @@ const AllRatings = () => {
           <thead>
             <tr>
               <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
-              <th className="table-sort-header" onClick={() => handleSort('username')}>
-                <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
+              <th className="table-sort-header" onClick={() => handleSort('book_name')}>
+                <span>Book</span> <span className="sort-icon">{renderSortIcon('book_name')}</span>
               </th>
-              <th className="table-sort-header" onClick={() => handleSort('text')}>
-                <span>Translation</span> <span className="sort-icon">{renderSortIcon('text')}</span>
+              <th className="table-sort-header" onClick={() => handleSort('page_number')}>
+                <span>Page</span> <span className="sort-icon">{renderSortIcon('page_number')}</span>
+                </th>
+              <th className="table-sort-header" onClick={() => handleSort('hebrew_text')}>
+                <span>Hebrew Text</span> <span className="sort-icon">{renderSortIcon('hebrew_text')}</span>
+              </th>
+              <th className="table-sort-header" onClick={() => handleSort('translation_one_text')}>
+                <span>Translation One</span> <span className="sort-icon">{renderSortIcon('translation_one_text')}</span>
+              </th>
+              <th className="table-sort-header" onClick={() => handleSort('translation_two_text')}>
+                <span>Translation Two</span> <span className="sort-icon">{renderSortIcon('translation_two_text')}</span>
               </th>
               <th className="table-sort-header" onClick={() => handleSort('rating')}>
                 <span>Rating</span> <span className="sort-icon">{renderSortIcon('rating')}</span>
               </th>
-              <th className="table-sort-header" onClick={() => handleSort('feedback')}>
-                <span>Feedback</span> <span className="sort-icon">{renderSortIcon('feedback')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
-                <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_date')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('status')}>
-                <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
+              <th className="table-sort-header" onClick={() => handleSort('notes')}>
+                <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
               </th>
               <th className="table-sort-header" onClick={() => handleSort('version_name')}>
                 <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
               </th>
+              <th className="table-sort-header" onClick={() => handleSort('status')}>
+                <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
+              </th>
+             
             </tr>
           </thead>
           <tbody>
-            {ratings.map(rating => (
-              <tr key={rating.rating_id}>
+            {comparisons.map(comparison => (
+              <tr key={comparison.comparison_id}>
                 <td>
                   <input
                     type="checkbox"
-                    checked={selectedRatings.includes(rating.rating_id)}
-                    onChange={() => handleCheckboxChange(rating.rating_id)}
+                    checked={selectedComparisons.includes(comparison.comparison_id)}
+                    onChange={() => handleCheckboxChange(comparison.comparison_id)}
                     className={allPagesSelected ? 'glowing-checkbox' : ''}
                   />
                 </td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.username}</td>
-                <td
-                  className={expandedRating && expandedRating.rating_id === rating.rating_id ? 'expanded-text' : 'truncated-text'}
-                  onClick={() => handleExpandClick(rating)}
-                >
-                  {rating.text}
-                </td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.rating}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.feedback}</td>
-                <td onClick={() => handleExpandClick(rating)}>{new Date(rating.creation_date).toLocaleString()}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.status}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.version_name}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.book_name}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.page_number}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.hebrew_text}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.translation_one_text}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.translation_two_text}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.rating}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.notes}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.version_name}</td>
+                <td onClick={() => handleExpandClick(comparison)}>{comparison.status}</td>
+               
               </tr>
             ))}
           </tbody>
@@ -235,9 +238,9 @@ const AllRatings = () => {
         <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
       </div>
 
-      {expandedRating && (
-        <AllRatingsModal
-          expandedRating={expandedRating}
+      {expandedComparison && (
+        <AllComparisonsModal
+          expandedComparison={expandedComparison}
           handleCloseModal={handleCloseModal}
           handleIndividualAction={handleIndividualAction}
         />
@@ -254,4 +257,5 @@ const AllRatings = () => {
   );
 };
 
-export default AllRatings;
+export default AllComparisons;
+             

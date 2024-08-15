@@ -1,14 +1,14 @@
 import React from 'react';
 
-const AllRatingsActions = ({ selectedAction, selectedRatings, handleActionSelect, handleConfirmAction, handleDownloadCSV, isLoading, handleShowConfirmation, isLoadingAllPages, allPagesSelected }) => (
+const AllComparisonsActions = ({ selectedAction, selectedComparisons, handleActionSelect, handleConfirmAction, handleDownloadCSV, isLoading, handleShowConfirmation, isLoadingAllPages, allPagesSelected }) => (
   <div className="actions">
     <div className="select-and-action">
       <select onChange={handleActionSelect} value={selectedAction}>
         <option value="" disabled>Select action</option>
-        <option value="view">Mark as Viewed</option>
-        <option value="dismiss">Dismiss</option>
+        <option value="approve">Approve</option>
+        <option value="reject">Reject</option>
       </select>
-      <button onClick={handleConfirmAction} disabled={isLoading || !selectedAction || selectedRatings.length === 0}>
+      <button onClick={handleConfirmAction} disabled={!selectedAction || selectedComparisons.length === 0 || isLoading}>
         {isLoading ? <span className="spinner"></span> : 'Confirm Action'}
       </button>
       <button 
@@ -23,4 +23,4 @@ const AllRatingsActions = ({ selectedAction, selectedRatings, handleActionSelect
   </div>
 );
 
-export default AllRatingsActions;
+export default AllComparisonsActions;

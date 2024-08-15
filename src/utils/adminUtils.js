@@ -43,3 +43,22 @@ export const removeRashiPrefix = (bookName) => {
   
     return csvContent;
   };
+
+  export const generateComparisonsCSV = (comparisons) => {
+    const csvContent = [
+      ['Comparison ID', 'Translation One Text', 'Translation Two Text', 'Rating', 'Notes', 'Version Name', 'Status'],
+      ...comparisons.map(comparison => [
+        comparison.comparison_id,
+        comparison.translation_one_text,
+        comparison.translation_two_text,
+        comparison.rating,
+        comparison.notes,
+        comparison.version_name,
+        comparison.status
+      ].map(field => `"${String(field).replace(/"/g, '""')}"`)) // Wrap each field in double quotes and escape existing double quotes
+    ]
+      .map(e => e.join(','))
+      .join('\n');
+  
+    return csvContent;
+  };

@@ -22,13 +22,13 @@ const Navbar = () => {
   };
 
   const pageNameMapping = {
-    '/home': 'Home',
     '/profile': 'Profile',
     '/library': 'Library',
     '/admin': 'Admin',
     '/login': ' ',
     '/all-edits': 'All Edits',
     '/all-ratings': 'All Ratings',
+    '/all-comparisons': 'All Comparisons',
     // Add more static mappings here as needed
   };
 
@@ -53,7 +53,7 @@ const Navbar = () => {
       }
     }
 
-    return pageNameMapping[path] || 'Library';
+    return pageNameMapping[path] || '';
   };
 
   const isPageRoute = location.pathname.startsWith('/page');

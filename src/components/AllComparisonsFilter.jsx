@@ -1,32 +1,25 @@
 import React from 'react';
 
-const AllEditsFilter = ({ filters, handleInputChange }) => (
+const AllComparisonsFilter = ({ filters, handleInputChange }) => (
   <div className="filters">
     <input
       type="text"
-      name="book"
-      placeholder="Book"
-      value={filters.book}
+      name="translation_one_id"
+      placeholder="Translation One ID"
+      value={filters.translation_one_id}
       onChange={handleInputChange}
     />
     <input
       type="text"
-      name="page_number"
-      placeholder="Page"
-      value={filters.page_number}
-      onChange={handleInputChange}
-    />
-    <input
-      type="text"
-      name="username"
-      placeholder="Username"
-      value={filters.username}
+      name="translation_two_id"
+      placeholder="Translation Two ID"
+      value={filters.translation_two_id}
       onChange={handleInputChange}
     />
     <input
       type="text"
       name="version_name"
-      placeholder="Version"
+      placeholder="Version Name"
       value={filters.version_name}
       onChange={handleInputChange}
     />
@@ -35,14 +28,12 @@ const AllEditsFilter = ({ filters, handleInputChange }) => (
       value={filters.status}
       onChange={handleInputChange}
     >
-      <option value="proposed">Proposed</option>
+      <option value="all">All</option>
       <option value="pending">Pending</option>
       <option value="approved">Approved</option>
-      <option value="published">Published</option>
       <option value="rejected">Rejected</option>
-      <option value="all">All</option>
     </select>
   </div>
 );
 
-export default AllEditsFilter;
+export default AllComparisonsFilter;

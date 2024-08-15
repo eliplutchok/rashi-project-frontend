@@ -109,12 +109,12 @@
 }
 
 .text-segment:hover {
-  color: rgb(43, 51, 200);
+  color: rgb(196, 180, 6);
   cursor: pointer;
 }
 
 .text-segment.selected {
-  background-color: rgb(118, 202, 255);
+  background-color: rgb(253, 245, 130);
 }
 
 .text-segment.selected:hover {

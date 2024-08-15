@@ -5,51 +5,27 @@ import axiosInstance from '../utils/axiosInstance';
 import AllEditsFilter from './AllEditsFilter';
 import AllEditsActions from './AllEditsActions';
 import AllEditsModal from './AllEditsModal';
+import ConfirmationModal from './ConfirmationModal';
 import '../css/AllEdits.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
 
 const AllEdits = () => {
-  const [filters, setFilters] = useState({ book: '', page_number: '', status: 'proposed', username: '' });
+  const [filters, setFilters] = useState({ book: '', page_number: '', status: 'proposed', username: '', version_name: '' });
   const [expandedEdit, setExpandedEdit] = useState(null);
   const [selectedEdits, setSelectedEdits] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedAction, setSelectedAction] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAllPages, setIsLoadingAllPages] = useState(false);
   const [sortField, setSortField] = useState('');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
+  const [allPagesSelected, setAllPagesSelected] = useState(false);
 
   const { edits, totalPages, fetchEdits } = useEdits(filters, currentPage, sortField, sortOrder);
-
-  useEffect(() => {
-    const table = document.querySelector('table');
-    const cols = table.querySelectorAll('th');
-    let startX, startWidth;
-
-    const initResize = (e) => {
-      startX = e.clientX;
-      startWidth = parseInt(document.defaultView.getComputedStyle(e.target.parentElement).width, 10);
-      document.documentElement.addEventListener('mousemove', doResize, false);
-      document.documentElement.addEventListener('mouseup', stopResize, false);
-    };
-
-    const doResize = (e) => {
-      e.target.parentElement.style.width = (startWidth + e.clientX - startX) + 'px';
-    };
-
-    const stopResize = () => {
-      document.documentElement.removeEventListener('mousemove', doResize, false);
-      document.documentElement.removeEventListener('mouseup', stopResize, false);
-    };
-
-    cols.forEach((col) => {
-      const resizer = document.createElement('div');
-      resizer.className = 'resizer';
-      col.appendChild(resizer);
-      resizer.addEventListener('mousedown', initResize, false);
-    });
-  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -73,25 +49,57 @@ const AllEdits = () => {
   const handleSelectAllChange = () => {
     if (selectAll) {
       setSelectedEdits([]);
+      setAllPagesSelected(false);
     } else {
       setSelectedEdits(edits.map(edit => edit.translation_id));
     }
     setSelectAll(!selectAll);
   };
 
+  const handleShowConfirmation = () => {
+    setShowConfirmation(true);
+  };
+
+  const handleConfirmSelectAllPages = async () => {
+    setShowConfirmation(false);
+    setIsLoadingAllPages(true);
+    try {
+      const responseUrl = `${process.env.REACT_APP_API_URL}/allEdits`;
+      const response = await axiosInstance.get(responseUrl, { params: { ...filters, fetchAll: true } });
+      const allEdits = response.data.edits.map(edit => edit.translation_id);
+      setSelectedEdits(allEdits);
+      setAllPagesSelected(true);
+    } catch (error) {
+      console.error('Error selecting all pages:', error);
+    } finally {
+      setIsLoadingAllPages(false);
+    }
+  };
+
+  const handleDeselectAllPages = () => {
+    setSelectedEdits([]);
+    setAllPagesSelected(false);
+  };
+
   const handleActionSelect = (e) => {
     setSelectedAction(e.target.value);
+  };
+
+  const handleShowConfirmActionModal = () => {
+    setShowConfirmActionModal(true);
   };
 
   const handleConfirmAction = async () => {
     if (selectedEdits.length === 0 || !selectedAction) return;
     setIsLoading(true);
+    setShowConfirmActionModal(false);
     try {
       const responseUrl = `${process.env.REACT_APP_API_URL}/edits/${selectedAction}`;
       await axiosInstance.post(responseUrl, { translation_ids: selectedEdits });
       fetchEdits();
       setSelectedEdits([]);
       setSelectAll(false);
+      setAllPagesSelected(false);
     } catch (error) {
       console.error(`Error performing ${selectedAction} on edits:`, error);
     } finally {
@@ -150,15 +158,27 @@ const AllEdits = () => {
     return <FontAwesomeIcon icon={faSort} />;
   };
 
+  useEffect(() => {
+    if (allPagesSelected) {
+      document.body.classList.add('all-pages-selected');
+    } else {
+      document.body.classList.remove('all-pages-selected');
+    }
+  }, [allPagesSelected]);
+
   return (
     <div className="all-edits">
       <AllEditsFilter filters={filters} handleInputChange={handleInputChange} />
       <AllEditsActions
         selectedAction={selectedAction}
+        selectedEdits={selectedEdits}
         handleActionSelect={handleActionSelect}
-        handleConfirmAction={handleConfirmAction}
+        handleConfirmAction={handleShowConfirmActionModal}
         handleDownloadCSV={handleDownloadCSV}
         isLoading={isLoading}
+        handleShowConfirmation={allPagesSelected ? handleDeselectAllPages : handleShowConfirmation}
+        isLoadingAllPages={isLoadingAllPages}
+        allPagesSelected={allPagesSelected}
       />
       <div className="table-wrapper">
         <table>
@@ -181,13 +201,16 @@ const AllEdits = () => {
                 <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
               </th>
               <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
-                <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_date')}</span>
+                <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_                date')}</span>
               </th>
               <th className="table-sort-header" onClick={() => handleSort('status')}>
                 <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
               </th>
               <th className="table-sort-header" onClick={() => handleSort('username')}>
                 <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
+              </th>
+              <th className="table-sort-header" onClick={() => handleSort('version_name')}>
+                <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
               </th>
             </tr>
           </thead>
@@ -199,6 +222,7 @@ const AllEdits = () => {
                     type="checkbox"
                     checked={selectedEdits.includes(edit.translation_id)}
                     onChange={() => handleCheckboxChange(edit.translation_id)}
+                    className={allPagesSelected ? 'glowing-checkbox' : ''}
                   />
                 </td>
                 <td onClick={() => handleExpandClick(edit)}>{edit.book_name}</td>
@@ -206,7 +230,7 @@ const AllEdits = () => {
                 <td onClick={() => handleExpandClick(edit)}><span dangerouslySetInnerHTML={{ __html: edit.hebrew_text }} /></td>
                 <td
                   className={expandedEdit && expandedEdit.translation_id === edit.translation_id ? 'expanded-text' : 'truncated-text'}
-                                    onClick={() => handleExpandClick(edit)}
+                  onClick={() => handleExpandClick(edit)}
                 >
                   {edit.text}
                 </td>
@@ -214,6 +238,7 @@ const AllEdits = () => {
                 <td onClick={() => handleExpandClick(edit)}>{new Date(edit.creation_date).toLocaleString()}</td>
                 <td onClick={() => handleExpandClick(edit)}>{edit.status}</td>
                 <td onClick={() => handleExpandClick(edit)}>{edit.username}</td>
+                <td onClick={() => handleExpandClick(edit)}>{edit.version_name}</td>
               </tr>
             ))}
           </tbody>
@@ -230,6 +255,22 @@ const AllEdits = () => {
           expandedEdit={expandedEdit}
           handleCloseModal={handleCloseModal}
           handleIndividualAction={handleIndividualAction}
+        />
+      )}
+
+      {showConfirmation && (
+        <ConfirmationModal
+          message="Are you sure you want to select all pages?"
+          onConfirm={handleConfirmSelectAllPages}
+          onCancel={() => setShowConfirmation(false)}
+        />
+      )}
+
+      {showConfirmActionModal && (
+        <ConfirmationModal
+          message={`Are you sure you want to ${selectedAction} the selected edits?`}
+          onConfirm={handleConfirmAction}
+          onCancel={() => setShowConfirmActionModal(false)}
         />
       )}
     </div>

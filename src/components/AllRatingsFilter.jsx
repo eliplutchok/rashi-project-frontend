@@ -24,10 +24,18 @@ const AllRatingsFilter = ({ filters, handleInputChange }) => (
       value={filters.rating_status}
       onChange={handleInputChange}
     >
+      <option value="all">All</option>
       <option value="not viewed">Not Viewed</option>
       <option value="viewed">Viewed</option>
       <option value="dismissed">Dismissed</option>
     </select>
+    <input
+      type="text"
+      name="version_name"
+      placeholder="Version Name"
+      value={filters.version_name}
+      onChange={handleInputChange}
+    />
   </div>
 );
 
