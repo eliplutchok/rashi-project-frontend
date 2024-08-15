@@ -10,6 +10,12 @@ import { faSort, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons'
 import ConfirmationModal from './ConfirmationModal';
 import '../css/AllEdits.css';
 
+const Spinner = () => (
+  <div className="loading-spinner">
+    <div className="spinner"></div>
+  </div>
+);
+
 const AllRatings = () => {
   const [filters, setFilters] = useState({ username: '', translation_status: '', rating_status: 'not viewed', version_name: '' });
   const [expandedRating, setExpandedRating] = useState(null);
@@ -24,7 +30,7 @@ const AllRatings = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [allPagesSelected, setAllPagesSelected] = useState(false);
 
-  const { ratings, totalPages, fetchRatings } = useRatings(filters, currentPage, sortField, sortOrder);
+  const { ratings, totalPages, fetchRatings, isLoading: ratingsLoading } = useRatings(filters, currentPage, sortField, sortOrder);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,7 +71,6 @@ const AllRatings = () => {
       const responseUrl = `${process.env.REACT_APP_API_URL}/allRatings`;
       const response = await axiosInstance.get(responseUrl, { params: { ...filters, fetchAll: true } });
       const allRatings = response.data.ratings.map(rating => rating.rating_id);
-      console.log('All ratings:', allRatings);
       setSelectedRatings(allRatings);
       setAllPagesSelected(true);
     } catch (error) {
@@ -174,60 +179,64 @@ const AllRatings = () => {
         allPagesSelected={allPagesSelected}
       />
       <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
-              <th className="table-sort-header" onClick={() => handleSort('username')}>
-                <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('text')}>
-                <span>Translation</span> <span className="sort-icon">{renderSortIcon('text')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('rating')}>
-                <span>Rating</span> <span className="sort-icon">{renderSortIcon('rating')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('feedback')}>
-                <span>Feedback</span> <span className="sort-icon">{renderSortIcon('feedback')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
-                <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_date')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('status')}>
-                <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('version_name')}>
-                <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {ratings.map(rating => (
-              <tr key={rating.rating_id}>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={selectedRatings.includes(rating.rating_id)}
-                    onChange={() => handleCheckboxChange(rating.rating_id)}
-                    className={allPagesSelected ? 'glowing-checkbox' : ''}
-                  />
-                </td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.username}</td>
-                <td
-                  className={expandedRating && expandedRating.rating_id === rating.rating_id ? 'expanded-text' : 'truncated-text'}
-                  onClick={() => handleExpandClick(rating)}
-                >
-                  {rating.text}
-                </td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.rating}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.feedback}</td>
-                <td onClick={() => handleExpandClick(rating)}>{new Date(rating.creation_date).toLocaleString()}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.status}</td>
-                <td onClick={() => handleExpandClick(rating)}>{rating.version_name}</td>
+        {isLoading || ratingsLoading ? (
+          <Spinner />
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
+                <th className="table-sort-header" onClick={() => handleSort('username')}>
+                  <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('text')}>
+                  <span>Translation</span> <span className="sort-icon">{renderSortIcon('text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('rating')}>
+                  <span>Rating</span> <span className="sort-icon">{renderSortIcon('rating')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('feedback')}>
+                  <span>Feedback</span> <span className="sort-icon">{renderSortIcon('feedback')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
+                  <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_date')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('status')}>
+                  <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('version_name')}>
+                  <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {ratings.map(rating => (
+                <tr key={rating.rating_id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={selectedRatings.includes(rating.rating_id)}
+                      onChange={() => handleCheckboxChange(rating.rating_id)}
+                      className={allPagesSelected ? 'glowing-checkbox' : ''}
+                    />
+                  </td>
+                  <td onClick={() => handleExpandClick(rating)}>{rating.username}</td>
+                  <td
+                    className={expandedRating && expandedRating.rating_id === rating.rating_id ? 'expanded-text' : 'truncated-text'}
+                    onClick={() => handleExpandClick(rating)}
+                  >
+                    {rating.text}
+                    </td>
+                  <td onClick={() => handleExpandClick(rating)}>{rating.rating}</td>
+                  <td onClick={() => handleExpandClick(rating)}>{rating.feedback}</td>
+                  <td onClick={() => handleExpandClick(rating)}>{new Date(rating.creation_date).toLocaleString()}</td>
+                  <td onClick={() => handleExpandClick(rating)}>{rating.status}</td>
+                  <td onClick={() => handleExpandClick(rating)}>{rating.version_name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <div className="pagination">
         <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>

@@ -16,7 +16,7 @@ const AllRatingsActions = ({ selectedAction, selectedRatings, handleActionSelect
         onClick={handleShowConfirmation} 
         disabled={isLoadingAllPages}
       >
-        {isLoadingAllPages ? <span className="spinner"></span> : allPagesSelected ? 'Deselect' : 'Select All Pages'}
+        {isLoadingAllPages ? <span className="spinner-for-button"></span> : allPagesSelected ? 'Deselect' : 'Select All Pages'}
       </button>
     </div>
     <button onClick={handleDownloadCSV}>Download CSV</button>

@@ -4,8 +4,10 @@ import axiosInstance from '../utils/axiosInstance';
 const useComparisons = (filters, currentPage, sortField, sortOrder) => {
   const [comparisons, setComparisons] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchComparisons = useCallback(async () => {
+    setIsLoading(true);
     try {
       const responseUrl = `${process.env.REACT_APP_API_URL}/allComparisons`;
       let filters_copy = { ...filters, currentPage, sortField, sortOrder, limit: 20 };
@@ -19,6 +21,8 @@ const useComparisons = (filters, currentPage, sortField, sortOrder) => {
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error('Error fetching comparisons:', error);
+    } finally {
+      setIsLoading(false);
     }
   }, [filters, currentPage, sortField, sortOrder]);
 
@@ -26,7 +30,7 @@ const useComparisons = (filters, currentPage, sortField, sortOrder) => {
     fetchComparisons();
   }, [fetchComparisons]);
 
-  return { comparisons, totalPages, fetchComparisons };
+  return { comparisons, totalPages, fetchComparisons, isLoading };
 };
 
 export default useComparisons;

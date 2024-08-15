@@ -4,8 +4,9 @@ import axiosInstance from '../utils/axiosInstance';
 const useRatings = (filters, currentPage, sortField, sortOrder) => {
   const [ratings, setRatings] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
-
+  const [isLoading, setIsLoading] = useState(false);
   const fetchRatings = useCallback(async () => {
+    setIsLoading(true);
     try {
       const responseUrl = `${process.env.REACT_APP_API_URL}/allRatings`;
       let filters_copy = { ...filters, currentPage, sortField, sortOrder, limit: 20 };
@@ -19,6 +20,8 @@ const useRatings = (filters, currentPage, sortField, sortOrder) => {
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error('Error fetching ratings:', error);
+    } finally {
+      setIsLoading(false);
     }
   }, [filters, currentPage, sortField, sortOrder]);
 
@@ -26,7 +29,7 @@ const useRatings = (filters, currentPage, sortField, sortOrder) => {
     fetchRatings();
   }, [fetchRatings]);
 
-  return { ratings, totalPages, fetchRatings };
+  return { ratings, totalPages, fetchRatings, isLoading };
 };
 
 export default useRatings;

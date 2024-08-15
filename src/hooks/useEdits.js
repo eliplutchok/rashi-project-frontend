@@ -4,9 +4,12 @@ import axiosInstance from '../utils/axiosInstance';
 const useEdits = (filters, currentPage, sortField, sortOrder) => {
     const [edits, setEdits] = useState([]);
     const [totalPages, setTotalPages] = useState(1);
-  
+    const [isLoading, setIsLoading] = useState(false);
+    // const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
     const fetchEdits = useCallback(async () => {
+      setIsLoading(true);
       try {
+        // await delay(1000);
         const responseUrl = `${process.env.REACT_APP_API_URL}/allEdits`;
         let filters_copy = { ...filters, currentPage, sortField, sortOrder, limit: 20 };
         Object.keys(filters_copy).forEach(key => {
@@ -19,6 +22,8 @@ const useEdits = (filters, currentPage, sortField, sortOrder) => {
         setTotalPages(response.data.totalPages);
       } catch (error) {
         console.error('Error fetching edits:', error);
+      } finally {
+        setIsLoading(false);
       }
     }, [filters, currentPage, sortField, sortOrder]);
   
@@ -26,7 +31,7 @@ const useEdits = (filters, currentPage, sortField, sortOrder) => {
       fetchEdits();
     }, [fetchEdits]);
   
-    return { edits, totalPages, fetchEdits };
+    return { edits, totalPages, fetchEdits, isLoading };
   };
 
 export default useEdits;

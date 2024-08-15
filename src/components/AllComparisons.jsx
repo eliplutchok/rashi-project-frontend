@@ -24,7 +24,7 @@ const AllComparisons = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [allPagesSelected, setAllPagesSelected] = useState(false);
 
-  const { comparisons, totalPages, fetchComparisons } = useComparisons(filters, currentPage, sortField, sortOrder);
+  const { comparisons, totalPages, fetchComparisons, isLoading: comparisonsLoading } = useComparisons(filters, currentPage, sortField, sortOrder);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -48,6 +48,7 @@ const AllComparisons = () => {
   const handleSelectAllChange = () => {
     if (selectAll) {
       setSelectedComparisons([]);
+      setAllPagesSelected(false);
     } else {
       setSelectedComparisons(comparisons.map(comparison => comparison.comparison_id));
     }
@@ -157,6 +158,7 @@ const AllComparisons = () => {
       setSelectedComparisons(comparisons.map(comparison => comparison.comparison_id));
     }
   }, [selectAll, comparisons]);
+
   return (
     <div className="all-edits">
       <AllComparisonsFilter filters={filters} handleInputChange={handleInputChange} />
@@ -172,38 +174,42 @@ const AllComparisons = () => {
         allPagesSelected={allPagesSelected}
       />
       <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
-              <th className="table-sort-header" onClick={() => handleSort('book_name')}>
-                <span>Book</span> <span className="sort-icon">{renderSortIcon('book_name')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('page_number')}>
-                <span>Page</span> <span className="sort-icon">{renderSortIcon('page_number')}</span>
+        {isLoading || comparisonsLoading ? (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
+                <th className="table-sort-header" onClick={() => handleSort('book_name')}>
+                  <span>Book</span> <span className="sort-icon">{renderSortIcon('book_name')}</span>
                 </th>
-              <th className="table-sort-header" onClick={() => handleSort('hebrew_text')}>
-                <span>Hebrew Text</span> <span className="sort-icon">{renderSortIcon('hebrew_text')}</span>
+                <th className="table-sort-header" onClick={() => handleSort('page_number')}>
+                  <span>Page</span> <span className="sort-icon">{renderSortIcon('page_number')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('hebrew_text')}>
+                  <span>Hebrew Text</span> <span className="sort-icon">{renderSortIcon('hebrew_text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('translation_one_text')}>
+                  <span>Translation One</span> <span className="sort-icon">{renderSortIcon('translation_one_text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('translation_two_text')}>
+                  <span>Translation Two</span> <span className="sort-icon">{renderSortIcon('translation_two_text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('rating')}>
+                  <span>Rating</span> <span className="sort-icon">{renderSortIcon('rating')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('notes')}>
+                  <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('version_name')}>
+                  <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('status')}>
+                  <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
               </th>
-              <th className="table-sort-header" onClick={() => handleSort('translation_one_text')}>
-                <span>Translation One</span> <span className="sort-icon">{renderSortIcon('translation_one_text')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('translation_two_text')}>
-                <span>Translation Two</span> <span className="sort-icon">{renderSortIcon('translation_two_text')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('rating')}>
-                <span>Rating</span> <span className="sort-icon">{renderSortIcon('rating')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('notes')}>
-                <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('version_name')}>
-                <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('status')}>
-                <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
-              </th>
-             
             </tr>
           </thead>
           <tbody>
@@ -219,43 +225,42 @@ const AllComparisons = () => {
                 </td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.book_name}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.page_number}</td>
-                <td onClick={() => handleExpandClick(comparison)}>{comparison.hebrew_text}</td>
+                <td onClick={() => handleExpandClick(comparison)}><span dangerouslySetInnerHTML={{ __html: comparison.hebrew_text }} /></td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.translation_one_text}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.translation_two_text}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.rating}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.notes}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.version_name}</td>
                 <td onClick={() => handleExpandClick(comparison)}>{comparison.status}</td>
-               
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-      <div className="pagination">
-        <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
-      </div>
-
-      {expandedComparison && (
-        <AllComparisonsModal
-          expandedComparison={expandedComparison}
-          handleCloseModal={handleCloseModal}
-          handleIndividualAction={handleIndividualAction}
-        />
-      )}
-
-      {showConfirmation && (
-        <ConfirmationModal
-          message="Are you sure you want to select all pages?"
-          onConfirm={handleConfirmSelectAllPages}
-          onCancel={() => setShowConfirmation(false)}
-        />
       )}
     </div>
+    <div className="pagination">
+      <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
+      <span>Page {currentPage} of {totalPages}</span>
+      <button onClick={() => handlePageChange('next')} disabled={currentPage === totalPages}>Next</button>
+    </div>
+
+    {expandedComparison && (
+      <AllComparisonsModal
+        expandedComparison={expandedComparison}
+        handleCloseModal={handleCloseModal}
+        handleIndividualAction={handleIndividualAction}
+      />
+    )}
+
+    {showConfirmation && (
+      <ConfirmationModal
+        message="Are you sure you want to select all pages?"
+        onConfirm={handleConfirmSelectAllPages}
+        onCancel={() => setShowConfirmation(false)}
+      />
+    )}
+  </div>
   );
 };
 
 export default AllComparisons;
-             

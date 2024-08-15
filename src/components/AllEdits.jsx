@@ -25,7 +25,7 @@ const AllEdits = () => {
   const [showConfirmActionModal, setShowConfirmActionModal] = useState(false);
   const [allPagesSelected, setAllPagesSelected] = useState(false);
 
-  const { edits, totalPages, fetchEdits } = useEdits(filters, currentPage, sortField, sortOrder);
+  const { edits, totalPages, fetchEdits, isLoading: editsLoading } = useEdits(filters, currentPage, sortField, sortOrder);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -181,68 +181,74 @@ const AllEdits = () => {
         allPagesSelected={allPagesSelected}
       />
       <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
-              <th className="table-sort-header" onClick={() => handleSort('book_name')}>
-                <span>Book</span> <span className="sort-icon">{renderSortIcon('book_name')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('page_number')}>
-                <span>Page</span> <span className="sort-icon">{renderSortIcon('page_number')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('hebrew_text')}>
-                <span>Passage</span> <span className="sort-icon">{renderSortIcon('hebrew_text')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('text')}>
-                <span>Translation</span> <span className="sort-icon">{renderSortIcon('text')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('notes')}>
-                <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
-                <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_                date')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('status')}>
-                <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('username')}>
-                <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
-              </th>
-              <th className="table-sort-header" onClick={() => handleSort('version_name')}>
-                <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {edits.map(edit => (
-              <tr key={edit.translation_id}>
-                <td>
-                  <input
-                    type="checkbox"
-                    checked={selectedEdits.includes(edit.translation_id)}
-                    onChange={() => handleCheckboxChange(edit.translation_id)}
-                    className={allPagesSelected ? 'glowing-checkbox' : ''}
-                  />
-                </td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.book_name}</td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.page_number}</td>
-                <td onClick={() => handleExpandClick(edit)}><span dangerouslySetInnerHTML={{ __html: edit.hebrew_text }} /></td>
-                <td
-                  className={expandedEdit && expandedEdit.translation_id === edit.translation_id ? 'expanded-text' : 'truncated-text'}
-                  onClick={() => handleExpandClick(edit)}
-                >
-                  {edit.text}
-                </td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.notes}</td>
-                <td onClick={() => handleExpandClick(edit)}>{new Date(edit.creation_date).toLocaleString()}</td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.status}</td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.username}</td>
-                <td onClick={() => handleExpandClick(edit)}>{edit.version_name}</td>
+        {isLoading || editsLoading ? (
+          <div className="loading-spinner">
+            <div className="spinner"></div>
+          </div>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" checked={selectAll} onChange={handleSelectAllChange} /></th>
+                <th className="table-sort-header" onClick={() => handleSort('book_name')}>
+                  <span>Book</span> <span className="sort-icon">{renderSortIcon('book_name')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('page_number')}>
+                  <span>Page</span> <span className="sort-icon">{renderSortIcon('page_number')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('hebrew_text')}>
+                  <span>Passage</span> <span className="sort-icon">{renderSortIcon('hebrew_text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('text')}>
+                  <span>Translation</span> <span className="sort-icon">{renderSortIcon('text')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('notes')}>
+                  <span>Notes</span> <span className="sort-icon">{renderSortIcon('notes')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('creation_date')}>
+                  <span>Creation Date</span> <span className="sort-icon">{renderSortIcon('creation_date')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('status')}>
+                  <span>Status</span> <span className="sort-icon">{renderSortIcon('status')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('username')}>
+                  <span>Username</span> <span className="sort-icon">{renderSortIcon('username')}</span>
+                </th>
+                <th className="table-sort-header" onClick={() => handleSort('version_name')}>
+                  <span>Version Name</span> <span className="sort-icon">{renderSortIcon('version_name')}</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {edits.map(edit => (
+                <tr key={edit.translation_id}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={selectedEdits.includes(edit.translation_id)}
+                      onChange={() => handleCheckboxChange(edit.translation_id)}
+                      className={allPagesSelected ? 'glowing-checkbox' : ''}
+                    />
+                  </td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.book_name}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.page_number}</td>
+                  <td onClick={() => handleExpandClick(edit)}><span dangerouslySetInnerHTML={{ __html: edit.hebrew_text }} /></td>
+                  <td
+                    className={expandedEdit && expandedEdit.translation_id === edit.translation_id ? 'expanded-text' : 'truncated-text'}
+                    onClick={() => handleExpandClick(edit)}
+                  >
+                    {edit.text}
+                  </td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.notes}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{new Date(edit.creation_date).toLocaleString()}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.status}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.username}</td>
+                  <td onClick={() => handleExpandClick(edit)}>{edit.version_name}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
       <div className="pagination">
         <button onClick={() => handlePageChange('prev')} disabled={currentPage === 1}>Previous</button>
