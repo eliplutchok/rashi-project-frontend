@@ -59,6 +59,8 @@ body {
     justify-content: left;
     align-items: left;
     justify-items: left;
+    font-weight: bold;
+    line-height: 1.4em;
   }
 
   .home-card.welcome-card h3 {
