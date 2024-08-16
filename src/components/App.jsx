@@ -13,6 +13,7 @@ import AllEdits from './AllEdits';
 import AllRatings from './AllRatings';
 import AllComparisons from './AllComparisons';
 import About from './About';
+import AdminInfoPage from './AdminInfoPage';
 import authService from '../utils/authService';
 import PrivateRoute from './PrivateRoute';
 
@@ -97,6 +98,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <Admin />
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/admin-info"
+          element={
+            <PrivateRoute>
+              <AdminInfoPage />
             </PrivateRoute>
           }
         />

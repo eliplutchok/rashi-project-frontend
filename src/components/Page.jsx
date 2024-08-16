@@ -189,6 +189,7 @@ const Page = () => {
 
   const handleNextPage = async () => {
     const nextPage = getNextPage(page);
+    setSelectedPassageId(null);
     if (nextPage) {
       navigate(`/page/${book}/${nextPage}`);
     }

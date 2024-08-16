@@ -322,7 +322,7 @@ button {
 }
 
 .table-sort-header span.sort-icon {
-    display: inline-block;
+    /* display: inline-block; */
     float: right;
 }
 

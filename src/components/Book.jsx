@@ -23,9 +23,13 @@ const Book = ({ book, onBack }) => {
     const fetchContinueReading = async () => {
       try {
         const progress = await fetchReadingProgress(userId, bookInfo.book_id);
+        console.log('progress', progress);
         if (progress) {
           setContinueReadingPage(progress.page_number);
           setContinueReadingPassage(progress.last_read_passage);
+        } else {
+          setContinueReadingPage('2a');
+          setContinueReadingPassage(null);
         }
       } catch (error) {
         console.error('Error fetching continue reading progress:', error);
@@ -103,12 +107,7 @@ const Book = ({ book, onBack }) => {
 
   return (
     <div className="book-page-wrapper">
-      <div className="book-container book-info-container">
-        <h4>Book Information</h4>
-        <div className="book-info">
-          {loading ? <div className="spinner"></div> : bookInfo.description}
-        </div>
-      </div>
+      
       <div className="book-container page-selector-container">
         <button className="back-button" onClick={onBack}>Back</button>
         <h3>{book}</h3>
@@ -120,7 +119,7 @@ const Book = ({ book, onBack }) => {
             onMouseLeave={handleMouseUp}
             disabled={currentIndex === 0}
             aria-label="Previous pages"
-          >&lt;</button>
+          >&#8249;</button>
           <div className="carousel" ref={carouselRef}>
             {pages.slice(currentIndex, currentIndex + 5).map((page, index) => (
               <div
@@ -142,7 +141,7 @@ const Book = ({ book, onBack }) => {
             onMouseLeave={handleMouseUp}
             disabled={currentIndex >= pages.length - 5}
             aria-label="Next pages"
-          >&gt;</button>
+          >&#8250;</button>
         </div>
         <form onSubmit={handleJumpSubmit} className="jump-form">
           <input
@@ -155,16 +154,22 @@ const Book = ({ book, onBack }) => {
           <button type="submit">Go</button>
         </form>
       </div>
-      <div className="book-container continue-reading-container" onClick={handleContinueReading}>
-        {loading ? (
-          <div className="spinner"></div>
-        ) : (
-          <div className='continue-reading-text'>
-            <h4>Continue Reading</h4>
-            <h2>{continueReadingPage}</h2>
-          </div>
-        )}
+      <div className="book-container book-info-container">
+        {/* <h4>Book Information</h4> */}
+        <div className="book-info">
+          {loading ? <div className="spinner"></div> : bookInfo.description}
+        </div>
       </div>
+      <div className="book-container continue-reading-container" onClick={handleContinueReading}>
+  {loading ? (
+    <div className="spinner"></div>
+  ) : (
+    <div className='continue-reading-text'>
+      <h4>{continueReadingPage === '2a' && !continueReadingPassage ? 'Start Reading' : 'Continue Reading'}</h4>
+      <h2>{continueReadingPage}</h2>
+    </div>
+  )}
+</div>
     </div>
   );
 };
