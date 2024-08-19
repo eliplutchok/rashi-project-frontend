@@ -11,7 +11,7 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!authService.getCurrentUserName());
   const [selectedVersion, setSelectedVersion] = useState('published');
   const [selectedVersion1, setSelectedVersion1] = useState('published');
-  const [selectedVersion2, setSelectedVersion2] = useState('claude-opus-naive');
+  const [selectedVersion2, setSelectedVersion2] = useState('gpt-4o-naive');
 
   const isAdmin = authService.getPrivilegeLevel() === 'admin';
 
@@ -19,7 +19,7 @@ const Navbar = () => {
     const searchParams = new URLSearchParams(location.search);
     setSelectedVersion(searchParams.get('version') || 'published');
     setSelectedVersion1(searchParams.get('version1') || 'published');
-    setSelectedVersion2(searchParams.get('version2') || 'claude-opus-naive');
+    setSelectedVersion2(searchParams.get('version2') || 'gpt-4o-naive');
   }, [location.search]);
 
   const toggleMenu = () => setIsOpen(!isOpen);

@@ -114,7 +114,7 @@ const ComparisonPage = () => {
 
   const searchParams = new URLSearchParams(location.search);
   const version1 = searchParams.get('version1') || 'published';
-  const version2 = searchParams.get('version2') || 'claude-opus-naive';
+  const version2 = searchParams.get('version2') || 'gpt-4o-naive';
 
   const [passages, setPassages] = useState([]);
   const [talmudText, setTalmudText] = useState([]);

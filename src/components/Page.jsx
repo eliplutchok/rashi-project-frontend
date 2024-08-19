@@ -203,14 +203,15 @@ const Page = () => {
     const nextPage = getNextPage(page);
     setSelectedPassageId(null);
     if (nextPage) {
-      navigate(`/page/${book}/${nextPage}`);
+      navigate(`/page/${book}/${nextPage}?version=${version}`);
     }
   };
 
   const handlePreviousPage = async () => {
     const previousPage = getPreviousPage(page);
+    setSelectedPassageId(null);
     if (previousPage) {
-      navigate(`/page/${book}/${previousPage}`);
+      navigate(`/page/${book}/${previousPage}?version=${version}`);
     }
   };
 
