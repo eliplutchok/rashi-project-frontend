@@ -95,7 +95,7 @@ const Home = () => {
         <Link to="/how-to-use" className="home-card how-to-card link-card">
               <div className="card-content">
                 <h4>How to Use this Website</h4>
-                <p>General information.</p>
+                <p>A short guide.</p>
               </div>
          </Link>
     
