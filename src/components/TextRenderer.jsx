@@ -2,6 +2,11 @@ import React, { useRef, useEffect } from 'react';
 
 const TextRenderer = ({ textArray, selectedPassageId, handleTextClick }) => {
   const selectedElementRef = useRef(null);
+  const removeNekudot = (text) => {
+    // This regex pattern matches all Hebrew diacritical marks (nekudot and cantillation marks)
+    return text.replace(/[\u0591-\u05C7]/g, '');
+
+  };
 
   useEffect(() => {
     if (selectedElementRef.current) {
@@ -17,7 +22,7 @@ const TextRenderer = ({ textArray, selectedPassageId, handleTextClick }) => {
       ref={selectedPassageId === obj.id ? selectedElementRef : null}
       className={`fade-in-element text-segment ${selectedPassageId === obj.id ? 'selected' : ''}`}
       onClick={() => handleTextClick(obj.hebrew_text, obj.english_text, obj.id, obj.translation_id)}
-      dangerouslySetInnerHTML={{ __html: obj.hebrew_text }}
+      dangerouslySetInnerHTML={{ __html: removeNekudot(obj.hebrew_text) }}
     />
   ));
 };

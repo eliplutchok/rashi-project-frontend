@@ -7,35 +7,11 @@ import ComparisonPageTextRenderer from './ComparisonPageTextRenderer';
 import ComparisonTranslationFooter from './ComparisonTranslationFooter';
 import ComparisonRateModal from './ComparisonRateModal';
 
-// http://localhost:3000/comparisonPage/Megillah/3a?version1=gpt-4o-naive&version2=claude-opus-naive
-
-const ComparisonPage = () => {
-  const { book, page } = useParams();
+const usePageTexts = (book, page, setTalmudText, setRashiText, setPassages, setSelectedPassageId, handleTextClick) => {
   const location = useLocation();
-  const navigate = useNavigate();
-
-  const searchParams = new URLSearchParams(location.search);
-  const version1 = searchParams.get('version1');
-  const version2 = searchParams.get('version2');
-
-  const [passages, setPassages] = useState([]);
-  const [talmudText, setTalmudText] = useState([]);
-  const [rashiText, setRashiText] = useState([]);
-  const [selectedText, setSelectedText] = useState(null);
-  const [translationOne, setTranslationOne] = useState({});
-  const [translationTwo, setTranslationTwo] = useState({});
-  const [selectedPassageId, setSelectedPassageId] = useState(null);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [isRateModalOpen, setIsRateModalOpen] = useState(false);
-  const [editedTranslation, setEditedTranslation] = useState('');
-  const [rating, setRating] = useState(3);
-  const [feedback, setFeedback] = useState('');
 
   useEffect(() => {
     const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
-    if (passageIdFromURL) {
-      setSelectedPassageId(parseInt(passageIdFromURL));
-    }
 
     const fetchTexts = async () => {
       try {
@@ -54,7 +30,11 @@ const ComparisonPage = () => {
           return textCopy;
         };
 
-        const rashiData = rashiResponse.data.map(passage => ({ ...passage, hebrew_text: formatRashiText(passage.hebrew_text) }));
+        const rashiData = rashiResponse.data.map(passage => ({
+          ...passage,
+          hebrew_text: formatRashiText(passage.hebrew_text)
+        }));
+
         setTalmudText(talmudResponse.data);
         setRashiText(rashiData);
         setPassages([...talmudResponse.data, ...rashiData]);
@@ -65,7 +45,7 @@ const ComparisonPage = () => {
             handleTextClick(selectedPassage.hebrew_text, selectedPassage.translations, selectedPassage.id);
           }
         } else {
-          selectInitialText(talmudResponse.data, rashiData);
+          selectInitialText(talmudResponse.data, rashiData, handleTextClick);
         }
       } catch (error) {
         console.error('Error fetching texts:', error);
@@ -74,60 +54,26 @@ const ComparisonPage = () => {
 
     fetchTexts();
   }, [book, page, location]);
+};
 
-  const selectInitialText = (talmudData, rashiData) => {
-    if (talmudData.length > 0) {
-      const lowestPassageNumberTalmud = Math.min(...talmudData.map(passage => passage.passage_number));
-      const selectedTalmudPassage = talmudData.find(passage => passage.passage_number === lowestPassageNumberTalmud);
-      handleTextClick(selectedTalmudPassage.hebrew_text, selectedTalmudPassage.translations, selectedTalmudPassage.id);
-    }
-    if (rashiData.length > 0) {
-      const lowestPassageNumberRashi = Math.min(...rashiData.map(passage => passage.passage_number));
-      const selectedRashiPassage = rashiData.find(passage => passage.passage_number === lowestPassageNumberRashi);
-      handleTextClick(selectedRashiPassage.hebrew_text, selectedRashiPassage.translations, selectedRashiPassage.id);
-    }
+const selectInitialText = (talmudData, rashiData, handleTextClick) => {
+  const selectLowestPassage = (data) => {
+    const lowestPassageNumber = Math.min(...data.map(passage => passage.passage_number));
+    return data.find(passage => passage.passage_number === lowestPassageNumber);
   };
 
-  const handleTextClick = (text, translations, passageId) => {
-    setSelectedText(text);
-    setSelectedPassageId(passageId);
-    const translationOne = translations.find(translation => translation.version_name === version1);
-    const translationTwo = translations.find(translation => translation.version_name === version2);
-    setTranslationOne(translationOne ? translationOne : {});
-    setTranslationTwo(translationTwo ? translationTwo : {});
-  };
+  if (talmudData.length > 0) {
+    const selectedTalmudPassage = selectLowestPassage(talmudData);
+    handleTextClick(selectedTalmudPassage.hebrew_text, selectedTalmudPassage.translations, selectedTalmudPassage.id);
+  }
 
-  const openEditModal = () => {
-    setEditedTranslation(translationOne.text || '');
-    setIsEditModalOpen(true);
-  };
+  if (rashiData.length > 0) {
+    const selectedRashiPassage = selectLowestPassage(rashiData);
+    handleTextClick(selectedRashiPassage.hebrew_text, selectedRashiPassage.translations, selectedRashiPassage.id);
+  }
+};
 
-  const openRateModal = () => {
-    setIsRateModalOpen(true);
-  };
-
-  const closeRateModal = () => {
-    setIsRateModalOpen(false);
-  };
-
-  const handleRateSubmit = async () => {
-    try {
-      closeRateModal();
-
-      await axiosInstance.post(`${process.env.REACT_APP_API_URL}/comparisons`, {
-        translation_one_id: translationOne.translation_id, // Ensure the translationOne and translationTwo contain the necessary IDs
-        translation_two_id: translationTwo.translation_id,
-        rating,
-        version_name: "default", // Or whichever version name is relevant
-        status: 'completed', // Assuming you have a status to set
-        notes: feedback,
-      });
-      setFeedback('');
-    } catch (error) {
-      console.error('Error submitting comparison:', error);
-    }
-  };
-
+const useNavigationHandlers = (book, page, navigate, version1, version2, talmudText) => {
   const getNextPage = (currentPage) => {
     const match = currentPage.match(/(\d+)([ab])/);
     if (!match) return null;
@@ -145,11 +91,10 @@ const ComparisonPage = () => {
   };
 
   const handleNextPage = () => {
-    let bookLength = (talmudText && talmudText[0] && talmudText[0].length + 2) || 0;
-    let lastPage = bookLength % 2 === 0 ? `${bookLength / 2}b` : `${(bookLength - 1) / 2}a`;
+    const bookLength = (talmudText && talmudText[0] && talmudText[0].length + 2) || 0;
+    const lastPage = bookLength % 2 === 0 ? `${bookLength / 2}b` : `${(bookLength - 1) / 2}a`;
     if (page === lastPage) return;
     const nextPage = getNextPage(page);
-    // http://localhost:3000/comparisonPage/Megillah/3a?version1=gpt-4o-naive&version2=claude-opus-naive
     if (nextPage) navigate(`/comparisonPage/${book}/${nextPage}?version1=${version1}&version2=${version2}`);
   };
 
@@ -157,6 +102,85 @@ const ComparisonPage = () => {
     if (page === '2a') return;
     const previousPage = getPreviousPage(page);
     if (previousPage) navigate(`/comparisonPage/${book}/${previousPage}?version1=${version1}&version2=${version2}`);
+  };
+
+  return { handleNextPage, handlePreviousPage };
+};
+
+const ComparisonPage = () => {
+  const { book, page } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const searchParams = new URLSearchParams(location.search);
+  const version1 = searchParams.get('version1') || 'published';
+  const version2 = searchParams.get('version2') || 'claude-opus-naive';
+
+  const [passages, setPassages] = useState([]);
+  const [talmudText, setTalmudText] = useState([]);
+  const [rashiText, setRashiText] = useState([]);
+  const [selectedText, setSelectedText] = useState(null);
+  const [translationOne, setTranslationOne] = useState({});
+  const [translationTwo, setTranslationTwo] = useState({});
+  const [selectedPassageId, setSelectedPassageId] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isRateModalOpen, setIsRateModalOpen] = useState(false);
+  const [editedTranslation, setEditedTranslation] = useState('');
+  const [rating, setRating] = useState(3);
+  const [feedback, setFeedback] = useState('');
+
+  const handleTextClick = (text, translations, passageId) => {
+    setSelectedText(text);
+    setSelectedPassageId(passageId);
+    let translationOne;
+    let translationTwo;
+
+    if (version1 === 'published') {
+      translationOne = translations.find(translation => translation.status === 'published');
+    } else {
+      translationOne = translations.find(translation => translation.version_name === version1);
+    }
+
+    if (version2 === 'published') {
+      translationTwo = translations.find(translation => translation.status === 'published');
+    } else {
+      translationTwo = translations.find(translation => translation.version_name === version2);
+    }
+    setTranslationOne(translationOne ? translationOne : {});
+    setTranslationTwo(translationTwo ? translationTwo : {});
+  };
+
+  usePageTexts(book, page, setTalmudText, setRashiText, setPassages, setSelectedPassageId, handleTextClick);
+  const { handleNextPage, handlePreviousPage } = useNavigationHandlers(book, page, navigate, version1, version2, talmudText);
+
+  const openEditModal = () => {
+    setEditedTranslation(translationOne.text || '');
+    setIsEditModalOpen(true);
+  };
+
+  const openRateModal = () => {
+    setIsRateModalOpen(true);
+  };
+
+  const closeRateModal = () => {
+    setIsRateModalOpen(false);
+  };
+
+  const handleRateSubmit = async () => {
+    try {
+      closeRateModal();
+      await axiosInstance.post(`${process.env.REACT_APP_API_URL}/comparisons`, {
+        translation_one_id: translationOne.translation_id,
+        translation_two_id: translationTwo.translation_id,
+        rating,
+        version_name: "default",
+        status: 'completed',
+        notes: feedback,
+      });
+      setFeedback('');
+    } catch (error) {
+      console.error('Error submitting comparison:', error);
+    }
   };
 
   const handleNextTranslation = () => {
@@ -190,7 +214,7 @@ const ComparisonPage = () => {
         handleNextPage={handleNextPage}
         handlePreviousPage={handlePreviousPage}
       />
-      <div className="content-and-translation-container">
+            <div className="content-and-translation-container">
         <div className="content-container">
           <div className="column talmud">
             <div className="text-container">
@@ -203,7 +227,7 @@ const ComparisonPage = () => {
           </div>
           <div className="column rashi">
             <div className="text-container">
-            <ComparisonPageTextRenderer
+              <ComparisonPageTextRenderer
                 textArray={rashiText}
                 selectedPassageId={selectedPassageId}
                 handleTextClick={handleTextClick}

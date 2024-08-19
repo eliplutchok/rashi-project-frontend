@@ -97,3 +97,10 @@
     width: 100%;
   }
 }
+
+@media (max-width: 500px) {
+  .section-container {
+    margin-top: 19vh;
+  }
+   
+}

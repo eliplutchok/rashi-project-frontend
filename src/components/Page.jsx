@@ -15,6 +15,7 @@ const Page = () => {
   const { book, page } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const [version, setVersion] = useState(new URLSearchParams(location.search).get('version') || 'published');
   const [talmudText, setTalmudText] = useState([]);
   const [rashiText, setRashiText] = useState([]);
   const [selectedText, setSelectedText] = useState(null);
@@ -48,11 +49,22 @@ const Page = () => {
       setSelectedPassageId(parseInt(passageIdFromURL));
     }
 
+    // const versionNameFromURL = new URLSearchParams(location.search).get('version');
+    // if (versionNameFromURL) {
+    //   console.log('Version name from URL:', versionNameFromURL);
+    //   setVersion(versionNameFromURL);
+    // }
+
+
     const fetchTexts = async () => {
+      console.log('Fetching texts...');
+      console.log('Book:', book);
+      console.log('Page:', page);
+      console.log('Version:', version);
       try {
         const [talmudResponse, rashiResponse] = await Promise.all([
-          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book, page } }),
-          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book: `Rashi_on_${book}`, page } }),
+          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book, page, translation_version: 'published' } }),
+          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book: `Rashi_on_${book}`, page, translation_version: version } }),
         ]);
 
         const formatRashiText = (text) => {

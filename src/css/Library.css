@@ -1,13 +1,10 @@
+
 .library-container {
-  height: 90vh;
-  padding: 20px;
-  /* max-width: 1200px; */
+  height: calc(100vh - 50px); /* Full viewport height minus any necessary adjustments */
+  padding: 10px;
   margin: 0 auto;
-  /* background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   background: linear-gradient(to bottom, #f0f2f5, #ffffff);
-  padding-top: 2%;
+  box-sizing: border-box;
 }
 
 .library-sections {
@@ -16,35 +13,152 @@
   gap: 10px;
   justify-content: center;
   margin-bottom: 20px;
-  
+  height: 48.5%;
+  box-sizing: border-box;
+ 
 }
 
 .library-sections button {
-  flex: 1;
+  box-sizing: border-box;
+  /* flex: 1; */
   /* min-width: 150px; */
-  max-width: 400px;
+  width: 300px;
   background-color: #fff;
   border-radius: 8px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: 'Arial', sans-serif;
     flex-grow: 1;
-    font-size: 16px;
-    color: #333;
+    font-size: 26px;
+    color: #f0f2f5;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
-    height: 10vh;
+    height: 100%;
+    background-image: 
+    linear-gradient(
+      rgba(10, 50, 100, 0.5), 
+      rgba(30, 100, 150, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* border: 2px solid #000000; */
+    opacity: .4;
+    transition: opacity 0.3s;
 }
 
 .library-sections button:hover {
   background-color: #acb0b8;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  color: #181818;
+  /* box-shadow: 0 2px 4px rgb(181, 181, 181); */
+  color: rgb(255, 255, 255);
+  opacity: .9;
+  transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .library-sections button.active {
   background-color: #0a1b2d;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  color: #fff;
+  box-shadow: 0 2px 4px rgb(181, 181, 181);
+  color: rgb(255, 255, 255);
+  opacity: 1;
 }
+
+.library-sections.all-buttons-small {
+ height: 13%;
+ transition: height .3s;
+}
+
+/* Add this to your Library.css file */
+.library-sections.all-buttons-small button {
+  /* background-image: none;  */
+  max-width: 400px;
+  flex: 1;
+  
+  
+  border: none;
+  color: rgb(0, 0, 0);
+  text-shadow: none;
+  font-size: 18px;
+}
+
+.library-sections.all-buttons-small button.active {
+  color: white;
+}
+
+.library-sections.all-buttons-small button:hover {
+  background-color: #acb0b8;
+  box-shadow: 0 2px 4px rgb(181, 181, 181);
+  color: rgb(255, 255, 255);
+  opacity: .9;
+}
+
+
+.library-sections button:nth-child(1) {
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 128, 0.5), 
+      rgba(0, 128, 64, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(2) {
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 255, 0.5), 
+      rgba(0, 128, 128, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(3) {
+  background-image: 
+    linear-gradient(
+      rgba(0, 128, 255, 0.5), 
+      rgba(0, 64, 128, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(4) {
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 0, 0.5), 
+      rgba(0, 128, 0, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(5) {
+  background-image: 
+    linear-gradient(
+      rgba(128, 255, 0, 0.5), 
+      rgba(64, 128, 0, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(6) {
+  background-image: 
+    linear-gradient(
+      rgba(255, 128, 0, 0.5), 
+      rgba(128, 64, 0, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections button:nth-child(7) {
+  background-image: 
+    linear-gradient(
+      rgba(255, 0, 128, 0.5), 
+      rgba(128, 0, 64, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+
+/* is screen is phone psuh the  */

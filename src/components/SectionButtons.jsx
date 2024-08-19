@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../css/Library.css';
 
 const SectionButtons = ({ sections, activeSection, onSelectSection }) => (
-  <div className="library-sections">
+  <div className={`library-sections ${activeSection ? 'all-buttons-small' : ''}`}>
     {sections.map((section, index) => (
       <button
         key={index}

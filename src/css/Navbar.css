@@ -6,6 +6,7 @@
   z-index: 1000;
   overflow: hidden;
   opacity: 0.95;
+  height: 50px;
 }
 
 .navbar-container {
@@ -80,10 +81,103 @@
   font-weight: bold;
 }
 
+.navbar .version-select {
+  display: flex;
+  margin-right: 50px;
+  padding: 4px;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  background-color: none;
+  color:rgb(157, 157, 157);
+  outline: none;
+
+}
+
+.navbar .version-select select {
+  padding: 4px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select:focus {
+  outline: none;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select option {
+  padding: 4px;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select option:hover {
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select option:checked {
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select option:active {
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select select option:focus {
+  background-color: #f0f0f0;
+  border: none;
+  outline: none;
+}
+
+.navbar .version-select:hover {
+  cursor: pointer;
+  color: black;
+  background-color: rgb(194, 194, 194);
+}
+
+.navbar-compare-selectors {
+  display: flex;
+  flex-direction: row;
+  margin-right: 200px;
+}
+
+.navbar-compare-selectors .version-select-1 {
+  margin-right: 10px;
+}
+
+
+.version-select-1 {
+  background-color: #e3f2fd;
+}
+
+.navbar-compare-selectors .version-select-1:hover {
+  background-color: #c0e5ff;
+}
+
+.version-select-2 {
+  background-color: #f3e5f5;
+}
+
+.navbar-compare-selectors .version-select-2:hover {
+  background-color: #eecaf3;
+}
+
 @media (max-width: 768px) {
   .navbar-container {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .navbar .version-select {
+    display: none;
   }
 
   .navbar-logo {
