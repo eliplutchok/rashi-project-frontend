@@ -13,6 +13,7 @@ import AllEdits from './AllEdits';
 import AllRatings from './AllRatings';
 import AllComparisons from './AllComparisons';
 import About from './About';
+import HowToUse from './HowToUse';
 import AdminInfoPage from './AdminInfoPage';
 import authService from '../utils/authService';
 import PrivateRoute from './PrivateRoute';
@@ -133,6 +134,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
     </Router>

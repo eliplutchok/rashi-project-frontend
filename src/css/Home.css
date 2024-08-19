@@ -132,6 +132,11 @@
     color: white;
 }
 
+.home-card.how-to-card {
+    background: linear-gradient(135deg, #3a3d3f, #9facb7);
+    color: white;
+}
+
 .home-card.blank-card {
     background: linear-gradient(135deg, #c8d4dd, #9facb7);
     color: transparent;

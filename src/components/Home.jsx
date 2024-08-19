@@ -92,12 +92,13 @@ const Home = () => {
             </Link>
           </>
         )}
-        <div className="home-card blank-card">
-          <div className="card-content">
-            <h4>Placeholder</h4>
-            <p>More cards will be added here.</p>
-          </div>
-        </div>
+        <Link to="/how-to-use" className="home-card how-to-card link-card">
+              <div className="card-content">
+                <h4>How to Use this Website</h4>
+                <p>General information.</p>
+              </div>
+         </Link>
+    
       </div>
     </div>
   );
