@@ -63,7 +63,8 @@
 }
 
 .home-card.about-card {
-    background: linear-gradient(135deg, #d48b88, #b06c68);
+    background: linear-gradient(135deg, #d49788, #b07a68);
+    /* background: linear-gradient(135deg, #fbe5e5, #d8ada3); */
     color: white;
 }
 
@@ -78,6 +79,7 @@
     color: black;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     background-image: url('../assets/images/5b3257f34bde5f433295f4e048876f5c.jpeg');
+    opacity: .8;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -108,22 +110,24 @@
   }
 
 .home-card.profile-card {
-    background: linear-gradient(135deg, #7ea795, #4d7b6a);
+    background: linear-gradient(135deg, #d48b88, #b06c68);
     color: white;
 }
 
 .home-card.continue-reading-card {
-    background: linear-gradient(135deg, #c1b0c7, #917c9d);
+    background: linear-gradient(135deg, #515669, #0d0f20);
     color: white;
 }
 
 .home-card.admin-dashboard-card {
-    background: linear-gradient(135deg, #fbe5e5, #d8ada3);
+    background: linear-gradient(135deg, #b7d4a5, #7ca376);
+    
     color: rgb(72, 72, 72);
 }
 
 .home-card.admin-info-card {
-    background: linear-gradient(135deg, #a8c994, #7ca376);
+   
+    background: linear-gradient(135deg, #7ea795, #4d7b6a);
     color: white;
 }
 

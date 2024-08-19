@@ -59,12 +59,6 @@ const Home = () => {
             <p>Browse all available books.</p>
           </div>
         </Link>
-        <Link to="/profile" className="home-card profile-card link-card">
-          <div className="card-content">
-            <h4>Profile</h4>
-            <p>View and edit your profile.</p>
-          </div>
-        </Link>
         <div className="home-card continue-reading-card link-card" onClick={handleContinueReading}>
           <div className="card-content">
             <h4>Continue Reading</h4>
@@ -75,6 +69,13 @@ const Home = () => {
             </p>
           </div>
         </div>
+        <Link to="/profile" className="home-card profile-card link-card">
+          <div className="card-content">
+            <h4>Profile</h4>
+            <p>View and edit your profile.</p>
+          </div>
+        </Link>
+       
         {isAdmin && (
           <>
             <Link to="/admin" className="home-card admin-dashboard-card link-card">
