@@ -11,40 +11,46 @@ import progressImage from '../assets/images/progress-shot.jpg';
 import startedImage from '../assets/images/library-page.jpg';
 
 const HowToUse = () => {
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('intro-section');
 
   useEffect(() => {
-    const sections = document.querySelectorAll('section');
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.6 // Adjust threshold to determine when a section is considered "in view"
-    };
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      let maxVisiblePercentage = 0;
+      let currentSection = 'intro-section';
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const height = rect.height;
+
+        // Calculate the amount of the section that is within the viewport
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+        const visiblePercentage = (visibleHeight / height) * 100;
+
+        if (visiblePercentage > maxVisiblePercentage) {
+          maxVisiblePercentage = visiblePercentage;
+          currentSection = section.id;
         }
       });
-    }, options);
 
-    sections.forEach(section => {
-      observer.observe(section);
-    });
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Call handleScroll initially to set the correct section on load
+    handleScroll();
 
     return () => {
-      sections.forEach(section => {
-        observer.unobserve(section);
-      });
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const handleScroll = (event, id) => {
+  const handleScrollToSection = (event, id) => {
     event.preventDefault();
     const target = document.getElementById(id);
     const offset = 70; // Adjust the offset value to your preference
-    const elementPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const elementPosition = target.getBoundingClientRect().top + window.scrollY;
     const offsetPosition = elementPosition - offset;
 
     window.scrollTo({
@@ -60,7 +66,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#intro-section" 
-              onClick={(e) => handleScroll(e, 'intro-section')}
+              onClick={(e) => handleScrollToSection(e, 'intro-section')}
               className={activeSection === 'intro-section' ? 'active' : ''}
             >
               • Enhance
@@ -69,7 +75,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#explore-section" 
-              onClick={(e) => handleScroll(e, 'explore-section')}
+              onClick={(e) => handleScrollToSection(e, 'explore-section')}
               className={activeSection === 'explore-section' ? 'active' : ''}
             >
               • Explore
@@ -78,7 +84,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#edit-section" 
-              onClick={(e) => handleScroll(e, 'edit-section')}
+              onClick={(e) => handleScrollToSection(e, 'edit-section')}
               className={activeSection === 'edit-section' ? 'active' : ''}
             >
               • Edit
@@ -87,7 +93,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#rate-section" 
-              onClick={(e) => handleScroll(e, 'rate-section')}
+              onClick={(e) => handleScrollToSection(e, 'rate-section')}
               className={activeSection === 'rate-section' ? 'active' : ''}
             >
               • Rate
@@ -96,7 +102,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#compare-section" 
-              onClick={(e) => handleScroll(e, 'compare-section')}
+              onClick={(e) => handleScrollToSection(e, 'compare-section')}
               className={activeSection === 'compare-section' ? 'active' : ''}
             >
               • Compare
@@ -105,7 +111,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#progress-section" 
-              onClick={(e) => handleScroll(e, 'progress-section')}
+              onClick={(e) => handleScrollToSection(e, 'progress-section')}
               className={activeSection === 'progress-section' ? 'active' : ''}
             >
               • Progress
@@ -114,7 +120,7 @@ const HowToUse = () => {
           <li>
             <a 
               href="#getting-started-section" 
-              onClick={(e) => handleScroll(e, 'getting-started-section')}
+              onClick={(e) => handleScrollToSection(e, 'getting-started-section')}
               className={activeSection === 'getting-started-section' ? 'active' : ''}
             >
               • Get Started
