@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import '../css/Page.css';
-import HeaderNavigation from './HeaderNavigation';
+import ComparisonHeaderNavigation from './ComparisonHeaderNavigation';
 import ComparisonPageTextRenderer from './ComparisonPageTextRenderer';
 import ComparisonTranslationFooter from './ComparisonTranslationFooter';
 import ComparisonRateModal from './ComparisonRateModal';
@@ -209,7 +209,7 @@ const ComparisonPage = () => {
 
   return (
     <div className="page-container">
-      <HeaderNavigation
+      <ComparisonHeaderNavigation
         page={page}
         handleNextPage={handleNextPage}
         handlePreviousPage={handlePreviousPage}

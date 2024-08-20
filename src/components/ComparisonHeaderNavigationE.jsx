@@ -6,7 +6,9 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
   const navigate = useNavigate();
   const { book, page } = useParams();
   const location = useLocation();
-  const version = new URLSearchParams(location.search).get('version') || 'published';
+  const searchParams = new URLSearchParams(location.search);
+  const version1 = searchParams.get('version1') || 'published';
+  const version2 = searchParams.get('version2') || 'gpt-4o-naive';
   const [isHeldDown, setIsHeldDown] = useState(false);
   const [displayedPage, setDisplayedPage] = useState(page);
   const holdTimeoutRef = useRef(null);
@@ -31,18 +33,15 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
 
   const handlePageChange = useCallback((newPage) => {
     if (newPage) {
-      navigate(`/page/${book}/${newPage}?version=${version}`);
+      navigate(`/comparisonPage/${book}/${newPage}?version1=${version1}&version2=${version2}`);
     }
-  }, [book, navigate, version]);
+  }, [book, navigate, version1, version2]);
 
   const startHoldAction = useCallback((getPageFn) => {
-    // scroll to the top of the page
-    window.scrollTo(0, 0);
-    
     holdTimeoutRef.current = setTimeout(() => {
       onHeldDownChange(true); // Notify parent that the button is held down
       setIsHeldDown(true);
-    }, 200); // Set delay to 500ms
+    }, 200); // Set delay to 200ms
 
     let currentPage = displayedPage;
     let delay = 300; // Initial delay
@@ -68,7 +67,7 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
 
   const stopHoldAction = useCallback(() => {
     clearInterval(intervalRef.current);
-    clearTimeout(holdTimeoutRef.current); // Clear the timeout if the button is released before 500ms
+    clearTimeout(holdTimeoutRef.current); // Clear the timeout if the button is released before 200ms
 
     if (isHeldDown) {
       onHeldDownChange(false); // Notify parent that the button is no longer held down
@@ -100,9 +99,7 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
       </button>
       <div className="page-butn-div">{displayedPage}</div>
       <button
-        onMouseDown={() => {
-          startHoldAction(getPreviousPage)}
-        }
+        onMouseDown={() => startHoldAction(getPreviousPage)}
         onMouseUp={stopHoldAction}
       >
         &#8250;

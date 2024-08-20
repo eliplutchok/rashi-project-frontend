@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
+import { useParams, useLocation } from 'react-router-dom';
 import axiosInstance from '../utils/axiosInstance';
 import '../css/Page.css';
 import HeaderNavigation from './HeaderNavigation';
@@ -10,11 +10,11 @@ import RateModal from './RateModal';
 import { updateReadingProgress } from '../utils/readingProgress';
 import useBookInfo from '../hooks/useBookInfo';
 import authService from '../utils/authService';
+import {fetchTexts } from '../utils/pageUtils';
 
 const Page = () => {
   const { book, page } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const [version, setVersion] = useState(new URLSearchParams(location.search).get('version') || 'published');
   const [talmudText, setTalmudText] = useState([]);
   const [rashiText, setRashiText] = useState([]);
@@ -31,7 +31,24 @@ const Page = () => {
   const [bookId, setBookId] = useState(null);
   const [pageId, setPageId] = useState(null);
   const [userId, setUserId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [isHeldDown, setIsHeldDown] = useState(false);
+  const [pageForDisplay, setpageForDisplay] = useState(null);
+
   const bookInfo = useBookInfo(book);
+  const loadingTimeoutRef = useRef(null);
+
+  // AbortController for canceling ongoing requests
+  const abortControllerRef = useRef(null);
+  const debounceTimerRef = useRef(null);
+
+  const handleHeldDownChange = (heldDown) => {
+    setIsHeldDown(heldDown); // Update the isHeldDown state in Page component
+  };
+
+  const handlePageForDisplayChange = (page) => {
+    setpageForDisplay(page);
+  }
 
   useEffect(() => {
     // Fetch the user ID when the component mounts
@@ -39,7 +56,7 @@ const Page = () => {
       const id = authService.getUserId(); // Retrieve the user ID from authService
       setUserId(id);
     };
-    
+
     fetchUserId();
   }, []);
 
@@ -49,56 +66,28 @@ const Page = () => {
       setSelectedPassageId(parseInt(passageIdFromURL));
     }
 
-    // const versionNameFromURL = new URLSearchParams(location.search).get('version');
-    // if (versionNameFromURL) {
-    //   console.log('Version name from URL:', versionNameFromURL);
-    //   setVersion(versionNameFromURL);
-    // }
+    fetchTexts({
+      book,
+      page,
+      version,
+      setTalmudText,
+      setRashiText,
+      setLoading,
+      loadingTimeoutRef,
+      abortControllerRef,
+      debounceTimerRef,
+      passageIdFromURL,
+      setSelectedText,
+      setSelectedTranslation,
+      setSelectedPassageId
+    });
 
-
-    const fetchTexts = async () => {
-      console.log('Fetching texts...');
-      console.log('Book:', book);
-      console.log('Page:', page);
-      console.log('Version:', version);
-      try {
-        const [talmudResponse, rashiResponse] = await Promise.all([
-          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book, page, translation_version: 'published' } }),
-          axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, { params: { book: `Rashi_on_${book}`, page, translation_version: version } }),
-        ]);
-
-        const formatRashiText = (text) => {
-          let textCopy = text;
-          if (textCopy.includes('–')) {
-            textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-          } else {
-            textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-          }
-          return textCopy;
-        };
-
-        const rashiData = rashiResponse.data.map(passage => ({ ...passage, hebrew_text: formatRashiText(passage.hebrew_text) }));
-        setTalmudText(talmudResponse.data);
-        setRashiText(rashiData);
-
-        if (passageIdFromURL) {
-          const selectedPassage = talmudResponse.data.find(passage => passage.id === parseInt(passageIdFromURL));
-          if (selectedPassage) {
-            handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
-          } else {
-            const selectedRashiPassage = rashiData.find(passage => passage.id === parseInt(passageIdFromURL));
-            if (selectedRashiPassage) {
-              handleTextClick(selectedRashiPassage.hebrew_text, selectedRashiPassage.english_text, selectedRashiPassage.id, selectedRashiPassage.translation_id);
-            }
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching texts:', error);
-      }
+    return () => {
+      if (abortControllerRef.current) abortControllerRef.current.abort();
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+      if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
     };
-
-    fetchTexts();
-  }, [book, page, location]);
+  }, [book, page, location, version]);
 
   useEffect(() => {
     const currentBookId = bookInfo ? bookInfo.book_id : null;
@@ -120,6 +109,11 @@ const Page = () => {
     setSelectedTranslation(translation);
     setSelectedPassageId(passageId);
     setSelectedTranslationId(translationId);
+
+    // set the URL to include the passage ID
+    const url = new URL(window.location);
+    url.searchParams.set('passageId', passageId);
+    window.history.pushState({}, '', url);
 
     // Update reading progress when a passage is selected
     if (bookId && pageId) {
@@ -172,48 +166,19 @@ const Page = () => {
   };
 
   useEffect(() => {
-    const selectInitialText = async () => {
-      if (rashiText.length > 0 && selectedPassageId === null) {
-        const lowestPassageNumber = Math.min(...rashiText.map(passage => passage.passage_number));
-        const selectedPassage = rashiText.find(passage => passage.passage_number === lowestPassageNumber);
-        handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
-      }
-    };
+   
+      const selectInitialText = async () => {
+        const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
+        if (rashiText.length > 0 && !passageIdFromURL) {
+          const lowestPassageNumber = Math.min(...rashiText.map(passage => passage.passage_number));
+          const selectedPassage = rashiText.find(passage => passage.passage_number === lowestPassageNumber);
+          handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
 
-    selectInitialText();
+        }
+      };
+
+      selectInitialText();
   }, [rashiText]);
-
-  const getNextPage = (currentPage) => {
-    const match = currentPage.match(/(\d+)([ab])/);
-    if (!match) return null;
-    let [, num, letter] = match;
-    num = parseInt(num, 10);
-    return letter === 'a' ? `${num}b` : `${num + 1}a`;
-  };
-
-  const getPreviousPage = (currentPage) => {
-    const match = currentPage.match(/(\d+)([ab])/);
-    if (!match) return null;
-    let [, num, letter] = match;
-    num = parseInt(num, 10);
-    return letter === 'b' ? `${num}a` : num > 2 ? `${num - 1}b` : null;
-  };
-
-  const handleNextPage = async () => {
-    const nextPage = getNextPage(page);
-    setSelectedPassageId(null);
-    if (nextPage) {
-      navigate(`/page/${book}/${nextPage}?version=${version}`);
-    }
-  };
-
-  const handlePreviousPage = async () => {
-    const previousPage = getPreviousPage(page);
-    setSelectedPassageId(null);
-    if (previousPage) {
-      navigate(`/page/${book}/${previousPage}?version=${version}`);
-    }
-  };
 
   const handleNextTranslation = () => {
     let textToSearch = rashiText;
@@ -240,11 +205,16 @@ const Page = () => {
   };
 
   return (
-    <div className="page-container">
+    <div className={`page-container ${loading ? 'loading' : isHeldDown ? 'loading' : ''}`}>
+      <div className={`loading-overlay ${loading ? 'loading' : isHeldDown ? 'loading' : ''}`}>
+      </div>
+      <div className={`pageForDisplay-hidden ${isHeldDown ? 'pageForDisplay' : ''}`}>
+          {pageForDisplay && <p>{pageForDisplay}</p>}
+        </div>
       <HeaderNavigation
         page={page}
-        handleNextPage={handleNextPage}
-        handlePreviousPage={handlePreviousPage}
+        onHeldDownChange={handleHeldDownChange}
+        handlePageForDisplayChange={handlePageForDisplayChange}
       />
       <div className="content-and-translation-container">
         <div className="content-container">
