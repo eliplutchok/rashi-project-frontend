@@ -10,6 +10,7 @@ export const formatRashiText = (text) => {
   return textCopy;
 };
 
+
 export const fetchTexts = async ({
   book,
   page,
@@ -27,13 +28,14 @@ export const fetchTexts = async ({
 }) => {
   if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
 
-  loadingTimeoutRef.current = setTimeout(() => setLoading(true), 1000);
+  loadingTimeoutRef.current = setTimeout(() => setLoading(true), 500);
 
   if (abortControllerRef.current) abortControllerRef.current.abort();
   const controller = new AbortController();
   abortControllerRef.current = controller;
 
   try {
+    // simulate delay
     const [talmudResponse, rashiResponse] = await Promise.all([
       axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, {
         params: { book, page, translation_version: 'published' },
@@ -68,11 +70,14 @@ export const fetchTexts = async ({
       console.error('Error fetching texts:', error);
     }
   } finally {
-    if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+    // Clear the loading timeout and reset it to false only if it was not set to true
     if (loadingTimeoutRef.current) {
       clearTimeout(loadingTimeoutRef.current);
       loadingTimeoutRef.current = null;
+      setLoading(false);
+    } else {
+      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
+      debounceTimerRef.current = setTimeout(() => setLoading(false), 500);
     }
-    debounceTimerRef.current = setTimeout(() => setLoading(false), 500);
   }
 };

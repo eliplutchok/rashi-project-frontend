@@ -178,7 +178,7 @@
 }
 
 .loading-overlay {
-  display: none; /* Default to hidden */
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -193,7 +193,7 @@
 }
 
 .loading-overlay.visible {
-  display: block; /* Only show when loading */
+  display: block;
 }
 
 .header-page-overlay {

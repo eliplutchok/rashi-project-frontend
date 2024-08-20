@@ -206,7 +206,7 @@ const Page = () => {
 
   return (
     <div className={`page-container ${loading ? 'loading' : isHeldDown ? 'loading' : ''}`}>
-      <div className={`loading-overlay ${loading ? 'loading' : isHeldDown ? 'loading' : ''}`}>
+      <div className={`loading-overlay ${loading ? 'visible' : ''}`}>
       </div>
       <div className={`pageForDisplay-hidden ${isHeldDown ? 'pageForDisplay' : ''}`}>
           {pageForDisplay && <p>{pageForDisplay}</p>}
