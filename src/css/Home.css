@@ -36,7 +36,7 @@
 }
 
 .home-card.link-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-3px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
@@ -86,7 +86,6 @@
     background-repeat: no-repeat;
     border-radius: 8px;
     overflow: hidden; /* Ensure the overlay and content stay within the card */
-    transition: background-size 3s ease;
 }
 
 .home-card.library-card::before {
