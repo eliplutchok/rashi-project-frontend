@@ -28,14 +28,13 @@ export const fetchTexts = async ({
 }) => {
   if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
 
-  loadingTimeoutRef.current = setTimeout(() => setLoading(true), 500);
+  loadingTimeoutRef.current = setTimeout(() => setLoading(true), 1000);
 
   if (abortControllerRef.current) abortControllerRef.current.abort();
   const controller = new AbortController();
   abortControllerRef.current = controller;
 
   try {
-    // simulate delay
     const [talmudResponse, rashiResponse] = await Promise.all([
       axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, {
         params: { book, page, translation_version: 'published' },
