@@ -5,7 +5,7 @@ import Book from './Book';
 import SectionButtons from './SectionButtons';
 import '../css/Library.css';
 
-const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah'];
+const SECTIONS = [  'Mishnah', 'Talmud',  'Tanach',  'Mussar', 'Halacha', 'Kabbalah', 'Other'];
 
 const Library = () => {
   const { section: urlSection, book: urlBook } = useParams();

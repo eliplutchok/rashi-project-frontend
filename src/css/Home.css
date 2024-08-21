@@ -29,7 +29,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     /* background-color: white; */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-size 3s ease;
     text-align: center;
     color: #333;
     text-decoration: none;
@@ -86,6 +86,7 @@
     background-repeat: no-repeat;
     border-radius: 8px;
     overflow: hidden; /* Ensure the overlay and content stay within the card */
+    transition: background-size 3s ease;
 }
 
 .home-card.library-card::before {

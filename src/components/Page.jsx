@@ -110,10 +110,21 @@ const Page = () => {
     setSelectedPassageId(passageId);
     setSelectedTranslationId(translationId);
 
-    // set the URL to include the passage ID
+    // set the URL to include the passage ID after waiting one second
+   
     const url = new URL(window.location);
     url.searchParams.set('passageId', passageId);
     window.history.pushState({}, '', url);
+
+
+    // Scroll into view after the URL has been updated
+    requestAnimationFrame(() => {
+      const element = document.getElementById(`passage-${passageId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  
 
     // Update reading progress when a passage is selected
     if (bookId && pageId) {
@@ -215,6 +226,7 @@ const Page = () => {
         page={page}
         onHeldDownChange={handleHeldDownChange}
         handlePageForDisplayChange={handlePageForDisplayChange}
+        bookInfo={bookInfo}
       />
       <div className="content-and-translation-container">
         <div className="content-container">
@@ -244,6 +256,8 @@ const Page = () => {
           openRateModal={openRateModal}
           handleNextTranslation={handleNextTranslation}
           handlePreviousTranslation={handlePreviousTranslation}
+          // set isBold if its rashi
+          isBold={rashiText.find(passage => passage.id === selectedPassageId)}
         />
       </div>
       {isEditModalOpen && (

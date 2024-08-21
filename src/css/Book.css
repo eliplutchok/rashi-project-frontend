@@ -15,7 +15,10 @@
   position: relative;
   flex-grow: 1;
   color: black;
+  
 }
+
+
 
 .page-selector-container {
   background: linear-gradient(135deg, #30345e, #9b9ca0);

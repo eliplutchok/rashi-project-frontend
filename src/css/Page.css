@@ -5,15 +5,11 @@
   font-style: normal;
 }
 
-
-
 @font-face {
   font-family: 'Rashi';
   src: url('../assets/fonts/rashi.ttf') format('truetype'); /* Adjust the path as needed */
   font-style: normal;
 }
-
-
 
 @keyframes fadeIn {
   from {
@@ -31,10 +27,6 @@
   to {
     opacity: 0;
   }
-}
-
-.fade-in-element {
-  /* animation: fadeIn .3s ease-in-out; */
 }
 
 .page-container {
@@ -134,10 +126,6 @@
 .fixed-page-butn button {
   background: none;
   font-size: 25px;
-}
-
-.page-container .content-and-translation-container {
-  /* transition: opacity 0.2s ease-in-out; */
 }
 
 .page-container.loading .content-and-translation-container {

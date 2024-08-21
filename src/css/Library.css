@@ -8,13 +8,14 @@
 }
 
 .library-sections {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
-  height: 48.5%;
-  box-sizing: border-box;
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    flex-grow: 1;
+    height: 90vh;
+    max-height: 90vh;
  
 }
 
@@ -22,7 +23,7 @@
   box-sizing: border-box;
   /* flex: 1; */
   /* min-width: 150px; */
-  width: 300px;
+  /* width: 300px; */
   background-color: #fff;
   border-radius: 8px;
   padding: 10px;
@@ -47,8 +48,9 @@
     color: #ffffff;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     /* border: 2px solid #000000; */
-    opacity: .4;
+    opacity: .5;
     transition: opacity 0.3s;
+    width: 100%;
 }
 
 .library-sections button:hover {
@@ -57,7 +59,7 @@
   color: rgb(255, 255, 255);
   opacity: .9;
   transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .library-sections button.active {
@@ -70,6 +72,12 @@
 .library-sections.all-buttons-small {
  height: 13%;
  transition: height .3s;
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 20px;
+ box-sizing: border-box;
 }
 
 /* Add this to your Library.css file */
@@ -96,8 +104,11 @@
   opacity: .9;
 }
 
-
-.library-sections button:nth-child(1) {
+/* const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah']; */
+.library-sections .section-button-tanach {
+  grid-column: span 2;
+  background-size:auto;
+    background-position: center;
   background-image: 
     linear-gradient(
       rgba(0, 255, 128, 0.5), 
@@ -106,7 +117,8 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(2) {
+.library-sections .section-button-mishnah {
+  grid-column: span 2;
   background-image: 
     linear-gradient(
       rgba(0, 255, 255, 0.5), 
@@ -115,7 +127,8 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(3) {
+.library-sections .section-button-talmud {
+  grid-column: span 2;
   background-image: 
     linear-gradient(
       rgba(0, 128, 255, 0.5), 
@@ -124,7 +137,8 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(4) {
+.library-sections .section-button-halacha {
+  grid-column: span 2;
   background-image: 
     linear-gradient(
       rgba(0, 255, 0, 0.5), 
@@ -133,7 +147,7 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(5) {
+.library-sections .section-button-midrash {
   background-image: 
     linear-gradient(
       rgba(128, 255, 0, 0.5), 
@@ -142,7 +156,9 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(6) {
+.library-sections .section-button-tosefta {
+  background-size:cover;
+    background-position: cover;
   background-image: 
     linear-gradient(
       rgba(255, 128, 0, 0.5), 
@@ -151,7 +167,21 @@
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
 
-.library-sections button:nth-child(7) {
+.library-sections .section-button-mussar {
+  /* grid-column: span 2; */
+  background-size:auto; 
+  background-image: 
+    linear-gradient(
+      rgba(255, 128, 0, 0.5), 
+      rgba(128, 64, 0, 0.5)
+    ),
+    url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-kabbalah {
+  grid-column: span 2;
+  background-size: auto;
+    background-position: left;
   background-image: 
     linear-gradient(
       rgba(255, 0, 128, 0.5), 
@@ -159,6 +189,3 @@
     ),
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
-
-
-/* is screen is phone psuh the  */

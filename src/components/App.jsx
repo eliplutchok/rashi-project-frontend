@@ -18,6 +18,8 @@ import AdminInfoPage from './AdminInfoPage';
 import authService from '../utils/authService';
 import PrivateRoute from './PrivateRoute';
 
+import '../css/App.css';
+
 const App = () => {
   const handleLogin = async (credentials) => {
     try {
@@ -49,7 +51,9 @@ const App = () => {
 
   return (
     <Router>
+      
       <Navbar />
+      <div className="app-content">
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login onSubmit={handleLogin} />} />
@@ -137,7 +141,9 @@ const App = () => {
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
+      </div>
     </Router>
+
   );
 };
 

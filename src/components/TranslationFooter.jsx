@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../css/TranslationFooter.css';
 
-const TranslationFooter = ({ selectedText, selectedTranslation, openEditModal, openRateModal, handleNextTranslation, handlePreviousTranslation }) => {
+const TranslationFooter = ({ selectedText, selectedTranslation, openEditModal, openRateModal, handleNextTranslation, handlePreviousTranslation, isBold }) => {
   const [showButtons, setShowButtons] = useState(false);
 
   const toggleButtons = () => {
@@ -14,7 +14,8 @@ const TranslationFooter = ({ selectedText, selectedTranslation, openEditModal, o
         <div className='sticky-translation-footer-content'>
           <button className="translation-nav-button" onClick={handleNextTranslation}>&#8249;</button>
           <div className="translation-box" onClick={toggleButtons}>
-            <p dangerouslySetInnerHTML={{ __html: selectedTranslation }}></p>
+            <p style={{ fontWeight: isBold ? 'bold' : 'normal' }}
+            dangerouslySetInnerHTML={{ __html: selectedTranslation }}></p>
             {showButtons && (
               <div className="translation-buttons">
                 <button onClick={openEditModal}>Edit</button>

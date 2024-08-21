@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
+const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange, bookInfo }) => {
   const intervalRef = useRef(null);
   const navigate = useNavigate();
   const { book, page } = useParams();
@@ -12,11 +12,20 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
   const holdTimeoutRef = useRef(null);
 
   const getNextPage = (currentPage) => {
+
     if (!currentPage) return null;
     const match = currentPage.match(/(\d+)([ab])/);
     if (!match) return null;
     let [, num, letter] = match;
     num = parseInt(num, 10);
+
+    const lastPage = bookInfo ? bookInfo.length : 0;
+
+    if (lastPage % 2 === 0) {
+      if (num === (lastPage)/2 && letter === 'b') return null;
+    } else {
+      if (num === (lastPage + 1)/2) return null;
+    }
     return letter === 'a' ? `${num}b` : `${num + 1}a`;
   };
 
@@ -38,7 +47,7 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange }) => {
   const startHoldAction = useCallback((getPageFn) => {
     // scroll to the top of the page
     window.scrollTo(0, 0);
-    
+
     holdTimeoutRef.current = setTimeout(() => {
       onHeldDownChange(true); // Notify parent that the button is held down
       setIsHeldDown(true);

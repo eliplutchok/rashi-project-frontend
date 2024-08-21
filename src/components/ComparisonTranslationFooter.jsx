@@ -16,10 +16,10 @@ const ComparisonTranslationFooter = ({
         <div className="comparison-translation-box" onClick={openRateModal}>
           <div className="comparison-translation-box-content">
             <div className="comparison-translation-item comparison-translation-one">
-              <p>{translationOne}</p>
+              <p dangerouslySetInnerHTML={{ __html: translationOne }}></p>
             </div>
             <div className="comparison-translation-item comparison-translation-two">
-              <p>{translationTwo}</p>
+              <p dangerouslySetInnerHTML={{ __html: translationTwo }}></p>
             </div>
           </div>
         </div>
