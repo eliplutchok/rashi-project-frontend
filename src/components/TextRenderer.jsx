@@ -5,39 +5,60 @@ const TextRenderer = ({ textArray, selectedPassageId, handleTextClick }) => {
   const selectedElementRef = useRef(null);
   const location = useLocation();
 
-
   const removeNekudot = (text) => {
     // This regex pattern matches all Hebrew diacritical marks (nekudot and cantillation marks)
     return text.replace(/[\u0591-\u05C7]/g, '');
   };
 
+  // Function to handle scrolling
+  const scrollToElement = (element) => {
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
+  useEffect(() => {
+    // Scroll to the selected passage when selectedPassageId changes
+    if (selectedPassageId && selectedElementRef.current) {
+      scrollToElement(selectedElementRef.current);
+    }
+  }, [selectedPassageId]);
+
   useEffect(() => {
     const passageIdFromURL = parseInt(new URLSearchParams(location.search).get('passageId'), 10);
-    
-    if (textArray.length > 0 && passageIdFromURL) {
-      const selectedPassage = textArray.find(passage => passage.id === passageIdFromURL);
+
+    if (textArray.length > 0) {
+      textArray.sort((a, b) => a.passage_number - b.passage_number);
       
-      if (selectedPassage) {
-        // Use setTimeout to wait for the render to complete
-        setTimeout(() => {
+      if (!passageIdFromURL) {
+        // If no passage ID is in the URL, trigger handleTextClick for the first passage
+        const firstPassage = textArray[0];
+        if (firstPassage) {
+          handleTextClick(firstPassage.hebrew_text, firstPassage.english_text, firstPassage.id, firstPassage.translation_id);
+        }
+      } else {
+        // If a passage ID is in the URL, find the corresponding passage
+        const selectedPassage = textArray.find((passage) => passage.id === passageIdFromURL);
+        if (selectedPassage) {
+          // Check if the element is already rendered, and if not, wait for it
           const element = document.getElementById(`passage-${selectedPassage.id}`);
           if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            scrollToElement(element);
+            handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
+          } else {
+            // Retry after a short delay
+            setTimeout(() => {
+              const element = document.getElementById(`passage-${selectedPassage.id}`);
+              if (element) {
+                scrollToElement(element);
+                handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
+              }
+            }, 300);
           }
-        }, 0); // The delay can be 0ms as it just queues the callback after rendering
+        }
       }
     }
-  }, [location, textArray]);
-
-  useEffect(() => {
-    if (selectedElementRef.current) {
-      setTimeout(() => {
-        selectedElementRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300); // Delay scrolling to ensure content is fully loaded
-    }
-  }, [selectedPassageId, location]);
-
-  textArray.sort((a, b) => a.passage_number - b.passage_number);
+  }, [textArray]);
 
   return textArray.map((obj, index) => (
     <span

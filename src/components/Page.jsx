@@ -40,7 +40,6 @@ const Page = () => {
 
   // AbortController for canceling ongoing requests
   const abortControllerRef = useRef(null);
-  const debounceTimerRef = useRef(null);
 
   const handleHeldDownChange = (heldDown) => {
     setIsHeldDown(heldDown); // Update the isHeldDown state in Page component
@@ -75,7 +74,6 @@ const Page = () => {
       setLoading,
       loadingTimeoutRef,
       abortControllerRef,
-      debounceTimerRef,
       passageIdFromURL,
       setSelectedText,
       setSelectedTranslation,
@@ -84,7 +82,6 @@ const Page = () => {
 
     return () => {
       if (abortControllerRef.current) abortControllerRef.current.abort();
-      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
       if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
     };
   }, [book, page, location, version]);
@@ -110,21 +107,9 @@ const Page = () => {
     setSelectedPassageId(passageId);
     setSelectedTranslationId(translationId);
 
-    // set the URL to include the passage ID after waiting one second
-   
     const url = new URL(window.location);
     url.searchParams.set('passageId', passageId);
     window.history.pushState({}, '', url);
-
-
-    // Scroll into view after the URL has been updated
-    requestAnimationFrame(() => {
-      const element = document.getElementById(`passage-${passageId}`);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
-    });
-  
 
     // Update reading progress when a passage is selected
     if (bookId && pageId) {
@@ -175,21 +160,6 @@ const Page = () => {
       console.error('Error submitting rating:', error);
     }
   };
-
-  useEffect(() => {
-   
-      const selectInitialText = async () => {
-        const passageIdFromURL = new URLSearchParams(location.search).get('passageId');
-        if (rashiText.length > 0 && !passageIdFromURL) {
-          const lowestPassageNumber = Math.min(...rashiText.map(passage => passage.passage_number));
-          const selectedPassage = rashiText.find(passage => passage.passage_number === lowestPassageNumber);
-          handleTextClick(selectedPassage.hebrew_text, selectedPassage.english_text, selectedPassage.id, selectedPassage.translation_id);
-
-        }
-      };
-
-      selectInitialText();
-  }, [rashiText]);
 
   const handleNextTranslation = () => {
     let textToSearch = rashiText;

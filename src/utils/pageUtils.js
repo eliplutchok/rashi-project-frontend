@@ -20,7 +20,6 @@ export const fetchTexts = async ({
   setLoading,
   loadingTimeoutRef,
   abortControllerRef,
-  debounceTimerRef,
   passageIdFromURL,
   setSelectedText,
   setSelectedTranslation,
@@ -74,9 +73,6 @@ export const fetchTexts = async ({
       clearTimeout(loadingTimeoutRef.current);
       loadingTimeoutRef.current = null;
       setLoading(false);
-    } else {
-      if (debounceTimerRef.current) clearTimeout(debounceTimerRef.current);
-      debounceTimerRef.current = setTimeout(() => setLoading(false), 500);
     }
   }
 };

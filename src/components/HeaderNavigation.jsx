@@ -45,12 +45,11 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange, bookIn
   }, [book, navigate, version]);
 
   const startHoldAction = useCallback((getPageFn) => {
-    // scroll to the top of the page
-    window.scrollTo(0, 0);
 
     holdTimeoutRef.current = setTimeout(() => {
       onHeldDownChange(true); // Notify parent that the button is held down
       setIsHeldDown(true);
+      window.scrollTo(0, 0);
     }, 200); // Set delay to 500ms
 
     let currentPage = displayedPage;
@@ -84,7 +83,7 @@ const HeaderNavigation = ({ onHeldDownChange, handlePageForDisplayChange, bookIn
     }
     
     handlePageChange(displayedPage); // Navigate to the final page when the button is released
-    
+    // window.scrollTo(0, 0);
     setIsHeldDown(false);
   }, [handlePageChange, displayedPage, onHeldDownChange, isHeldDown]);
 
