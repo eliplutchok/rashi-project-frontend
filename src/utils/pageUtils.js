@@ -18,6 +18,7 @@ export const fetchTexts = async ({
   setTalmudText,
   setRashiText,
   setLoading,
+  setShortLoading,
   loadingTimeoutRef,
   abortControllerRef,
   passageIdFromURL,
@@ -25,6 +26,7 @@ export const fetchTexts = async ({
   setSelectedTranslation,
   setSelectedPassageId
 }) => {
+  setShortLoading(true);
   if (loadingTimeoutRef.current) clearTimeout(loadingTimeoutRef.current);
 
   loadingTimeoutRef.current = setTimeout(() => setLoading(true), 1000);
@@ -74,5 +76,6 @@ export const fetchTexts = async ({
       loadingTimeoutRef.current = null;
       setLoading(false);
     }
+    setShortLoading(false);
   }
 };

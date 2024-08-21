@@ -34,6 +34,7 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [isHeldDown, setIsHeldDown] = useState(false);
   const [pageForDisplay, setpageForDisplay] = useState(null);
+  const [shortLoading, setShortLoading] = useState(false);
 
   const bookInfo = useBookInfo(book);
   const loadingTimeoutRef = useRef(null);
@@ -72,6 +73,7 @@ const Page = () => {
       setTalmudText,
       setRashiText,
       setLoading,
+      setShortLoading,
       loadingTimeoutRef,
       abortControllerRef,
       passageIdFromURL,
@@ -186,7 +188,7 @@ const Page = () => {
   };
 
   return (
-    <div className={`page-container ${loading ? 'loading' : isHeldDown ? 'loading' : ''}`}>
+    <div className={`page-container ${loading ? 'loading' : isHeldDown ? 'loading' : ''} ${shortLoading ? 'short-loading' : ''}`}>
       <div className={`loading-overlay ${loading ? 'visible' : ''}`}>
       </div>
       <div className={`pageForDisplay-hidden ${isHeldDown ? 'pageForDisplay' : ''}`}>
@@ -201,7 +203,7 @@ const Page = () => {
       <div className="content-and-translation-container">
         <div className="content-container">
           <div className="column talmud">
-            <div className="text-container">
+            <div className={`text-container ${shortLoading ? 'short-loading' : ''}`}>
               <TextRenderer
                 textArray={talmudText}
                 selectedPassageId={selectedPassageId}
@@ -210,7 +212,7 @@ const Page = () => {
             </div>
           </div>
           <div className="column rashi">
-            <div className="text-container">
+            <div className={`text-container ${shortLoading ? 'short-loading' : ''}`}>
               <TextRenderer
                 textArray={rashiText}
                 selectedPassageId={selectedPassageId}

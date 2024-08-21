@@ -128,12 +128,20 @@
   font-size: 25px;
 }
 
-.page-container.loading .content-and-translation-container {
+.page-container.loading .content-and-translation-container{
   opacity: 0.3;
   pointer-events: none;
   filter: blur(7px); /* Apply blur to the background content */
   transition: opacity 0.2s ease-in-out, filter 0.2s ease-in-out;
 }
+
+.text-container.short-loading {
+  opacity: 0.5;
+  pointer-events: none;
+  filter: blur(10px); /* Apply blur to the background content */
+  transition: opacity 0.5s ease-in-out, filter 0.5s ease-in-out;
+}
+
 
 .pageForDisplay-hidden {
   display: none;
@@ -210,6 +218,9 @@
   transition: opacity 0.2s ease-in-out;
   animation: shimmer 3s infinite linear;
 }
+
+
+
 
 @keyframes shimmer {
   0% {
