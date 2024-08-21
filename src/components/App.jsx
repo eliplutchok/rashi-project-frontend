@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
@@ -21,6 +21,32 @@ import PrivateRoute from './PrivateRoute';
 import '../css/App.css';
 
 const App = () => {
+
+  const [isScrollingUp, setIsScrollingUp] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        // Scrolling down
+        setIsScrollingUp(false);
+      } else {
+        // Scrolling up
+        setIsScrollingUp(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
+
   const handleLogin = async (credentials) => {
     try {
       const data = await authService.login(credentials);
@@ -51,8 +77,9 @@ const App = () => {
 
   return (
     <Router>
-      
+      <div className={`navbar-wrapper ${isScrollingUp ? 'visible' : 'hidden'}`}>
       <Navbar />
+      </div>
       <div className="app-content">
       <Routes>
         <Route path="/about" element={<About />} />

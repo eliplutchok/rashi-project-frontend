@@ -7,7 +7,7 @@ const Section = ({ section, onBookSelect }) => {
   const sectionBooks = books[section];
 
   if (!sectionBooks) {
-    return <div className="section-container">Invalid section selected</div>;
+    return <div className="section-container">Nothing here yet.</div>;
   }
 
   return (

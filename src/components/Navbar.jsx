@@ -2,6 +2,7 @@ import '../css/Navbar.css';
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import authService from '../utils/authService';
+import navbarLinks from './navbarLinks';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -88,6 +89,38 @@ const Navbar = () => {
     return null;
   };
 
+  const renderLinks = () => {
+    return Object.entries(navbarLinks).map(([key, config]) => {
+      const path = config.pathTemplate
+        ? `${config.pathTemplate}${getPageName.replace(' ', '/')}`
+        : config.path;
+
+      if (config.requiresAdmin && !isAdmin) return null;
+      if (config.requiresLoggedIn && !isLoggedIn) return null;
+      if (config.requiresLoggedOut && isLoggedIn) return null;
+      if (config.requiresPath && !location.pathname.startsWith(config.requiresPath)) return null;
+
+      if (config.dropdown && config.dropdown.length > 0) {
+        return (
+          <div key={key} className="navbar-item">
+            <a href={path}>{config.label}</a>
+            <div className="dropdown">
+              {config.dropdown.map((item) => (
+                <a key={item.path} href={item.path}>{item.label}</a>
+              ))}
+            </div>
+          </div>
+        );
+      }
+
+      if (config.action === 'logout') {
+        return <button key={key} onClick={handleLogout}>{config.label}</button>;
+      }
+
+      return <Link key={key} to={path} className={config.className}>{config.label}</Link>;
+    });
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -99,21 +132,7 @@ const Navbar = () => {
         {renderVersionSelectors()}
         <div className="navbar-page-name">{getPageName}</div>
         <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
-          {location.pathname.startsWith('/page') && (
-            <Link to={`/comparisonPage/${getPageName.replace(' ', '/')}`} className="navbar-compare-button">
-              Compare
-            </Link>
-          )}
-          {location.pathname.startsWith('/comparisonPage') && (
-            <Link to={`/page/${getPageName.replace(' ', '/')}`} className="navbar-compare-button">
-              Standard
-            </Link>
-          )}
-          {isLoggedIn && <Link to="/profile">Profile</Link>}
-          {isLoggedIn && <Link to="/library">Library</Link>}
-          {isAdmin && isLoggedIn && <Link to="/admin">Admin</Link>}
-          {!isLoggedIn && <Link to="/login">Login</Link>}
-          {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+          {renderLinks()}
         </div>
         <div className="navbar-toggle" onClick={toggleMenu}>
           <span>&#9776;</span>
