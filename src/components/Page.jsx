@@ -187,6 +187,8 @@ const Page = () => {
     }
   };
 
+  console.log("rashiText", rashiText);
+
   return (
     <div className={`page-container ${loading ? 'loading' : isHeldDown ? 'loading' : ''} ${shortLoading ? 'short-loading' : ''}`}>
       <div className={`loading-overlay ${loading ? 'visible' : ''}`}>

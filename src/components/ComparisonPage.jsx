@@ -6,6 +6,7 @@ import ComparisonHeaderNavigation from './ComparisonHeaderNavigation';
 import ComparisonPageTextRenderer from './ComparisonPageTextRenderer';
 import ComparisonTranslationFooter from './ComparisonTranslationFooter';
 import ComparisonRateModal from './ComparisonRateModal';
+import { formatRashiText } from '../utils/pageUtils';
 
 const usePageTexts = (book, page, setTalmudText, setRashiText, setPassages, setSelectedPassageId, handleTextClick) => {
   const location = useLocation();
@@ -19,16 +20,6 @@ const usePageTexts = (book, page, setTalmudText, setRashiText, setPassages, setS
           axiosInstance.get(`${process.env.REACT_APP_API_URL}/comparisonPage`, { params: { book, page } }),
           axiosInstance.get(`${process.env.REACT_APP_API_URL}/comparisonPage`, { params: { book: `Rashi_on_${book}`, page } }),
         ]);
-
-        const formatRashiText = (text) => {
-          let textCopy = text;
-          if (textCopy.includes('–')) {
-            textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-          } else {
-            textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-          }
-          return textCopy;
-        };
 
         const rashiData = rashiResponse.data.map(passage => ({
           ...passage,

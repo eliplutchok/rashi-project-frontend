@@ -1,14 +1,42 @@
 import axiosInstance from './axiosInstance';
 
+// export const formatRashiText = (text) => {
+//   let textCopy = text;
+//   if (textCopy.includes('–')) {
+//     textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
+//   } else {
+//     textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
+//   }
+//   return textCopy;
+// };
+
 export const formatRashiText = (text) => {
-  let textCopy = text;
-  if (textCopy.includes('–')) {
-    textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-  } else {
-    textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-  }
-  return textCopy;
-};
+    let formattedText;
+    // Find the first occurrence of a dash and split the text into header and body
+    if (text.includes('–')) {
+        const splitText = text.split('–', 2);
+        const header = splitText[0];
+        const body = splitText[1] ? splitText[1] : '';
+    
+        // Wrap the header in the rashi-header class
+        const formattedHeader = `<span class="rashi-header">${header}.</span>`;
+    
+        // Combine the formatted header with the body of the text
+        formattedText = `${formattedHeader} ${body}`;
+    } else {
+        const splitText = text.split('-', 2);
+        const header = splitText[0];
+        const body = splitText[1] ? splitText[1] : '';
+    
+        // Wrap the header in the rashi-header class
+        const formattedHeader = `<span class="rashi-header">${header}.</span>`;
+    
+        // Combine the formatted header with the body of the text
+        formattedText = `${formattedHeader} ${body}`;
+    }
+    // Return the fully formatted text
+    return formattedText;
+  };
 
 
 export const fetchTexts = async ({
