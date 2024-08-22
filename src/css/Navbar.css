@@ -10,6 +10,7 @@
   visibility: visible; /* Default state */
 }
 
+
 .navbar-wrapper.hidden {
   transform: translateY(-100%);
   opacity: 0;
@@ -230,7 +231,7 @@
   background-color: #eecaf3;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 968px) {
   .navbar-container {
     flex-direction: column;
     align-items: flex-start;
@@ -253,11 +254,7 @@
   }
 
   .navbar-page-name {
-    position: static;
-    transform: none;
-    text-align: center;
-    margin-top: 10px;
-    width: 100%;
+    display: none;
   }
 
   .navbar-toggle {

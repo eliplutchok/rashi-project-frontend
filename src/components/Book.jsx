@@ -106,10 +106,13 @@ const Book = ({ book, onBack }) => {
   };
 
   return (
+    <div className="book-page-wrapper-wrapper">
     <div className="book-page-wrapper">
       
       <div className="book-container page-selector-container">
-        <button className="back-button" onClick={onBack}>Back</button>
+      <button className="back-button" onClick={onBack}>Back</button>
+        <div className="page-selector-container-content">
+        
         <h3>{book}</h3>
         <div className="carousel-container">
           <button
@@ -154,6 +157,7 @@ const Book = ({ book, onBack }) => {
           <button type="submit">Go</button>
         </form>
       </div>
+      </div>
       <div className="book-container book-info-container">
         {/* <h4>Book Information</h4> */}
         <div className="book-info">
@@ -170,6 +174,7 @@ const Book = ({ book, onBack }) => {
     </div>
   )}
 </div>
+    </div>
     </div>
   );
 };

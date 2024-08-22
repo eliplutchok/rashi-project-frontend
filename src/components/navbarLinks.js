@@ -20,8 +20,7 @@ const navbarLinks = {
     path: '/profile',
     requiresLoggedIn: true,
     dropdown: [
-      { label: 'Settings', path: '/profile/settings' },
-      { label: 'Activity', path: '/profile/activity' },
+      
     ],
   },
   library: {
@@ -31,6 +30,11 @@ const navbarLinks = {
     dropdown: [
       { label: 'Mishnah', path: '/library/Mishnah' },
       { label: 'Talmud', path: '/library/Talmud' },
+      { label: 'Tanach', path: '/library/Tanach' },
+      { label: 'Mussar', path: '/library/Mussar' },
+      { label: 'Halacha', path: '/library/Halacha' },
+      { label: 'Kabbalah', path: '/library/Kabbalah' },
+      { label: 'Other', path: '/library/Other' },
     ],
   },
   admin: {

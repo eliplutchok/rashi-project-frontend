@@ -71,19 +71,21 @@
 
 .library-sections.all-buttons-small {
  height: 13%;
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+ grid-template-rows: 1fr;
  transition: height .3s;
- display: flex;
- flex-wrap: wrap;
+
  gap: 10px;
  justify-content: center;
- margin-bottom: 20px;
+ margin-bottom: 10px;
  box-sizing: border-box;
 }
 
 /* Add this to your Library.css file */
 .library-sections.all-buttons-small button {
   /* background-image: none;  */
-  max-width: 400px;
+  /* max-width: 400px; */
   flex: 1;
   
   
@@ -188,4 +190,56 @@
       rgba(128, 0, 64, 0.5)
     ),
     url('../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .library-sections {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 90vh;
+    max-height: 90vh;
+  }
+
+  .library-sections.all-buttons-small {
+    height: 13%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .library-sections.all-buttons-small button {
+    font-size: 14px;
+  }
+
+  .library-sections .section-button-tanach {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-mishnah {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-talmud {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-halacha {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-midrash {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-tosefta {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-mussar {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-kabbalah {
+    grid-column: span 1;
+  }
 }
