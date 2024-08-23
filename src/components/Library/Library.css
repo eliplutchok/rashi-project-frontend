@@ -3,8 +3,17 @@
   height: calc(100vh - 50px); /* Full viewport height minus any necessary adjustments */
   padding: 10px;
   margin: 0 auto;
-  background: linear-gradient(to bottom, #f0f2f5, #ffffff);
+  /* background: linear-gradient(to bottom, #f0f2f5, #ffffff); */
   box-sizing: border-box;
+}
+
+.library-container {
+  /* background: linear-gradient(to bottom, #1c1f24, #181a1e); */
+  background-image: 
+  linear-gradient(to bottom, #cfcfcfd9, #ffffff),
+    url('../../assets/images/5b3257f34bde5f433295f4e048876f5c.jpeg');
+  background-size: cover;
+  background-position: center;
 }
 
 .library-sections {
@@ -79,15 +88,16 @@
  justify-content: center;
  margin-bottom: 10px;
  box-sizing: border-box;
- opacity: .5;
+
 }
 
 .library-sections.all-buttons-small button {
   /* background-image: none;  */
   /* max-width: 400px; */
+  opacity: .3;
   flex: 1;
   border: none;
-  color: rgb(0, 0, 0);
+  color: white;
   text-shadow: none;
   font-size: 18px;
   border-radius: 1px;
@@ -95,13 +105,14 @@
 
 .library-sections.all-buttons-small button.active {
   color: white;
+  opacity: 1;
 }
 
 .library-sections.all-buttons-small button:hover {
   background-color: #acb0b8;
   box-shadow: 0 2px 4px rgb(181, 181, 181);
   color: rgb(255, 255, 255);
-  opacity: 1;
+  opacity: .9;
 }
 
 /* const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah']; */
