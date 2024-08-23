@@ -29,11 +29,11 @@
 }
 
 .home-container.dark-mode .home-card.continue-reading-card {
-    background: linear-gradient(135deg, #3c4049, #0a0b12);
+    background: linear-gradient(135deg, #3f4354, #06060e);
 }
 
 .home-container.dark-mode .home-card.admin-dashboard-card {
-    background: linear-gradient(135deg, #88a285, #5a7656);
+    background: linear-gradient(135deg, #567876, #233931);
 }
 
 .home-container.dark-mode .home-card.admin-info-card {
@@ -50,4 +50,9 @@
 
 .home-container.dark-mode .card-content p {
     color: #cccccc;
+}
+
+.home-container.dark-mode .home-card.toggle-card { 
+    background: linear-gradient(180deg, #918e82,  #000005);
+    color: white;
 }

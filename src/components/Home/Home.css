@@ -10,7 +10,7 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: repeat(3, 1fr);
     gap: 20px;
     width: 100%;
@@ -42,7 +42,7 @@
 }
 
 .home-card.welcome-card {
-    grid-column: span 2;
+    grid-column: span 3;
     background: linear-gradient(135deg, #d77f50, #c6693d);
     color: white;
     text-align: left;
@@ -76,6 +76,7 @@
 
 
 .home-card.library-card {
+    grid-column: span 2;
     position: relative; /* Ensure the text and overlay are positioned correctly */
     color: black;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -121,20 +122,25 @@
 }
 
 .home-card.admin-dashboard-card {
-    background: linear-gradient(135deg, #b7d4a5, #7ca376);
-    
-    color: rgb(72, 72, 72);
+    grid-column: span 2;
+    background: linear-gradient(135deg, #567876, #233931);
+    color: rgb(225, 225, 225);
 }
 
-.home-card.admin-info-card {
-   
+.home-card.admin-info-card { 
     background: linear-gradient(135deg, #7ea795, #4d7b6a);
     color: white;
 }
 
-.home-card.how-to-card {
-    background: linear-gradient(135deg, #3a3d3f, #9facb7);
+
+.home-container .home-card.how-to-card {
+    background: linear-gradient(135deg, #282b2d, #646e76);
     color: white;
+}
+
+.home-card.toggle-card { 
+    background: linear-gradient(180deg, #01011d, #606060, #fff8ee);
+    color: black;
 }
 
 .home-card.blank-card {
@@ -150,6 +156,7 @@
 .card-content p {
     font-size: 16px;
 }
+
 
 @media (max-width: 768px) {
     .grid-container {

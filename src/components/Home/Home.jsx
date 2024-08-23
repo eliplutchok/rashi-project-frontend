@@ -12,7 +12,7 @@ const Home = () => {
   const [lastProgress, setLastProgress] = useState(null);
   const navigate = useNavigate();
 
-  const { isDarkMode } = useContext(ThemeContext);
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     const fetchLastReadingProgress = async () => {
@@ -88,20 +88,28 @@ const Home = () => {
                 <p>Access admin features and settings.</p>
               </div>
             </Link>
-            <Link to="/admin-info" className="home-card admin-info-card link-card">
+            {/* <Link to="/admin-info" className="home-card admin-info-card link-card">
               <div className="card-content">
                 <h4>Admin Info</h4>
                 <p>View admin information and resources.</p>
               </div>
-            </Link>
+            </Link> */}
           </>
         )}
+        
         <Link to="/how-to-use" className="home-card how-to-card link-card">
               <div className="card-content">
                 <h4>How to Use this Website</h4>
                 <p>A short guide.</p>
               </div>
          </Link>
+         <Link to="/" className="home-card toggle-card link-card" onClick={toggleTheme} aria-label="Toggle Dark Mode">
+          <div className="card-content"
+            >
+            <h4>{isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</h4>
+            <p>Toggle between light and dark mode.</p>
+          </div>
+        </Link>
     
       </div>
     </div>

@@ -136,7 +136,7 @@
 }
 
 .ai-logo-text {
-  color: #007bff;
+  color: #e48d0a;
 }
 
 .navbar-links .navbar-compare-button {
@@ -313,6 +313,10 @@
 
 .navbar.dark-mode .navbar-left .navbar-logo a {
   color: #ffffff;
+}
+
+.navbar.dark-mode .ai-logo-text {
+  color: #ca923e;
 }
 
 .navbar.dark-mode .navbar-page-name {
