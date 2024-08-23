@@ -75,24 +75,22 @@
  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
  grid-template-rows: 1fr;
  transition: height .3s;
-
- gap: 10px;
+ gap: 5px;
  justify-content: center;
  margin-bottom: 10px;
  box-sizing: border-box;
+ opacity: .5;
 }
 
-/* Add this to your Library.css file */
 .library-sections.all-buttons-small button {
   /* background-image: none;  */
   /* max-width: 400px; */
   flex: 1;
-  
-  
   border: none;
   color: rgb(0, 0, 0);
   text-shadow: none;
   font-size: 18px;
+  border-radius: 1px;
 }
 
 .library-sections.all-buttons-small button.active {
@@ -103,7 +101,7 @@
   background-color: #acb0b8;
   box-shadow: 0 2px 4px rgb(181, 181, 181);
   color: rgb(255, 255, 255);
-  opacity: .9;
+  opacity: 1;
 }
 
 /* const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah']; */

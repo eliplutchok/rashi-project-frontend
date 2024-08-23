@@ -1,6 +1,11 @@
 /* Dark Mode Styles */
 .library-container.dark-mode {
-    background: linear-gradient(to bottom, #1c1f24, #181a1e);
+    /* background: linear-gradient(to bottom, #1c1f24, #181a1e); */
+    background-image: 
+    linear-gradient(to bottom, #1c1f24f1, #181a1e),
+      url('../../assets/images/5b3257f34bde5f433295f4e048876f5c.jpeg');
+    background-size: cover;
+    background-position: center;
   }
   
   /* Dark mode for buttons inside library-sections */
@@ -9,20 +14,46 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     color: #ddd;
     text-shadow: none;
-    opacity: 0.8;
+    opacity: 0.5;
     transition: background-color 0.3s, box-shadow 0.3s, color 0.3s, opacity 0.3s;
   }
   
   .library-container.dark-mode .library-sections button:hover {
-    background-color: #555;
+    background-color: #090909;
     color: #fff;
     opacity: 1;
   }
   
   .library-container.dark-mode .library-sections button.active {
-    background-color: #0a1b2d;
+    background-image: linear-gradient(
+        rgba(8, 62, 127, 0.65),
+        rgba(30, 100, 150, 0.618)
+      ),
+      url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     color: #fff;
     opacity: 1;
+  }
+
+  .library-container.dark-mode  .books button {
+    /* background-color: #0a1b2d; */
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  /* margin-bottom: 4px; */
+  transition: background-color 0.3s, box-shadow 0.3s;
+  color: rgb(208, 208, 208);
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+  height: 45px;
+  font-weight: bold;
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); */
+  text-align: left;
+  border-radius: 0px;
   }
   
   .library-container.dark-mode .library-sections .section-button-tanach,
@@ -45,9 +76,9 @@
 
   .library-container.dark-mode .section-container {
     margin: 0 auto;
-    background-image: 
-    linear-gradient(to bottom, #1c1f24d2, #181a1ece),
-      url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    /* background-image: 
+    linear-gradient(to bottom, #1c1f24dd, #181a1e),
+      url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg'); */
     background-size: cover;
     background-position: center;
     border-radius: 8px;
@@ -57,11 +88,22 @@
   .library-container.dark-mode .subsection {
     /* max-width: 400px;
     flex: 1; */
-    border-right: 1px solid #d6d6d6;
+    border-right: 1px solid #d6d6d689;
   }
 
   .library-container.dark-mode .subsection:last-child {
     border-right: none;
+  }
+
+  .library-container.dark-mode .books button:hover {
+    background: linear-gradient(
+      rgba(10, 50, 100, 0.5),
+      rgba(30, 100, 150, 0.5)
+    );
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    color: #fff;
+    border-radius: 0px;
+    
   }
   
   /* Mobile adjustments */
