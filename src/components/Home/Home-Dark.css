@@ -1,0 +1,53 @@
+/* Dark Mode Styles */
+/* Apply dark mode styles to all elements inside home-container when dark-mode class is applied */
+.home-container.dark-mode {
+    background: linear-gradient(135deg, #2c2f33, #23272a);
+}
+
+.home-container.dark-mode .home-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    color: #dddddd;
+    background-color: #36393f;
+}
+
+.home-container.dark-mode .home-card.welcome-card {
+    background: linear-gradient(135deg, #a15234, #8a3e2a);
+}
+
+.home-container.dark-mode .home-card.about-card {
+    background: linear-gradient(135deg, #8a645d, #6f5048);
+}
+
+.home-container.dark-mode .home-card.library-card {
+    background-image: url('../../assets/images/5b3257f34bde5f433295f4e048876f5c.jpeg');
+    background-color: rgba(36, 54, 80, 0.7);
+    color: #f0f0f0;
+}
+
+.home-container.dark-mode .home-card.profile-card {
+    background: linear-gradient(135deg, #8a4d4b, #6f3a38);
+}
+
+.home-container.dark-mode .home-card.continue-reading-card {
+    background: linear-gradient(135deg, #3c4049, #0a0b12);
+}
+
+.home-container.dark-mode .home-card.admin-dashboard-card {
+    background: linear-gradient(135deg, #88a285, #5a7656);
+}
+
+.home-container.dark-mode .home-card.admin-info-card {
+    background: linear-gradient(135deg, #587b68, #3a5d49);
+}
+
+.home-container.dark-mode .home-card.how-to-card {
+    background: linear-gradient(135deg, #282b2d, #646e76);
+}
+
+.home-container.dark-mode .card-content h4 {
+    color: #ffffff;
+}
+
+.home-container.dark-mode .card-content p {
+    color: #cccccc;
+}

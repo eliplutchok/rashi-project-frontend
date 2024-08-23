@@ -67,7 +67,10 @@ const register = async (credentials) => {
 // auth service file
 const login = async (credentials) => {
   try {
-    localStorage.clear();
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('privilegeLevel');
+    localStorage.removeItem('userId');
     const response = await apiClient.post('/login', {
       username: credentials.username,
       password: credentials.password,

@@ -1,0 +1,245 @@
+
+.library-container {
+  height: calc(100vh - 50px); /* Full viewport height minus any necessary adjustments */
+  padding: 10px;
+  margin: 0 auto;
+  background: linear-gradient(to bottom, #f0f2f5, #ffffff);
+  box-sizing: border-box;
+}
+
+.library-sections {
+  display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    flex-grow: 1;
+    height: 90vh;
+    max-height: 90vh;
+ 
+}
+
+.library-sections button {
+  box-sizing: border-box;
+  /* flex: 1; */
+  /* min-width: 150px; */
+  /* width: 300px; */
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    flex-grow: 1;
+    font-size: 26px;
+    color: #f0f2f5;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+    height: 100%;
+    background-image: 
+    linear-gradient(
+      rgba(10, 50, 100, 0.5), 
+      rgba(30, 100, 150, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* border: 2px solid #000000; */
+    opacity: .5;
+    transition: opacity 0.3s;
+    width: 100%;
+}
+
+.library-sections button:hover {
+  background-color: #acb0b8;
+  /* box-shadow: 0 2px 4px rgb(181, 181, 181); */
+  color: rgb(255, 255, 255);
+  opacity: .9;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.library-sections button.active {
+  background-color: #0a1b2d;
+  box-shadow: 0 2px 4px rgb(181, 181, 181);
+  color: rgb(255, 255, 255);
+  opacity: 1;
+}
+
+.library-sections.all-buttons-small {
+ height: 13%;
+ display: grid;
+ grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+ grid-template-rows: 1fr;
+ transition: height .3s;
+
+ gap: 10px;
+ justify-content: center;
+ margin-bottom: 10px;
+ box-sizing: border-box;
+}
+
+/* Add this to your Library.css file */
+.library-sections.all-buttons-small button {
+  /* background-image: none;  */
+  /* max-width: 400px; */
+  flex: 1;
+  
+  
+  border: none;
+  color: rgb(0, 0, 0);
+  text-shadow: none;
+  font-size: 18px;
+}
+
+.library-sections.all-buttons-small button.active {
+  color: white;
+}
+
+.library-sections.all-buttons-small button:hover {
+  background-color: #acb0b8;
+  box-shadow: 0 2px 4px rgb(181, 181, 181);
+  color: rgb(255, 255, 255);
+  opacity: .9;
+}
+
+/* const SECTIONS = ['Tanach', 'Mishnah', 'Talmud', 'Halacha', 'Midrash', 'Tosefta', 'Kabbalah']; */
+.library-sections .section-button-tanach {
+  grid-column: span 2;
+  background-size:auto;
+    background-position: center;
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 128, 0.5), 
+      rgba(0, 128, 64, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-mishnah {
+  grid-column: span 2;
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 255, 0.5), 
+      rgba(0, 128, 128, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-talmud {
+  grid-column: span 2;
+  background-image: 
+    linear-gradient(
+      rgba(0, 128, 255, 0.5), 
+      rgba(0, 64, 128, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-halacha {
+  grid-column: span 2;
+  background-image: 
+    linear-gradient(
+      rgba(0, 255, 0, 0.5), 
+      rgba(0, 128, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-midrash {
+  background-image: 
+    linear-gradient(
+      rgba(128, 255, 0, 0.5), 
+      rgba(64, 128, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-tosefta {
+  background-size:cover;
+    background-position: cover;
+  background-image: 
+    linear-gradient(
+      rgba(255, 128, 0, 0.5), 
+      rgba(128, 64, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-mussar {
+  /* grid-column: span 2; */
+  background-size:auto; 
+  background-image: 
+    linear-gradient(
+      rgba(255, 128, 0, 0.5), 
+      rgba(128, 64, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections .section-button-kabbalah {
+  grid-column: span 2;
+  background-size: auto;
+    background-position: left;
+  background-image: 
+    linear-gradient(
+      rgba(255, 0, 128, 0.5), 
+      rgba(128, 0, 64, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .library-sections {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 90vh;
+    max-height: 90vh;
+  }
+
+  .library-sections.all-buttons-small {
+    height: 13%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .library-sections.all-buttons-small button {
+    font-size: 14px;
+  }
+
+  .library-sections .section-button-tanach {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-mishnah {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-talmud {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-halacha {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-midrash {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-tosefta {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-mussar {
+    grid-column: span 1;
+  }
+
+  .library-sections .section-button-kabbalah {
+    grid-column: span 1;
+  }
+}

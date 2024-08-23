@@ -1,0 +1,53 @@
+/* Dark Mode Styles */
+.admin-info-container.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+.admin-info-container.dark-mode .admin-info-title {
+    color: #e0e0e0;
+}
+
+.admin-info-container.dark-mode .admin-info-section {
+    margin-bottom: 30px;
+}
+
+.admin-info-container.dark-mode .admin-info-content {
+    background-color: #121212;
+    border-left: 5px solid #bb86fc; /* A softer purple for the border */
+    padding: 20px;
+    border-radius: 5px;
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); */
+}
+
+.admin-info-container.dark-mode .admin-info-content h3 {
+    font-size: 1.5em;
+    color: #bb86fc; /* Lighter purple for headings */
+    margin-bottom: 10px;
+}
+
+.admin-info-container.dark-mode .admin-info-content p {
+    font-size: 1.1em;
+    color: #cfcfcf; /* Light grey for text */
+    margin-bottom: 10px;
+}
+
+.admin-info-container.dark-mode .admin-info-content ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.admin-info-container.dark-mode .admin-info-content ul li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+    color: #cfcfcf; /* Light grey for list items */
+}
+
+.admin-info-container.dark-mode .admin-info-content h2 {
+    font-size: 2em;
+    color: #f5f5f5;
+    border-bottom: 2px solid #bb86fc; /* Match the border color with the heading color */
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}

@@ -1,0 +1,42 @@
+/* Dark Mode Styles for ComparisonTranslationFooter */
+
+.comparison-sticky-translation-footer.dark-mode {
+    background: #181818; /* Dark background for the footer */
+    opacity: .95;
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-sticky-translation-footer-content {
+    background: #252525; /* Dark background for the content */
+    color: #e0e0e0; /* Light text color */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-sticky-translation-footer-content::before {
+    background-color: #041902; /* Darker blue background */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-sticky-translation-footer-content::after {
+    background-color: #380404; /* Darker purple background */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-translation-box {
+    color: #cccccc; /* Lighter text color in dark mode */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-translation-box:hover {
+    color: #ffffff; /* White text on hover */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); /* Light box shadow on hover */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-translation-box p {
+    color: #dddddd; /* Light text color for translation paragraphs */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-translation-nav-button {
+    color: #e0e0e0; /* Light color for navigation buttons */
+}
+
+.comparison-sticky-translation-footer.dark-mode .comparison-translation-nav-button:hover {
+    background-color: #3b3b3b; /* Slightly lighter background on hover */
+    color: #ffffff; /* White text on hover */
+}

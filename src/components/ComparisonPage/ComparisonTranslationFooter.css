@@ -1,0 +1,122 @@
+.comparison-sticky-translation-footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .comparison-sticky-translation-footer-content {
+    position: relative; /* Ensure the pseudo-elements are positioned relative to this container */
+    width: 100%; /* Increased width */
+    background: rgb(255, 254, 251);
+    opacity: 0.95;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribute space between translations */
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 150px;
+    overflow: hidden; /* Prevent the pseudo-elements from overflowing */
+  }
+  
+  .comparison-sticky-translation-footer-content::before,
+  .comparison-sticky-translation-footer-content::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    z-index: -1; /* Ensure the pseudo-elements are behind the content */
+  }
+  
+  .comparison-sticky-translation-footer-content::before {
+    left: 0;
+    background-color: #e3f2fd; /* Light blue background */
+  }
+  
+  .comparison-sticky-translation-footer-content::after {
+    right: 0;
+    background-color: #f3e5f5; /* Light purple background */
+  }
+  
+  .comparison-translation-box {
+    width: 100%;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    
+  }
+  
+  .comparison-translation-box:hover {
+    color: rgb(85, 85, 85);
+    /* add box shadow */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+  }
+  
+  .comparison-translation-box-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .comparison-translation-box p {
+    text-align: center;
+    align-content: center;
+    margin: 0;
+    height: 100%;
+    font-size: 14px;
+    line-height: 1.3;
+    font-weight: 900;
+    
+  }
+  
+  .comparison-translation-item.comparison-translation-one {
+    width: 45%;
+  }
+  
+  .comparison-translation-item.comparison-translation-two {
+    width: 45%;
+  }
+  
+  .comparison-translation-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 15px;
+  }
+  
+  .comparison-translation-buttons button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(253, 250, 239);
+  }
+  
+  .comparison-translation-buttons button:hover {
+    background-color: rgb(118, 202, 255);
+    color: white;
+  }
+  
+  .comparison-translation-nav-button {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: rgb(17, 17, 17);
+    text-align: center;
+    font-size: 30px;
+    height: 100%;
+  }

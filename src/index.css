@@ -9,6 +9,10 @@ body {
   height: 100%;
 }
 
+body.dark-mode {
+  background-color: #121212; /* Dark background for the body */
+}
+
 #root {
   height: 100%;
 }

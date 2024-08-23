@@ -1,0 +1,53 @@
+/* Dark Mode Styles */
+.about-container.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+  }
+  
+  .about-container.dark-mode h1 {
+    color: #e0e0e0;
+  }
+  
+  .about-container.dark-mode .about-section {
+    background: #1a1a1a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+  }
+  
+  .about-container.dark-mode .about-section.mission {
+    background: linear-gradient(135deg, #661a15, #8b2e21);
+  }
+  
+  .about-container.dark-mode .about-section.what-we-do {
+    background: linear-gradient(135deg, #822b2b, #9f4949);
+  }
+  
+  .about-container.dark-mode .about-section.how-it-works {
+    background: linear-gradient(135deg, #243a5b, #3b567b);
+  }
+  
+  .about-container.dark-mode .about-section.future-plans {
+    background: linear-gradient(135deg, #264d34, #3a694a);
+  }
+  
+  .about-container.dark-mode .about-section.join-us {
+    background: linear-gradient(135deg, #5b3b5d, #704671);
+  }
+  
+  .about-container.dark-mode h2 {
+    color: #f0f0f0;
+  }
+  
+  .about-container.dark-mode p, 
+  .about-container.dark-mode li, 
+  .about-container.dark-mode ul {
+    color: #c0c0c0;
+  }
+  
+  .about-container.dark-mode ul {
+    list-style-type: disc;
+    padding-left: 40px;
+  }
+  
+  .about-container.dark-mode li {
+    margin-bottom: 10px;
+  }

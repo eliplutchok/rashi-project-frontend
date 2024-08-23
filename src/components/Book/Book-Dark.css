@@ -1,0 +1,188 @@
+/* Dark Mode Styles - Apply these only when .book-page-wrapper-wrapper has the .dark-mode class */
+
+  
+  /* Book Container */
+  .book-page-wrapper-wrapper.dark-mode .book-container {
+    background: linear-gradient(135deg, #555b65, #2c2f36);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    color: #f0f0f0;
+  }
+  
+  /* Page Selector Container */
+  .book-page-wrapper-wrapper.dark-mode .page-selector-container {
+    background: linear-gradient(135deg, #2c2f36, #454b58);
+    color: #f0f0f0;
+  }
+  
+  /* Book Info Container */
+  .book-page-wrapper-wrapper.dark-mode .book-info-container {
+    background: linear-gradient(135deg, #4a4f59, #2c2f36);
+    color: #d9d9d9;
+  }
+  
+  /* Back Button */
+  .book-page-wrapper-wrapper.dark-mode .back-button {
+    background-color: #3c3f47;
+    border: 1px solid #575757;
+    color: #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .back-button:hover {
+    background-color: #4a4d57;
+  }
+  
+  /* Carousel Container */
+
+  
+  /* Carousel Buttons */
+  .book-page-wrapper-wrapper.dark-mode .carousel-container button {
+    color: #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .carousel-container button:hover {
+    color: #ffffff;
+  }
+  
+  /* Carousel Items */
+  .book-page-wrapper-wrapper.dark-mode .carousel-item {
+    background-color: #3c3f47;
+    border: 1px solid #575757;
+    color: #f0f0f0;
+    opacity: 0.7;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .carousel-item.active {
+    background-color: #4a4d57;
+    opacity: 1;
+    box-shadow: 0 0 4px #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .carousel-item:hover {
+    background-color: #5a5d67;
+  }
+  
+  /* Jump Form */
+  .book-page-wrapper-wrapper.dark-mode .jump-form input {
+    background-color: #3c3f47;
+    border: 1px solid #575757;
+    color: #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .jump-form button {
+    background-color: #3c3f47;
+    border: 1px solid #575757;
+    color: #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .jump-form button:hover {
+    background-color: #4a4d57;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Continue Reading Container */
+  .book-page-wrapper-wrapper.dark-mode .continue-reading-container {
+    background: linear-gradient(135deg, #4a4f59, #2c2f36);
+    color: #d9d9d9;
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .continue-reading-container:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .book-page-wrapper-wrapper.dark-mode .continue-reading-text h4,
+  .book-page-wrapper-wrapper.dark-mode .continue-reading-text h2 {
+    color: #d9d9d9;
+  }
+  
+  /* Spinner */
+  .book-page-wrapper-wrapper.dark-mode .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.2);
+    border-top: 4px solid #1a73e8; /* Darker blue for spinner */
+  }
+  
+  /* Loading Shimmer */
+  .book-page-wrapper-wrapper.dark-mode .loading-shimmer {
+    background: linear-gradient(90deg, #2a2a2a 25%, #3a3a3a 50%, #2a2a2a 75%);
+  }
+  
+  @media (max-width: 768px) {
+    .book-page-wrapper-wrapper.dark-mode .back-button {
+      display: none;
+    }
+    .book-page-wrapper-wrapper.dark-mode .page-selector-container-content {
+      scale: 1;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .book-page-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      max-width: 100%;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .book-container {
+      padding: 15px;
+      width: 100%;
+      box-sizing: border-box;
+      margin: 10px;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .book-container.page-selector-container {
+      margin: 0px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .page-selector-container,
+    .book-page-wrapper-wrapper.dark-mode .book-info-container {
+      max-width: 100%;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .carousel-container {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .carousel-item {
+      width: 100%;
+      height: 40px;
+      font-size: 18px;
+      margin: 0;
+      border-radius: 8px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .carousel-item.active {
+      transform: scale(1.05);
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .carousel-button {
+      font-size: 24px;
+      padding: 5px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .jump-form {
+      margin-top: 15px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .jump-form input {
+      color: #f0f0f0;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .jump-form button {
+      background-color: #4a4d57;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .continue-reading-container {
+      padding: 20px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .continue-reading-text h4,
+    .book-page-wrapper-wrapper.dark-mode .continue-reading-text h2 {
+      font-size: 18px;
+    }
+  
+    .book-page-wrapper-wrapper.dark-mode .book-container h3 {
+      font-size: 24px;
+    }
+  }

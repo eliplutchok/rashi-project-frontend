@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'oldy';
+  src: url('../../assets/fonts/TirtoWritterRegular-Eajrl.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+.sticky-translation-footer {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sticky-translation-footer-content {
+    width: 100%;
+    max-width: 100%;
+    /* background: rgb(255, 254, 251); */
+    background: #fdfdf2;
+    /* background-color: red; */
+    /* background: #fdf9e6; */
+    opacity: .95;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 120px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  .translation-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 90%;
+    text-align: center;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+
+
+  .translation-box:hover {
+    color: rgb(85, 85, 85);
+    /* add box shadow */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+   
+    /* background-color: rgb(253, 245, 130); */
+    /* scale: 1.05; */
+    /* opacity: .5; */
+    transform: translateY(-5px);
+  
+  }
+  
+  .translation-box p {
+    text-align: center;
+    align-content: center;
+    margin: 0;
+    height: 100%;
+    font-size: 15px;
+    line-height: 1.2;
+    /* font-weight: bold; */
+    margin: 0px;
+    color: rgb(37, 37, 37);
+    padding: 10px;
+    font-weight: 300;
+    /* font-family: 'oldy'; */
+  }
+  
+  .translation-buttons {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+
+  }
+  
+  .translation-buttons button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(253, 250, 239);
+  }
+  
+  .translation-buttons button:hover {
+    background-color: rgb(253, 245, 130);
+    /* color: white; */
+  }
+  
+  .translation-nav-button {
+    /* background: none; */
+    flex: 1;
+    background-color: rgba(230, 227, 218, 0.801);
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    color: rgb(17, 17, 17);
+    font-size: 16px;
+    font-size: 30px;
+    height: 100%;
+  }
+
+  .translation-nav-button:hover {
+    background-color: rgb(205, 198, 184);
+    /* color: white; */
+  }
+
+  /* first button  */
+  .translation-nav-button:first-child {
+    border-radius: 10px 0 0 10px;
+  }
+
+  /* last button */
+  .translation-nav-button:last-child {
+    border-radius: 0 10px 10px 0;
+  }

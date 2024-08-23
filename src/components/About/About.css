@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+.about-container {
+  max-width: 1000px;
+  margin: 0px auto;
+  padding: 40px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.about-container h1 {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.about-section {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  opacity: 0; /* Start hidden */
+  transform: translateY(500px); /* Start with an offset */
+  transition: opacity 1.5s ease, transform 1.5s ease;
+}
+
+.about-section.visible {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Move to original position */
+}
+
+.about-section.mission {
+  background: linear-gradient(135deg, #ff7e5f, #feb47b);
+}
+
+.about-section.what-we-do {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+.about-section.how-it-works {
+  background: linear-gradient(135deg, #5b8bd8, #aee3fb);
+}
+
+.about-section.future-plans {
+  background: linear-gradient(135deg, #5ac280, #8fd3f4);
+}
+
+.about-section.join-us {
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+.about-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #ffffff;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.about-container p, .about-container li, .about-container ul {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #fff;
+  margin-bottom: 20px;
+}
+
+.about-container ul {
+  list-style-type: disc;
+  padding-left: 40px;
+}
+
+.about-container li {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  .about-container h1 {
+    font-size: 28px;
+  }
+
+  .about-container h2 {
+    font-size: 22px;
+  }
+
+  .about-container p, .about-container li {
+    font-size: 14px;
+  }
+}

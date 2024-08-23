@@ -1,0 +1,45 @@
+
+.fixed-page-butn.dark-mode {
+    color: white;
+  }
+  .fixed-page-butn.dark-mode button {
+    color: white;
+  }
+  
+  /* Dark mode styles */
+  .page-container.dark-mode {
+    background: linear-gradient(to bottom, #1c1f24, #181a1e);
+    /* color: white; */
+  }
+  
+  .page-container.dark-mode .column.talmud,
+  .page-container.dark-mode .column.rashi {
+    color: #dddddd;
+  }
+  
+  .page-container.dark-mode .rashi-header {
+    color: #ffffff;
+  }
+  
+  .page-container.dark-mode .text-segment.selected {
+    background-color: rgb(0, 0, 0);
+    color: rgb(244, 253, 118);
+  }
+
+  .page-container.dark-mode .text-segment.selected .rashi-header {
+    background-color: rgb(0, 0, 0);
+    color: rgb(236, 252, 10);
+  }
+  
+  .page-container.dark-mode .text-segment:hover {
+    color: rgb(244, 253, 118);
+  }
+  
+  /* Ensure that other elements are styled appropriately */
+  .page-container.dark-mode .loading-overlay,
+  .page-container.dark-mode .pageForDisplay {
+    background: linear-gradient(90deg, rgba(50, 50, 50, 0.4) 25%, rgba(70, 70, 70, 0.6) 50%, rgba(30, 30, 30, 0.4) 75%);
+    color: rgba(200, 200, 200, 0.9);
+  }
+  
+  /* Adjust other styles as needed for dark mode */

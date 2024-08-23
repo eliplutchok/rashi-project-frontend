@@ -1,0 +1,52 @@
+.App {
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.app-content {
+  width: 100%;
+  padding-top: 50px;
+  height: calc(100vh - 50px);
+}
+
+.dark-mode-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: inherit; /* Make sure it inherits the color from the parent */
+  padding: 10px;
+  /* border-radius: 50%; */
+  transition: background-color 0.3s ease;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+
+.dark-mode-button .fa-sun {
+  color: rgb(197, 197, 197);
+}
+
+.dark-mode-button .fa-sun:hover {
+  color: rgb(243, 253, 166);
+}
+
+.dark-mode-button .fa-moon {
+  color: rgb(70, 70, 70);
+}
+
+.dark-mode-button .fa-moon:hover {
+  color: rgb(2, 7, 32);
+}
+
+/* dont display button on mobile */
+@media (max-width: 768px) {
+  .dark-mode-button {
+    display: none;
+  }
+}
+
+

@@ -1,0 +1,82 @@
+/* Dark Mode Styles */
+.library-container.dark-mode {
+    background: linear-gradient(to bottom, #1c1f24, #181a1e);
+  }
+  
+  /* Dark mode for buttons inside library-sections */
+  .library-container.dark-mode .library-sections button {
+    background-color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #ddd;
+    text-shadow: none;
+    opacity: 0.8;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s, opacity 0.3s;
+  }
+  
+  .library-container.dark-mode .library-sections button:hover {
+    background-color: #555;
+    color: #fff;
+    opacity: 1;
+  }
+  
+  .library-container.dark-mode .library-sections button.active {
+    background-color: #0a1b2d;
+    color: #fff;
+    opacity: 1;
+  }
+  
+  .library-container.dark-mode .library-sections .section-button-tanach,
+  .library-container.dark-mode .library-sections .section-button-mishnah,
+  .library-container.dark-mode .library-sections .section-button-talmud,
+  .library-container.dark-mode .library-sections .section-button-halacha,
+  .library-container.dark-mode .library-sections .section-button-midrash,
+  .library-container.dark-mode .library-sections .section-button-tosefta,
+  .library-container.dark-mode .library-sections .section-button-mussar,
+  .library-container.dark-mode .library-sections .section-button-kabbalah {
+    background-image: linear-gradient(
+        rgba(10, 50, 100, 0.5),
+        rgba(30, 100, 150, 0.5)
+      ),
+      url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .library-container.dark-mode .section-container {
+    margin: 0 auto;
+    background-image: 
+    linear-gradient(to bottom, #1c1f24d2, #181a1ece),
+      url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    height: 85%;
+  }
+
+  .library-container.dark-mode .subsection {
+    /* max-width: 400px;
+    flex: 1; */
+    border-right: 1px solid #d6d6d6;
+  }
+
+  .library-container.dark-mode .subsection:last-child {
+    border-right: none;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .library-container.dark-mode .library-sections {
+      background-color: #1c1f24;
+    }
+  
+    .library-container.dark-mode .library-sections button {
+      background-color: #444;
+      color: #ccc;
+    }
+  
+    .library-container.dark-mode .library-sections button:hover {
+      background-color: #666;
+      color: #fff;
+    }
+  }

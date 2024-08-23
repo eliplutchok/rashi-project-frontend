@@ -1,0 +1,90 @@
+/* Dark Mode Styles for EditModal */
+
+.modal.dark-mode {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal.dark-mode .modal-content {
+    background: #1e1e1e;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+.modal.dark-mode .modal-header h3 {
+    color: #ffffff;
+}
+
+.modal.dark-mode .close-button {
+    color: #bbbbbb;
+}
+
+.modal.dark-mode .edit-translation-header,
+.modal.dark-mode .edit-notes-header {
+    color: #999999;
+}
+
+.modal.dark-mode .edit-translation,
+.modal.dark-mode .edit-notes {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #dddddd;
+}
+
+.modal.dark-mode .edit-translation::placeholder,
+.modal.dark-mode .edit-notes::placeholder {
+    color: #aaaaaa;
+}
+
+.modal.dark-mode .modal-submit-button {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.modal.dark-mode .modal-submit-button:hover {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.modal.dark-mode .rating-container {
+    border-top: 1px solid #555;
+}
+
+.modal.dark-mode .rating-option {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #e0e0e0;
+}
+
+.modal.dark-mode .rating-option:hover {
+    background-color: #444444;
+}
+
+.modal.dark-mode .rating-option.selected {
+    background-color: #555555;
+    color: #ffffff;
+}
+
+.modal.dark-mode .text-and-trans-for-rating .hebrew-div,
+.modal.dark-mode .text-and-trans-for-rating .translation-div {
+    color: #d0d0d0;
+}
+
+.modal.dark-mode .rate-modal-text-area {
+    background-color: #333333;
+    color: #dddddd;
+    border: 1px solid #555555;
+}
+
+.modal.dark-mode .rate-modal-text-area::placeholder {
+    color: #aaaaaa;
+}
+
+.modal.dark-mode .modal-content button {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.modal.dark-mode .modal-content button:hover {
+    background-color: #555555;
+}

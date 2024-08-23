@@ -1,0 +1,68 @@
+/* Dark Mode Styles for ComparisonRateModal */
+
+.comparison-modal.dark-mode {
+    background: rgba(0, 0, 0, 0.8); /* Darker overlay background */
+  }
+  
+  .comparison-modal.dark-mode .comparison-modal-content {
+    background: #1e1e1e; /* Dark background for modal content */
+    color: #e0e0e0; /* Light text color */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); /* Darker shadow */
+  }
+  
+  .comparison-modal.dark-mode .comparison-modal-header h3 {
+    color: #ffffff; /* White text color for header */
+  }
+  
+  .comparison-modal.dark-mode .comparison-close-button {
+    color: #ffffff; /* White color for close button */
+  }
+  
+  .comparison-modal.dark-mode .comparison-translations-div-container::before {
+    background-color: #041902; /* Darker blue background */
+  }
+  
+  .comparison-modal.dark-mode .comparison-translations-div-container::after {
+    background-color: #380404; /* Darker purple background */
+  }
+  
+  .comparison-modal.dark-mode .comparison-hebrew-div {
+    color: #e0e0e0; /* Light color for Hebrew text */
+  }
+  
+  .comparison-modal.dark-mode .comparison-translation-div {
+    color: #dcdcdc; /* Light color for translation text */
+  }
+  
+  .comparison-modal.dark-mode .comparison-rate-modal-text-area {
+    background: #2e2e2e; /* Darker background for textarea */
+    color: #e0e0e0; /* Light text color */
+    border: 1px solid #555555; /* Darker border */
+  }
+  
+  .comparison-modal.dark-mode .comparison-rating-container .comparison-rating-option {
+    background-color: #333333; /* Dark background for rating options */
+    border: 1px solid #555555; /* Darker border */
+    color: #b0b0b0; /* Light text color */
+  }
+  
+  .comparison-modal.dark-mode .comparison-rating-container .comparison-rating-option:hover {
+    background-color: #444444; /* Slightly lighter on hover */
+    color: #ffffff; /* White text on hover */
+  }
+  
+  .comparison-modal.dark-mode .comparison-rating-option.comparison-selected {
+    background-color: #4a90e2; /* Blue background for selected rating */
+    color: #ffffff; /* White text for selected rating */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  }
+  
+  .comparison-modal.dark-mode .comparison-modal-submit-button {
+    background-color: #3a3a3a; /* Dark background for submit button */
+    color: #e0e0e0; /* Light text color */
+  }
+  
+  .comparison-modal.dark-mode .comparison-modal-submit-button:hover {
+    background-color: #4a90e2; /* Blue background on hover */
+    color: #ffffff; /* White text on hover */
+  }

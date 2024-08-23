@@ -1,0 +1,151 @@
+.all-edits.dark-mode {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .all-edits.dark-mode h1 {
+    color: #ffffff;
+  }
+  
+  .all-edits.dark-mode .filters input,
+  .all-edits.dark-mode .filters select {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .actions select,
+  .all-edits.dark-mode .actions button {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .actions button:hover {
+    background-color: #555555;
+  }
+  
+  .all-edits.dark-mode .spinner-for-button {
+    border-top: 4px solid #0099ff;
+  }
+  
+  .all-edits.dark-mode .table-wrapper {
+    background-color: #1e1e1e;
+  }
+  
+  .all-edits.dark-mode table {
+    color: #f5f5f5;
+    background-color: #2c2c2c;
+    border-collapse: collapse;
+  }
+  
+  .all-edits.dark-mode table th,
+  .all-edits.dark-mode table td {
+    border: 1px solid #444444;
+  }
+  
+  .all-edits.dark-mode table th {
+    background-color: #333333;
+  }
+  
+  .all-edits.dark-mode table tbody tr:nth-child(even) {
+    background-color: #2c2c2c;
+  }
+  
+  .all-edits.dark-mode table tbody tr:hover {
+    background-color: #333333;
+  }
+  
+  .all-edits.dark-mode .pagination button,
+  .all-edits.dark-mode .pagination span {
+    background-color: #333333;
+    color: #f5f5f5;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .pagination button:hover {
+    background-color: #555555;
+  }
+  
+  .all-edits.dark-mode .modal-content {
+    background-color: #2c2c2c;
+    color: #f5f5f5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .all-edits.dark-mode .modal-content .detail-title {
+    color: #cccccc;
+  }
+  
+  .all-edits.dark-mode .modal-content .detail-value {
+    color: #ffffff;
+  }
+  
+  .all-edits.dark-mode .modal-content .close-button {
+    background: #333333;
+    color: #f5f5f5;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .modal-content .close-button:hover {
+    background: #444444;
+  }
+  
+  .all-edits.dark-mode .button-group button {
+    background-color: #333333;
+    color: #f5f5f5;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .button-group button:hover {
+    background-color: #555555;
+  }
+  
+  .all-edits.dark-mode .table-sort-header {
+    color: #f5f5f5;
+  }
+  
+  .all-edits.dark-mode .table-sort-header span.sort-icon {
+    color: #cccccc;
+  }
+  
+  .all-edits.dark-mode .all-pages-button {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #555555;
+  }
+  
+  .all-edits.dark-mode .all-pages-button:hover {
+    background-color: #555555;
+  }
+  
+  .all-edits.dark-mode .all-pages-button.selected {
+    background-color: #007bff;
+    color: #ffffff;
+    border-color: #007bff;
+  }
+  
+  .all-edits.dark-mode .all-pages-button.selected:hover {
+    background-color: #0056b3;
+  }
+  
+  .all-edits.dark-mode .all-pages-selected .glowing-checkbox:checked {
+    background-color: #ff3700;
+    border-color: #ff3700;
+    box-shadow: 0 0 10px #ff3700, 0 0 20px #ff3700;
+  }
+  
+  .all-edits.dark-mode .spinner {
+    border-left-color: #0099ff;
+  }
+  
+  .all-edits.dark-mode .page-link {
+    color: #f5f5f5;
+    background-color: #333333;
+  }
+  
+  .all-edits.dark-mode .page-link:hover {
+    background-color: #444444;
+  }

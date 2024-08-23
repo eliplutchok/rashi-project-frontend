@@ -1,0 +1,169 @@
+.home-container {
+    background: linear-gradient(135deg, #f0f2f5, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    flex-grow: 1;
+    height: 90vh;
+    max-height: 90vh;
+}
+
+.home-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* background-color: white; */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-size 3s ease;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+}
+
+.home-card.link-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.home-card.welcome-card {
+    grid-column: span 2;
+    background: linear-gradient(135deg, #d77f50, #c6693d);
+    color: white;
+    text-align: left;
+    width: 100%;
+    cursor: default; /* No hover effect for welcome card */
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    justify-items: left;
+    font-weight: bold;
+    line-height: 1.4em;
+}
+
+.home-card.welcome-card h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
+.home-card.about-card {
+    background: linear-gradient(135deg, #d49788, #b07a68);
+    /* background: linear-gradient(135deg, #fbe5e5, #d8ada3); */
+    color: white;
+}
+
+/* .home-card.library-card {
+    background: linear-gradient(135deg, #88afd3, #608db2);
+    color: rgb(77, 76, 76);
+} */
+
+
+.home-card.library-card {
+    position: relative; /* Ensure the text and overlay are positioned correctly */
+    color: black;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-image: url('../../assets/images/5b3257f34bde5f433295f4e048876f5c.jpeg');
+    opacity: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    overflow: hidden; /* Ensure the overlay and content stay within the card */
+}
+
+.home-card.library-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(58, 80, 119, 0.6); /* Adjust the opacity to make the image lighter */
+    z-index: 1; /* Place the overlay above the image but below the text */
+}
+
+.home-card.library-card .card-content {
+    position: relative;
+    z-index: 2; /* Ensure the text is above the overlay */
+}
+
+  .home-card.library-card {
+
+    color: rgb(255, 255, 255);
+    /* font-weight: bold; */
+  }
+
+.home-card.profile-card {
+    background: linear-gradient(135deg, #d48b88, #b06c68);
+    color: white;
+}
+
+.home-card.continue-reading-card {
+    background: linear-gradient(135deg, #515669, #0d0f20);
+    color: white;
+}
+
+.home-card.admin-dashboard-card {
+    background: linear-gradient(135deg, #b7d4a5, #7ca376);
+    
+    color: rgb(72, 72, 72);
+}
+
+.home-card.admin-info-card {
+   
+    background: linear-gradient(135deg, #7ea795, #4d7b6a);
+    color: white;
+}
+
+.home-card.how-to-card {
+    background: linear-gradient(135deg, #3a3d3f, #9facb7);
+    color: white;
+}
+
+.home-card.blank-card {
+    background: linear-gradient(135deg, #c8d4dd, #9facb7);
+    color: transparent;
+}
+
+.card-content h4 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.card-content p {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+
+    .home-card.welcome-card {
+        grid-column: span 2;
+    }
+
+    .home-card.link-card:hover {
+        transform: translateY(0px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+    }
+}

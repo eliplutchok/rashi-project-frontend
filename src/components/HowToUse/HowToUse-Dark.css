@@ -1,0 +1,84 @@
+/* Dark Mode Styles */
+.how-to-use-wrapper.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Side Navigation */
+.how-to-use-wrapper.dark-mode .side-nav ul li a {
+    color: #b0b0b0;
+}
+
+.how-to-use-wrapper.dark-mode .side-nav ul li a:hover {
+    color: #bb86fc; /* Softer purple for hover */
+}
+
+.how-to-use-wrapper.dark-mode .side-nav ul li a.active {
+    color: #bb86fc;
+    font-weight: bold;
+}
+
+/* Container Background and Text */
+.how-to-use-wrapper.dark-mode .how-to-use-container {
+    background-color: #121212;
+    color: #e0e0e0;
+    border-radius: 10px;
+}
+
+/* Section Headings */
+.how-to-use-wrapper.dark-mode .how-to-use-container h2 {
+    color: #ffffff; /* Brighter white for main headings */
+}
+
+.how-to-use-wrapper.dark-mode .how-to-use-container h3 {
+    color: #bb86fc; /* Softer purple for subheadings */
+}
+
+/* Paragraph Text */
+.how-to-use-wrapper.dark-mode .how-to-use-container p {
+    color: #f2f1f1;
+    text-shadow: none;
+}
+
+/* Section Background and Borders */
+.how-to-use-wrapper.dark-mode .how-to-use-container section {
+    border: 1px solid #333333; /* Darker borders around sections */
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #202020;
+}
+
+/* Image Container */
+.how-to-use-wrapper.dark-mode .how-to-use-container .image-container img {
+    border: 1px solid #333;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer Section Padding */
+.how-to-use-wrapper.dark-mode .getting-started-section {
+    padding-bottom: 100px;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 1300px) {
+    .how-to-use-wrapper.dark-mode .how-to-use-container {
+        background-color: #181818;
+        color: #e0e0e0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .how-to-use-wrapper.dark-mode .how-to-use-container {
+        background-color: #181818;
+        color: #e0e0e0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+    }
+}

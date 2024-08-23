@@ -1,0 +1,41 @@
+/* Dark Mode Styles */
+.login-wrapper.dark-mode {
+    background-color: #1a1a1a;
+  }
+  
+  .login-wrapper.dark-mode .login-container {
+    background-color: #2b2b2b;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+  }
+  
+  .login-wrapper.dark-mode .login-container h2 {
+    color: #f0f0f0;
+  }
+  
+  .login-wrapper.dark-mode .form-group label {
+    color: #f0f0f0;
+  }
+  
+  .login-wrapper.dark-mode .form-group input {
+    background-color: #3c3c3c;
+    color: #f0f0f0;
+    border: 1px solid #555555;
+  }
+  
+  .login-wrapper.dark-mode input:focus {
+    border-color: #1e90ff;
+    box-shadow: 0 0 5px rgba(30, 144, 255, 0.8);
+  }
+  
+  .login-wrapper.dark-mode .login-button {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  .login-wrapper.dark-mode .login-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-wrapper.dark-mode .error-message {
+    color: #ff6b6b;
+  }
