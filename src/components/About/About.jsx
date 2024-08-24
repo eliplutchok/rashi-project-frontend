@@ -4,6 +4,8 @@ import { ThemeContext } from '../../context/ThemeContext';
 import './About.css';
 import './About-Dark.css';
 
+const SECTION_DELAY = 500;
+
 const About = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   useEffect(() => {
@@ -11,7 +13,7 @@ const About = () => {
     sections.forEach((section, index) => {
       setTimeout(() => {
         section.classList.add('visible');
-      }, index * 500); // Delay each section by 500ms
+      }, index * SECTION_DELAY); // Delay each section by 500ms
     });
   }, []);
 

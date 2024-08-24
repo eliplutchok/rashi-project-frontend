@@ -168,7 +168,7 @@ const VersionSelect = ({ value, onChange, className }) => (
     <option value="claude-opus-naive">claude-o-naive</option>
     <option value="gpt-4o-naive">gpt-4o-naive</option>
     <option value="mistral-v1">mistral-v1</option>
-    {/* Add more options as needed */}
+    <option value="gpt-4o-one-page-per-call">gpt-4o-v1</option>
   </select>
 );
 

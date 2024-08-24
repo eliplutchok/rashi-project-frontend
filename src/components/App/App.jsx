@@ -27,13 +27,13 @@ const App = () => {
   const [isScrollingUp, setIsScrollingUp] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  
+  const SCROLL_Y_THRESHOLD = 50;
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      if (currentScrollY > lastScrollY && currentScrollY > SCROLL_Y_THRESHOLD) {
         // Scrolling down
         setIsScrollingUp(false);
       } else {
@@ -53,8 +53,7 @@ const App = () => {
 
   const handleLogin = async (credentials) => {
     try {
-      const data = await authService.login(credentials);
-      console.log('Login successful:', data);
+      await authService.login(credentials);
       window.location.href = '/home';
     } catch (error) {
       handleAuthError(error);

@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-import { ThemeContext } from '../../context/ThemeContext';
+import React from 'react';
 
 const AllComparisonsFilter = ({ filters, handleInputChange }) => (
   <div className="filters">

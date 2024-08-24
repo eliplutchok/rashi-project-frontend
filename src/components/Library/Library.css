@@ -88,8 +88,9 @@
  justify-content: center;
  margin-bottom: 10px;
  box-sizing: border-box;
-
 }
+
+.library-sections.all-buttons-small 
 
 .library-sections.all-buttons-small button {
   /* background-image: none;  */
@@ -200,6 +201,111 @@
     ),
     url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
 }
+
+/* small buttons gradients */
+
+.library-sections.all-buttons-small .section-button-mishnah {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(215, 225, 225, 0.5), 
+      rgba(92, 121, 126, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-talmud {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(106, 131, 138, 0.5), 
+      rgba(95, 105, 115, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+  border-radius: 1px;
+}
+
+.library-sections.all-buttons-small .section-button-tanach {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(96, 120, 123, 0.5), 
+      rgba(131, 129, 112, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-mussar {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(143, 141, 123, 0.5), 
+      rgba(120, 105, 91, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+
+.library-sections.all-buttons-small .section-button-halacha {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(117, 107, 83, 0.5), 
+      rgba(103, 115, 87, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-kabbalah {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(156, 174, 151, 0.5), 
+      rgba(118, 97, 108, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-other {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(215, 214, 214, 0.5), 
+      rgba(157, 157, 157, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-midrash {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(128, 255, 0, 0.5), 
+      rgba(64, 128, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+.library-sections.all-buttons-small .section-button-tosefta {
+  border-radius: 1px;
+  background-image: 
+    linear-gradient(
+      90deg,
+      rgba(255, 128, 0, 0.5), 
+      rgba(128, 64, 0, 0.5)
+    ),
+    url('../../assets/images/b88c1cc50ee515e231f480e43cdd89e6.jpeg');
+}
+
+
 
 /* mobile */
 @media (max-width: 768px) {

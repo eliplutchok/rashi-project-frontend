@@ -9,8 +9,14 @@ import { fetchReadingProgress } from '../../utils/readingProgress';
 import { ThemeContext } from '../../context/ThemeContext';
 import authService from '../../utils/authService';
 
+const INITIAL_INDEX = 0;
+const SCROLL_INTERVAL_MS = 100;
+const PAGES_PER_VIEW = 5;
+const DELTA_Y_DIVISOR = 10;
+const INITIAL_PAGE = '2a';
+
 const Book = ({ book, onBack }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(INITIAL_INDEX);
   const scrollTimeout = useRef(null);
   const carouselRef = useRef(null);
   const [jumpPage, setJumpPage] = useState('');
@@ -32,7 +38,7 @@ const Book = ({ book, onBack }) => {
           setContinueReadingPage(progress.page_number);
           setContinueReadingPassage(progress.last_read_passage);
         } else {
-          setContinueReadingPage('2a');
+          setContinueReadingPage(INITIAL_PAGE);
           setContinueReadingPassage(null);
         }
       } catch (error) {
@@ -53,17 +59,17 @@ const Book = ({ book, onBack }) => {
   const adjustedPages = ['', '', ...pages, '', ''];
 
   const handlePrevious = useCallback(() => {
-    setCurrentIndex((prevIndex) => Math.max(prevIndex - 5, 0));
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - PAGES_PER_VIEW, INITIAL_INDEX));
   }, []);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 5, adjustedPages.length - 5));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + PAGES_PER_VIEW, adjustedPages.length - PAGES_PER_VIEW));
   }, [adjustedPages.length]);
 
   const handleMouseDown = (direction) => {
     scrollTimeout.current = setInterval(() => {
       direction === 'next' ? handleNext() : handlePrevious();
-    }, 100);
+    }, SCROLL_INTERVAL_MS);
   };
 
   const handleMouseUp = () => {
@@ -72,9 +78,9 @@ const Book = ({ book, onBack }) => {
 
   const handleScroll = useCallback((e) => {
     if (e.deltaY > 0) {
-      setCurrentIndex((prevIndex) => Math.min(prevIndex + Math.ceil(e.deltaY / 10), adjustedPages.length - 5));
+      setCurrentIndex((prevIndex) => Math.min(prevIndex + Math.ceil(e.deltaY / DELTA_Y_DIVISOR), adjustedPages.length - PAGES_PER_VIEW));
     } else {
-      setCurrentIndex((prevIndex) => Math.max(prevIndex - Math.ceil(Math.abs(e.deltaY) / 10), 0));
+      setCurrentIndex((prevIndex) => Math.max(prevIndex - Math.ceil(Math.abs(e.deltaY) / DELTA_Y_DIVISOR), INITIAL_INDEX));
     }
   }, [adjustedPages.length]);
 
@@ -120,11 +126,11 @@ const Book = ({ book, onBack }) => {
                 onMouseDown={() => handleMouseDown('previous')}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                disabled={currentIndex === 0}
+                disabled={currentIndex === INITIAL_INDEX}
                 aria-label="Previous pages"
               >&#8249;</button>
               <div className="carousel" ref={carouselRef}>
-                {adjustedPages.slice(currentIndex, currentIndex + 5).map((page, index) => (
+                {adjustedPages.slice(currentIndex, currentIndex + PAGES_PER_VIEW).map((page, index) => (
                   <div
                     key={index}
                     className={`carousel-item ${index === 2 ? 'active' : ''}`}
@@ -142,7 +148,7 @@ const Book = ({ book, onBack }) => {
                 onMouseDown={() => handleMouseDown('next')}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
-                disabled={currentIndex >= adjustedPages.length - 5}
+                disabled={currentIndex >= adjustedPages.length - PAGES_PER_VIEW}
                 aria-label="Next pages"
               >&#8250;</button>
             </div>
@@ -168,7 +174,7 @@ const Book = ({ book, onBack }) => {
             <div className="spinner"></div>
           ) : (
             <div className='continue-reading-text'>
-              <h4>{continueReadingPage === '2a' && !continueReadingPassage ? 'Start Reading' : 'Continue Reading'}</h4>
+              <h4>{continueReadingPage === INITIAL_PAGE && !continueReadingPassage ? 'Start Reading' : 'Continue Reading'}</h4>
               <h2>{continueReadingPage}</h2>
             </div>
           )}

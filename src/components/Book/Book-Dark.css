@@ -12,13 +12,23 @@
   .book-page-wrapper-wrapper.dark-mode .page-selector-container {
     background: linear-gradient(135deg, #2c2f36, #454b58);
     color: #f0f0f0;
+    opacity: .8;
   }
   
   /* Book Info Container */
   .book-page-wrapper-wrapper.dark-mode .book-info-container {
     background: linear-gradient(135deg, #4a4f59, #2c2f36);
     color: #d9d9d9;
+    opacity: .8;
   }
+
+  /* Continue Reading Container */
+  .book-page-wrapper-wrapper.dark-mode .continue-reading-container {
+    background: linear-gradient(135deg, #4a4f59, #2c2f36);
+    color: #d9d9d9;
+    opacity: .8;
+  }
+  
   
   /* Back Button */
   .book-page-wrapper-wrapper.dark-mode .back-button {
@@ -79,11 +89,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
   
-  /* Continue Reading Container */
-  .book-page-wrapper-wrapper.dark-mode .continue-reading-container {
-    background: linear-gradient(135deg, #4a4f59, #2c2f36);
-    color: #d9d9d9;
-  }
   
   .book-page-wrapper-wrapper.dark-mode .continue-reading-container:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
