@@ -7,7 +7,7 @@ export const removeRashiPrefix = (bookName) => {
   
   export const generateEditsCSV = (edits) => {
     const csvContent = [
-      ['book_name', 'page_number', 'hebrew_text', 'text', 'notes', 'creation_date', 'status', 'username', 'translation_id', 'passage_id'],
+      ['book_name', 'page_number', 'hebrew_text', 'text', 'notes', 'creation_date', 'status', 'username', 'translation_id', 'passage_id', 'passage_number'],
       ...edits.map(edit => [
         edit.book_name,
         edit.page_number,
@@ -18,7 +18,8 @@ export const removeRashiPrefix = (bookName) => {
         edit.status,
         edit.username,
         edit.translation_id,
-        edit.passage_id
+        edit.passage_id,
+        edit.passage_number
       ].map(field => `"${String(field).replace(/"/g, '""')}"`)) // Wrap each field in double quotes and escape existing double quotes
     ]
       .map(e => e.join(','))

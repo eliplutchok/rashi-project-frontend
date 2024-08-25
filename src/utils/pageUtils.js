@@ -66,7 +66,7 @@ export const fetchTexts = async ({
   try {
     const [talmudResponse, rashiResponse] = await Promise.all([
       axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, {
-        params: { book, page, translation_version: 'published' },
+        params: { book, page, translation_version: version },
         signal: controller.signal,
       }),
       axiosInstance.get(`${process.env.REACT_APP_API_URL}/page`, {

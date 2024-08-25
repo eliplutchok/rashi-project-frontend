@@ -7,7 +7,7 @@ import { ThemeContext } from '../../context/ThemeContext';
 import './Library.css';
 import './Library-Dark.css';
 
-const SECTIONS = [  'Mishnah', 'Talmud',  'Tanach',  'Mussar', 'Halacha', 'Kabbalah', 'Other'];
+const SECTIONS = ['Mishnah', 'Talmud', 'Tanach', 'Mussar', 'Halacha', 'Kabbalah', 'Other'];
 
 const Library = () => {
   const { section: urlSection, book: urlBook } = useParams();
@@ -47,8 +47,13 @@ const Library = () => {
     setActiveBook(null);
   };
 
+  // Determine the class name for the library container
+  const libraryClassName = `library-container ${
+    isDarkMode ? "dark-mode" : ""
+  } ${!activeSection && !activeBook ? "library-unselected" : ""}`;
+
   return (
-    <div className={`library-container ${isDarkMode ? "dark-mode" : ""}`}>
+    <div className={libraryClassName}>
       <SectionButtons
         sections={SECTIONS}
         activeSection={activeSection}

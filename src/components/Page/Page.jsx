@@ -18,7 +18,7 @@ import './Page-Dark.css';
 const Page = () => {
   const { book, page } = useParams();
   const location = useLocation();
-  const [version, setVersion] = useState(new URLSearchParams(location.search).get('version') || 'published');
+  const [version] = useState(new URLSearchParams(location.search).get('version') || 'published');
   const [talmudText, setTalmudText] = useState([]);
   const [rashiText, setRashiText] = useState([]);
   const [selectedText, setSelectedText] = useState(null);
