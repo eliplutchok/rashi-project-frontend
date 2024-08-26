@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 import './TranslationFooter.css';
@@ -6,11 +6,29 @@ import './TranslationFooter-Dark.css';
 
 const TranslationFooter = ({ selectedText, selectedTranslation, openEditModal, openRateModal, handleNextTranslation, handlePreviousTranslation, isBold }) => {
   const [showButtons, setShowButtons] = useState(false);
-  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+  const { isDarkMode } = useContext(ThemeContext);
 
   const toggleButtons = () => {
     setShowButtons(!showButtons);
   };
+
+  useEffect(() => {
+    // Add event listener for keydown events
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        handleNextTranslation();
+      } else if (event.key === 'ArrowRight') {
+        handlePreviousTranslation(); 
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleNextTranslation, handlePreviousTranslation]);
 
   return (
     selectedText && (

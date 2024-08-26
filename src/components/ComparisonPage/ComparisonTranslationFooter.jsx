@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { ThemeContext } from '../../context/ThemeContext';
 
 import './ComparisonTranslationFooter.css';
@@ -14,6 +14,24 @@ const ComparisonTranslationFooter = ({
 }) => {
 
   const { isDarkMode } = useContext(ThemeContext);
+
+  useEffect(() => {
+    // Add event listener for keydown events
+    const handleKeyDown = (event) => {
+      if (event.key === 'ArrowLeft') {
+        handleNextTranslation();
+      } else if (event.key === 'ArrowRight') {
+        handlePreviousTranslation(); 
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleNextTranslation, handlePreviousTranslation]);
 
   return (
   selectedText && (

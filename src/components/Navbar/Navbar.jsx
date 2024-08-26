@@ -169,6 +169,9 @@ const VersionSelect = ({ value, onChange, className }) => (
     <option value="gpt-4o-naive">gpt-4o-naive</option>
     <option value="mistral-v1">mistral-v1</option>
     <option value="gpt-4o-one-page-per-call">gpt-4o-v1</option>
+    <option value="gpt-4o-op-no-e">gpt-4o-noe</option>
+    <option value="gpt-4o-op-few-ex">gpt-4o-fewex</option>
+    <option value="mercava">mercava</option>
   </select>
 );
 
