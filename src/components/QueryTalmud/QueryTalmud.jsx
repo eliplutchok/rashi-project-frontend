@@ -3,7 +3,8 @@ import axios from 'axios'; // for the Python server
 import axiosInstance from '../../utils/axiosInstance'; // for the Node backend
 import ReactMarkdown from 'react-markdown';
 import { ThemeContext } from '../../context/ThemeContext';
-import './QueryTalmud.css'; // Import the CSS file
+import './QueryTalmud.css'; 
+import './QueryTalmud-Dark.css'; 
 
 const QueryTalmud = () => {
     const [query, setQuery] = useState('');

@@ -1,0 +1,74 @@
+.query-talmud-container.dark-mode {
+    /* background-color: #1e1e1e; */
+    color: #e0e0e0;
+}
+
+/* Input and button styles */
+.query-talmud-container.dark-mode .query-input {
+    background-color: #333333;
+    border: 1px solid #555555;
+    color: #f1c37c;
+}
+
+.query-talmud-container.dark-mode .query-input::placeholder {
+    color: #a3a3a3;
+}
+
+.query-talmud-container.dark-mode .query-submit-button {
+    background-color: #f29a16;
+    border: 1px solid #f29a16;
+    color: #ffffff;
+}
+
+.query-talmud-container.dark-mode .query-submit-button:hover {
+    background-color: #e48d0a;
+}
+
+/* Answer container styles */
+.query-talmud-container.dark-mode .answer-container {
+    /* background-color: #2b2b2b; */
+    color: #e0e0e0;
+}
+
+/* Source card styles */
+.query-talmud-container.dark-mode .source-card {
+    background-color: #2b2b2b;
+    border-left-color: #f29a16;
+    color: #e0e0e0;
+}
+
+.query-talmud-container.dark-mode .source-card h4 {
+    color: #f29a16;
+}
+
+.query-talmud-container.dark-mode .source-card:hover {
+    background-color: #373737;
+}
+
+.query-talmud-container.dark-mode .source-card:active {
+    background-color: #3d3d3d;
+}
+
+/* Error and spinner styles */
+.query-talmud-container.dark-mode .error-text {
+    color: #ff6666;
+}
+
+.query-talmud-container.dark-mode .spinner {
+    border-top-color: #f29a16;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 600px) {
+    .query-talmud-container.dark-mode .query-input-container {
+        background-color: #2b2b2b;
+    }
+
+    .query-talmud-container.dark-mode .query-input {
+        background-color: #333333;
+    }
+
+    .query-talmud-container.dark-mode .source-card {
+        background-color: #2b2b2b;
+    }
+}
