@@ -20,7 +20,7 @@ const QueryTalmud = () => {
         setError(null);
         try {
             // Call the Python server to get the answer and relevant passage IDs
-            let url = "https://rashi-project-python-backend-20920e5e00f1.herokuapp.com/query";
+            let url = `${process.env.REACT_APP_FLASK_API_URL}/query`;
 
             const response = await axios.get(url, {
                 params: { query },
@@ -34,8 +34,9 @@ const QueryTalmud = () => {
             setAnswer(answer);
 
             // Call the Node backend to get the sources by IDs
-            const sourcesResponse = await axiosInstance.post(`${process.env.REACT_APP_API_URL}/getPassagesByIds`, {
-                passage_ids: relevant_passage_ids
+            const sourcesResponse = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/getPassagesByIds`, {
+                params: { passage_ids: relevant_passage_ids }
+                
             });
 
             let data = sourcesResponse.data;
