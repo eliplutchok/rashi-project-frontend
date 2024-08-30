@@ -1,15 +1,5 @@
 import axiosInstance from './axiosInstance';
 
-// export const formatRashiText = (text) => {
-//   let textCopy = text;
-//   if (textCopy.includes('–')) {
-//     textCopy = textCopy.replace(/–([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-//   } else {
-//     textCopy = textCopy.replace(/-([^:]*):/g, '.<span class="not-rashi-header">$1</span>:');
-//   }
-//   return textCopy;
-// };
-
 export const formatRashiText = (text) => {
     let formattedText;
     // Find the first occurrence of a dash and split the text into header and body
@@ -80,8 +70,15 @@ export const fetchTexts = async ({
       hebrew_text: formatRashiText(passage.hebrew_text),
     }));
 
+    // remove duplicates from rashiData
+    const rashiDataIds = rashiData.map(passage => passage.id);
+    const uniqueRashiData = rashiData.filter((passage, index) => rashiDataIds.indexOf(passage.id) === index);
+
+
     setTalmudText(talmudResponse.data);
-    setRashiText(rashiData);
+    setRashiText(uniqueRashiData);
+
+    
 
     if (passageIdFromURL) {
       const selectedPassage = talmudResponse.data.find(passage => passage.id === parseInt(passageIdFromURL)) ||
