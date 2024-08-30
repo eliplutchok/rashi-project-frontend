@@ -16,6 +16,7 @@ import AllComparisons from '../AdminViews/AllComparisons';
 import About from '../About/About';
 import HowToUse from '../HowToUse/HowToUse';
 import AdminInfoPage from '../AdminInfo/AdminInfoPage';
+import QueryTalmud from '../QueryTalmud/QueryTalmud';
 import authService from '../../utils/authService';
 import PrivateRoute from '../../PrivateRoute';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -127,6 +128,14 @@ const App = () => {
           element={
             <PrivateRoute>
               <ComparisonPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/query-talmud"
+          element={
+            <PrivateRoute>
+              <QueryTalmud />
             </PrivateRoute>
           }
         />

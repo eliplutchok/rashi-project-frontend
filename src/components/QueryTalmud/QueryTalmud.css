@@ -1,0 +1,195 @@
+.query-talmud-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    /* background-color: #f9f9f9;
+    border-radius: 8px; */
+    /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); */
+    font-family: 'Roboto', sans-serif;
+}
+
+.query-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    height: 50px;
+    box-sizing: border-box;
+    margin-top: 50px;
+    position: sticky;
+    top: 70px;
+    z-index: 10;
+    opacity: 0.95;
+}
+
+.query-input {
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    box-sizing: border-box;
+    height: 100%;
+    width: 80%;
+    color: #c88b30;
+    padding-left: 30px;
+}
+
+.query-input::placeholder {
+    color: #f1c37c;
+    /* padding-left: 15px; */
+}
+
+.query-input:focus {
+    outline: none;
+    
+}
+
+.query-submit-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #f29a16;
+    color: white;
+    border: 1px solid #f29a16;
+    border-left: none;
+    border-radius: 0px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-sizing: border-box;
+    height: 100%;
+    width: 20%;
+}
+
+.query-submit-button:hover {
+    background-color: #e48d0a;
+}
+
+
+
+.loading-text,
+.error-text {
+    color: #ff0000;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.answer-container h3 {
+    margin-bottom: 10px;
+    color: #828282;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    padding-bottom: 5px;
+    /* text-align: center; */
+}
+
+.answer-container {
+    margin-top: 60px;
+    /* background-color: #e7e7e7; */
+    /* padding: 15px; */
+    border-radius: 8px;
+    color: rgb(10, 10, 10);
+    font-size: 18px;
+    margin-bottom: 50px;
+    font-weight: 500;
+}
+
+.sources-container {
+    /* margin-top: 30px; */
+    padding-right: 30px;
+}
+
+.sources-container h3 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #828282;
+    border-bottom: 1px solid #ccc;
+    font-size: 18px;
+    padding-bottom: 5px;
+    
+}
+
+.source-card {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.3s, transform 0.3s;
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    border-left: 3px solid #f29a16;
+}
+
+.source-card:hover {
+    /* box-shadow: 0px 0px 15px rgba(240, 174, 60, 0.2); */
+    /* transform: translateY(-5px); */
+    background-color: rgb(254, 250, 235);
+}
+
+.source-card:active {
+    box-shadow: 0px 0px 10px rgba(240, 174, 60, 0.2);
+    transform: translateY(0px);
+    background-color: rgb(254, 250, 235);
+}
+
+.source-card h4 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #eeb053;
+}
+
+.sources-container a {
+    text-decoration: none; 
+}
+
+.sources-container a:active {
+    color: #f29a16;
+}
+
+.source-card .hebrew-text {
+    /* font-family: 'Taamey Frank CLM'; */
+    font-size: 16px;
+    direction: rtl;
+    text-align: right;
+    margin-bottom: 10px;
+    width: 35%;
+}
+
+.source-card .english-text {
+    /* font-family: 'Taamey Frank CLM'; */
+    font-size: 16px;
+    direction: rtl;
+    text-align: left;
+    margin-bottom: 10px;
+    width: 65%;
+}
+
+.source-card p {
+    margin: 5px 0;
+    color: #555555;
+}
+
+/* Spinner styles */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 10px solid rgba(0, 0, 0, 0.1);
+    border-top-color: #f29a16;
+    border-radius: 50%;
+    animation: spin 3s linear infinite;
+    margin: 50px auto;
+    margin-top: 100px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
