@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios'; // for the Python server
 import axiosInstance from '../../utils/axiosInstance'; // for the Node backend
 import ReactMarkdown from 'react-markdown';
+import { ThemeContext } from '../../context/ThemeContext';
 import './QueryTalmud.css'; // Import the CSS file
 
 const QueryTalmud = () => {
@@ -10,6 +11,7 @@ const QueryTalmud = () => {
     const [sources, setSources] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const { isDarkMode } = useContext(ThemeContext);
 
     const handleQueryChange = (e) => {
         setQuery(e.target.value);
@@ -59,7 +61,7 @@ const QueryTalmud = () => {
     };
 
     return (
-        <div className="query-talmud-container">
+        <div className={`query-talmud-container ${isDarkMode ? "dark-mode" : ""}`}>
             <div className="query-input-container">
                 <input
                     type="text"

@@ -73,10 +73,16 @@ const Home = () => {
             </p>
           </div>
         </div>
-        <Link to="/profile" className="home-card profile-card link-card">
+        {/* <Link to="/profile" className="home-card profile-card link-card">
           <div className="card-content">
             <h4>Profile</h4>
             <p>View and edit your profile.</p>
+          </div>
+        </Link> */}
+        <Link to="/query-talmud" className="home-card profile-card link-card">
+          <div className="card-content">
+            <h4>AI Talmud Queries</h4>
+            <p>Query the talmud using AI.</p>
           </div>
         </Link>
        
