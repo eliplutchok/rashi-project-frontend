@@ -22,7 +22,7 @@ const QueryTalmud = () => {
             // Call the Python server to get the answer and relevant passage IDs
             let url = `${process.env.REACT_APP_FLASK_API_URL}/query`;
 
-            const response = await axios.get(url, {
+            const response = await axiosInstance.get(url, {
                 params: { query },
                 headers: { 
                     'Content-Type': 'application/json'
@@ -35,8 +35,7 @@ const QueryTalmud = () => {
 
             // Call the Node backend to get the sources by IDs
             const sourcesResponse = await axiosInstance.get(`${process.env.REACT_APP_API_URL}/getPassagesByIds`, {
-                params: { passage_ids: relevant_passage_ids }
-                
+                params: { passage_ids: relevant_passage_ids }   
             });
 
             let data = sourcesResponse.data;
