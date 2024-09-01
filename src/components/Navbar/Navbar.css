@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Vilna';
+  src: url('../../assets/fonts/vilna.ttf') format('truetype'); /* Adjust the path as needed */
+  font-weight: normal;
+  font-style: normal;
+}
+
 .navbar-wrapper {
   position: fixed;
   width: 100%;
@@ -145,8 +152,11 @@
 }
 
 .navbar .version-select {
+  position: absolute;
+  left: 0;
+  top: 80px;
   display: flex;
-  margin-right: 50px;
+  margin-left: 20px;
   padding: 4px;
   border: 1px solid #dadada;
   border-radius: 4px;
@@ -416,4 +426,11 @@
   .navbar.dark-mode .navbar-links button:hover {
     color: #4ca1ff;
   }
+}
+
+
+.hebrew-page-name-and-number {
+  direction: rtl;
+  margin-right: 10px;
+  font-family: 'Vilna', sans-serif;
 }

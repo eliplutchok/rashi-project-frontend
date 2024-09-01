@@ -49,9 +49,10 @@
 .query-submit-button {
     padding: 10px 20px;
     font-size: 18px;
-    background-color: #f29a16;
+    background: linear-gradient(90deg, #ef8114,rgb(225, 77, 97));
+    /* background-color: #f29a16; */
     color: white;
-    border: 1px solid #f29a16;
+    /* border: 1px solid #f29a16; */
     border-left: none;
     border-radius: 0px;
     border-top-right-radius: 25px;
@@ -67,7 +68,13 @@
     background-color: #e48d0a;
 }
 
+.query-submit-button {
+    transition: transform 0.2s ease;
+}
 
+.query-submit-button.clicked {
+    transform: scale(0.95);
+}
 
 .loading-text,
 .error-text {

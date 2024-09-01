@@ -3,9 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import HeaderNavigation from './HeaderNavigation';
 import TextRenderer from './TextRenderer';
-import TextRendererTHD from './TextRendererTHD';
 import TranslationFooter from './TranslationFooter';
-import TranslationFooterTHD from './TranslationFooterTHD';
 import { ThemeContext } from '../../context/ThemeContext';
 import EditModal from '../PageModals/EditModal';
 import RateModal from '../PageModals/RateModal';
@@ -15,11 +13,7 @@ import authService from '../../utils/authService';
 import {fetchTexts } from '../../utils/pageUtils';
 
 import './Page.css';
-import './PageTHD.css';
 import './Page-Dark.css';
-
-const jsonDataGemara = require('./j-gemara_b_2b.json');
-const jsonDataRashi = require('./j-rashi_b_2b.json');
 
 const Page = () => {
   const { book, page } = useParams();
@@ -44,7 +38,6 @@ const Page = () => {
   const [isHeldDown, setIsHeldDown] = useState(false);
   const [pageForDisplay, setpageForDisplay] = useState(null);
   const [shortLoading, setShortLoading] = useState(false);
-  const [isTHD, setIsTHD] = useState(false);
   
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
 
@@ -224,65 +217,33 @@ const Page = () => {
         <div className="content-container">
           <div className="column talmud">
             <div className={`text-container ${shortLoading ? 'short-loading' : ''}`}>
-              {/* if thd use thd component else regular */}
-              {isTHD ? (
-                <TextRendererTHD
-                  textArray={talmudText}
-                  selectedPassageId={selectedPassageId}
-                  handleTextClick={handleTextClick}
-                  jsonPassages={jsonDataGemara}
-                />
-              ) : (
-                <TextRenderer
-                  textArray={talmudText}
-                  selectedPassageId={selectedPassageId}
-                  handleTextClick={handleTextClick}
-                />
-              )}
+              <TextRenderer
+                textArray={talmudText}
+                selectedPassageId={selectedPassageId}
+                handleTextClick={handleTextClick}
+              />
             </div>
           </div>
           <div className="column rashi">
-            <div className={`text-container ${shortLoading ? 'short-loading' : ''} ${isTHD ? "text-container-thd" : ""}`}>
-              {isTHD ? (
-                <TextRendererTHD
-                  textArray={rashiText}
-                  selectedPassageId={selectedPassageId}
-                  handleTextClick={handleTextClick}
-                  jsonPassages={jsonDataRashi}
-                />
-              ) : (
-                <TextRenderer
-                  textArray={rashiText}
-                  selectedPassageId={selectedPassageId}
-                  handleTextClick={handleTextClick}
-                />
-              )}
+            <div className={`text-container ${shortLoading ? 'short-loading' : ''}`}>
+              <TextRenderer
+                textArray={rashiText}
+                selectedPassageId={selectedPassageId}
+                handleTextClick={handleTextClick}
+              />
             </div>
           </div>
         </div>
-        {isTHD ? (
-          <TranslationFooterTHD
-            selectedText={selectedText}
-            selectedTranslation={selectedTranslation}
-            openEditModal={openEditModal}
-            openRateModal={openRateModal}
-            handleNextTranslation={handleNextTranslation}
-            handlePreviousTranslation={handlePreviousTranslation}
-            // set isBold if its rashi
-            isBold={rashiText.find(passage => passage.id === selectedPassageId)}
-          />
-        ) : (
-          <TranslationFooter
-            selectedText={selectedText}
-            selectedTranslation={selectedTranslation}
-            openEditModal={openEditModal}
-            openRateModal={openRateModal}
-            handleNextTranslation={handleNextTranslation}
-            handlePreviousTranslation={handlePreviousTranslation}
-            // set isBold if its rashi
-            isBold={rashiText.find(passage => passage.id === selectedPassageId)}
-          />
-        )}
+        <TranslationFooter
+          selectedText={selectedText}
+          selectedTranslation={selectedTranslation}
+          openEditModal={openEditModal}
+          openRateModal={openRateModal}
+          handleNextTranslation={handleNextTranslation}
+          handlePreviousTranslation={handlePreviousTranslation}
+          // set isBold if its rashi
+          isBold={rashiText.find(passage => passage.id === selectedPassageId)}
+        />
       </div>
       {isEditModalOpen && (
         <EditModal

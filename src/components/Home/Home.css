@@ -112,7 +112,7 @@
   }
 
 .home-card.profile-card {
-    background: linear-gradient(135deg, #d48b88, #ab68b0);
+    background: linear-gradient(135deg, #a95502, rgb(225, 77, 97), #ad7d0c);
     color: white;
 }
 

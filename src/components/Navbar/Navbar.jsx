@@ -4,6 +4,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import authService from '../../utils/authService';
 import navbarLinks from './navbarLinks';
 import { ThemeContext } from '../../context/ThemeContext';
+import {convertPageNumberToHebrew, convertBookNameToHebrew} from '../../utils/navbarUtils';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -66,7 +67,11 @@ const Navbar = () => {
 
     if (path.startsWith('/page') || path.startsWith('/comparisonPage')) {
       const [,, book, page] = path.split('/');
-      return `${book} ${page}`;
+      // remove "_" from book name
+      const bookName = book.replace(/_/g, ' ');
+      const hebrewBookName = convertBookNameToHebrew(bookName);
+      const hebrewPageNumber = convertPageNumberToHebrew(page);
+      return `<span class="hebrew-page-name-and-number">${hebrewPageNumber[1]}${hebrewBookName} ${hebrewPageNumber[0]} </span>  <span class="english-page-name-and-number">${bookName} ${page}<span> `;
     }
 
     return pageNameMapping[path] || '';
@@ -149,7 +154,9 @@ const Navbar = () => {
           
         </div>
         {renderVersionSelectors()}
-        <div className="navbar-page-name">{getPageName}</div>
+        <div className="navbar-page-name" 
+          dangerouslySetInnerHTML={{ __html: getPageName }}
+        />
         <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
           {renderLinks()}
         </div>
