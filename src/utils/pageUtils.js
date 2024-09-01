@@ -28,6 +28,39 @@ export const formatRashiText = (text) => {
     return formattedText;
   };
 
+  export const formatRashiTextByWords = (jsonDataRashi) => {
+    let insideHeader = false; // A flag to know if we are inside a header
+    let formattedRashiData = [];
+  
+    jsonDataRashi.forEach((passage, passageIndex) => {
+      let words = passage.text.split(' ');
+      let formattedWords = words.map((word, wordIndex) => {
+        if (word.includes('׃')) {
+          // If we encounter a colon, the header starts right after this word
+          insideHeader = true;
+        }
+  
+        if (insideHeader) {
+          word = `<span class="rashi-header">${word}</span>`;
+        }
+  
+        if (word.includes('.')) {
+          // If we encounter a period, the header ends with this word
+          insideHeader = false;
+        }
+  
+        return word;
+      });
+  
+      formattedRashiData.push({
+        ...passage,
+        text: formattedWords.join(' ') // Join the words back into a line
+      });
+    });
+  
+    return formattedRashiData;
+  };
+
 
 export const fetchTexts = async ({
   book,

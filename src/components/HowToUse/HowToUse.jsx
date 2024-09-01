@@ -64,13 +64,13 @@ const HowToUse = () => {
 
   return (
     <div className={`how-to-use-wrapper ${isDarkMode ? 'dark-mode' : ''}`}>
-       <button 
+       {/* <button 
           className="dark-mode-button"
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
         >
           {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-        </button>
+        </button> */}
       <nav className="side-nav">
         <ul>
           <li>

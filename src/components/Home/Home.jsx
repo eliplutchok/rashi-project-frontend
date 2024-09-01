@@ -79,7 +79,7 @@ const Home = () => {
             <p>View and edit your profile.</p>
           </div>
         </Link> */}
-        <Link to="/query-talmud" className="home-card profile-card link-card">
+        <Link to="/query-talmud" className="home-card query-card link-card">
           <div className="card-content">
             <h4>AI Talmud Queries</h4>
             <p>Query the talmud using AI.</p>
@@ -102,20 +102,26 @@ const Home = () => {
             </Link> */}
           </>
         )}
-        
+        <Link to="/profile" className="home-card profile-card link-card">
+          <div className="card-content">
+            <h4>Profile</h4>
+            <p>View and edit your profile.</p>
+          </div>
+        </Link>
         <Link to="/how-to-use" className="home-card how-to-card link-card">
               <div className="card-content">
                 <h4>How to Use this Website</h4>
                 <p>A short guide.</p>
               </div>
          </Link>
-         <Link to="/" className="home-card toggle-card link-card" onClick={toggleTheme} aria-label="Toggle Dark Mode">
+         
+         {/* <Link to="/" className="home-card toggle-card link-card" onClick={toggleTheme} aria-label="Toggle Dark Mode">
           <div className="card-content"
             >
             <h4>{isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}</h4>
             <p>Toggle between light and dark mode.</p>
           </div>
-        </Link>
+        </Link> */}
     
       </div>
     </div>

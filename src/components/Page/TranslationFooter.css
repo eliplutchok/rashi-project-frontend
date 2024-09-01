@@ -5,7 +5,6 @@
   font-style: normal;
 }
 
-
 .sticky-translation-footer {
     position: sticky;
     bottom: 0;
@@ -34,7 +33,7 @@
     width: 100%;
     max-width: 100%;
     /* background: rgb(255, 254, 251); */
-    background: #fdfdf2;
+    background: #ffffff;
     /* background-color: red; */
     /* background: #fdf9e6; */
     opacity: .95;

@@ -110,9 +110,13 @@
     color: rgb(255, 255, 255);
     /* font-weight: bold; */
   }
+  .home-card.query-card {
+    background: linear-gradient(135deg, #865f5e, #983936);
+    color: white;
+}
 
 .home-card.profile-card {
-    background: linear-gradient(135deg, #a95502, rgb(225, 77, 97), #ad7d0c);
+    background: linear-gradient(135deg, #46574e, #173220);
     color: white;
 }
 
@@ -134,7 +138,8 @@
 
 
 .home-container .home-card.how-to-card {
-    background: linear-gradient(135deg, #282b2d, #646e76);
+    /* background: linear-gradient(135deg, #282b2d, #646e76); */
+    background: linear-gradient(135deg, #4a4650, #231c29);
     color: white;
 }
 

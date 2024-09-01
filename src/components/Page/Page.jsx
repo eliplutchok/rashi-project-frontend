@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, json } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import HeaderNavigation from './HeaderNavigation';
 import TextRenderer from './TextRenderer';
@@ -12,7 +12,7 @@ import RateModal from '../PageModals/RateModal';
 import { updateReadingProgress } from '../../utils/readingProgress';
 import useBookInfo from '../../hooks/useBookInfo';
 import authService from '../../utils/authService';
-import {fetchTexts } from '../../utils/pageUtils';
+import {fetchTexts, formatRashiTextByWords } from '../../utils/pageUtils';
 
 import './Page.css';
 import './PageTHD.css';
@@ -20,6 +20,9 @@ import './Page-Dark.css';
 
 const jsonDataGemara = require('./j-gemara_b_2b.json');
 const jsonDataRashi = require('./j-rashi_b_2b.json');
+// format the rashi text
+const formattedRashiData = jsonDataRashi;
+const renderToDBMapping = require('./rendered_to_db_mapping_br_2b.json');
 
 const Page = () => {
   const { book, page } = useParams();
@@ -206,13 +209,13 @@ const Page = () => {
       <div className={`pageForDisplay-hidden ${isHeldDown ? 'pageForDisplay' : ''}`}>
           {pageForDisplay && <p>{pageForDisplay}</p>}
         </div>
-        <button 
+        {/* <button 
           className="dark-mode-button"
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
         >
           {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-        </button>
+        </button> */}
       <HeaderNavigation
         page={page}
         onHeldDownChange={handleHeldDownChange}
@@ -231,6 +234,7 @@ const Page = () => {
                   selectedPassageId={selectedPassageId}
                   handleTextClick={handleTextClick}
                   jsonPassages={jsonDataGemara}
+                  renderToDBMapping={renderToDBMapping}
                 />
               ) : (
                 <TextRenderer
@@ -248,7 +252,9 @@ const Page = () => {
                   textArray={rashiText}
                   selectedPassageId={selectedPassageId}
                   handleTextClick={handleTextClick}
-                  jsonPassages={jsonDataRashi}
+                  jsonPassages={formattedRashiData}
+                  renderToDBMapping={renderToDBMapping}
+                  textType="rashi"
                 />
               ) : (
                 <TextRenderer

@@ -203,13 +203,13 @@ const ComparisonPage = () => {
 
   return (
     <div className={`page-container ${isDarkMode ? 'dark-mode' : ''}`}>
-       <button 
+       {/* <button 
           className="dark-mode-button"
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
         >
           {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-        </button>
+        </button> */}
       <ComparisonHeaderNavigation
         page={page}
         handleNextPage={handleNextPage}

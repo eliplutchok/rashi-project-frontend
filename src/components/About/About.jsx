@@ -19,13 +19,13 @@ const About = () => {
 
   return (
     <div className={`about-container ${isDarkMode ? 'dark-mode' : ''}`}>
-       <button 
+       {/* <button 
           className="dark-mode-button"
           onClick={toggleTheme}
           aria-label="Toggle Dark Mode"
         >
           {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-        </button>
+        </button> */}
       <h1>About Us</h1>
       <section className="about-section mission">
         <h2>Our Mission</h2>

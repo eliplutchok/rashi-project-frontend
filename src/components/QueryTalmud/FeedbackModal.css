@@ -1,0 +1,142 @@
+.feedback-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: feedback-fadeIn 0.3s ease-in-out;
+}
+
+@keyframes feedback-fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.feedback-modal-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-sizing: border-box;
+    animation: feedback-slideIn 0.3s ease-out;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent scrolling issues */
+}
+
+@keyframes feedback-slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.feedback-modal-header {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #242423;
+    text-align: left;
+}
+
+.feedback-modal-message {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #626262;
+    text-align: left;
+}
+
+.feedback-modal-content textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 0px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    box-sizing: border-box;
+    background: #f9f9f9;
+}
+
+.feedback-modal-content textarea::placeholder {
+    color: #7e7e7e;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.feedback-modal-content textarea:focus {
+    outline: none;
+    border: 1px solid #c88b30;
+}
+
+.feedback-modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.feedback-modal-button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.feedback-modal-button.cancel {
+    background-color: #e7e7e7;
+    color: #555555;
+}
+
+.feedback-modal-button.submit {
+    background: linear-gradient(90deg, #ef8114,rgb(225, 77, 97));
+    color: white;
+}
+
+.feedback-modal-button:hover {
+    opacity: 0.8;
+}
+
+/* Dark mode styling */
+.query-talmud-container.dark-mode .feedback-modal-content {
+    background: #333333;
+    color: #f1f1f1;
+    border: 1px solid #444444;
+}
+
+.query-talmud-container.dark-mode .feedback-modal-content textarea {
+    background: #444444;
+    color: #f1f1f1;
+    border: 1px solid #555555;
+}
+
+.query-talmud-container.dark-mode .feedback-modal-button.cancel {
+    background-color: #555555;
+    color: #f1f1f1;
+}
+
+.query-talmud-container.dark-mode .feedback-modal-button.submit {
+    background-color: #f29a16;
+    color: #ffffff;
+}
+
+.query-talmud-container.dark-mode .feedback-modal-header {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    text-align: left;
+}
+
+.query-talmud-container.dark-mode  .feedback-modal-message {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    color: #cecccc;
+    text-align: left;
+}

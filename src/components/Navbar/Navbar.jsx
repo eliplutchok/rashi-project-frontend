@@ -67,14 +67,19 @@ const Navbar = () => {
 
     if (path.startsWith('/page') || path.startsWith('/comparisonPage')) {
       const [,, book, page] = path.split('/');
-      // remove "_" from book name
       const bookName = book.replace(/_/g, ' ');
       const hebrewBookName = convertBookNameToHebrew(bookName);
       const hebrewPageNumber = convertPageNumberToHebrew(page);
-      return `<span class="hebrew-page-name-and-number">${hebrewPageNumber[1]}${hebrewBookName} ${hebrewPageNumber[0]} </span>  <span class="english-page-name-and-number">${bookName} ${page}<span> `;
+      return {
+        displayName: `<span class="hebrew-page-name-and-number">${hebrewPageNumber[1]}${hebrewBookName} ${hebrewPageNumber[0]}</span>  <span class="english-page-name-and-number">${bookName} ${page}</span>`,
+        plainName: `${bookName}/${page}`
+      };
     }
 
-    return pageNameMapping[path] || '';
+    return {
+      displayName: pageNameMapping[path] || '',
+      plainName: ''
+    };
   }, [location.pathname]);
 
   const renderVersionSelectors = () => {
@@ -108,7 +113,7 @@ const Navbar = () => {
   const renderLinks = () => {
     return Object.entries(navbarLinks).map(([key, config]) => {
       const path = config.pathTemplate
-        ? `${config.pathTemplate}${getPageName.replace(' ', '/')}`
+        ? `${config.pathTemplate}${getPageName.plainName}`
         : config.path;
 
       if (config.requiresAdmin && !isAdmin) return null;
@@ -139,25 +144,24 @@ const Navbar = () => {
 
   return (
     <nav className={`navbar ${isDarkMode ? 'dark-mode' : ''}`}>
-      <button 
-          className="dark-mode-button"
-          onClick={toggleTheme}
-          aria-label="Toggle Dark Mode"
-        >
-          {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
-        </button>
       <div className="navbar-container">
         <div className="navbar-logo">
           <Link to="/home">
             <b className="rashi-logo-text">r<span className="ai-logo-text">a</span>sh<span className="ai-logo-text">i</span></b>
           </Link>
-          
         </div>
         {renderVersionSelectors()}
         <div className="navbar-page-name" 
-          dangerouslySetInnerHTML={{ __html: getPageName }}
+          dangerouslySetInnerHTML={{ __html: getPageName.displayName }}
         />
         <div className={`navbar-links ${isOpen ? 'open' : ''}`}>
+          <button 
+            className="dark-mode-button-nav"
+            onClick={toggleTheme}
+            aria-label="Toggle Dark Mode"
+          >
+            {isDarkMode ? <i className="fas fa-sun"></i> : <i className="fas fa-moon"></i>}
+          </button>
           {renderLinks()}
         </div>
         <div className="navbar-toggle" onClick={toggleMenu}>

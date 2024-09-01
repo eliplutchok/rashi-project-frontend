@@ -10,14 +10,16 @@
 
 /* Book or scroll element */
 .scroll-loader {
-    width: 150px;
-    height: 220px;
-    background: linear-gradient(to right, #c29d74 0%, #fff 50%, #c29d74 100%);
+    width: 120px;
+    height: 190px;
+    background: linear-gradient(to right, #cc6701 0%, rgb(225, 77, 97) 100%);
     border-radius: 10px;
     position: relative;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     transform-style: preserve-3d;
     animation: scrollRotate 4s infinite linear;
+    animation-delay: 2s; /* 3-second delay before the rotation starts */
+    transform: rotateY(180deg); /* Start with the text side showing */
 }
 
 /* Text element on the back side */
@@ -40,7 +42,6 @@
     border-radius: 10px;
     font-size: 14px;
     font-weight: bold;
-
 }
 
 .scroll-text .seconds {
@@ -71,16 +72,15 @@
 /* Animation keyframes */
 @keyframes scrollRotate {
     0% {
-        transform: rotateY(0deg);
+        transform: rotateY(180deg); /* Start with the text side */
     }
     50% {
-        transform: rotateY(180deg);
+        transform: rotateY(360deg); /* Rotate to the back side */
     }
     100% {
-        transform: rotateY(360deg);
+        transform: rotateY(540deg); /* Rotate back to the front side */
     }
 }
-
 
 .low-opacity-blur {
     opacity: 0.3;

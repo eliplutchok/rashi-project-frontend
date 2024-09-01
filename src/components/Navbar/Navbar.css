@@ -165,6 +165,17 @@
   outline: none;
 }
 
+.navbar .navbar-compare-selectors .version-select-1 {
+  position: absolute;
+  left: 0;
+  top: 80px;
+}
+.navbar .navbar-compare-selectors .version-select-2 {
+  position: absolute;
+  left: 0;
+  top: 110px;
+}
+
 .navbar .version-select select {
   padding: 4px;
   border: 1px solid #333;
@@ -357,16 +368,37 @@
   color: #4ca1ff;
 }
 
-/* Dark Mode Toggle Button */
-.navbar.dark-mode .dark-mode-button {
-  background-color: #444444;
-  color: #ffffff;
-  border: 1px solid #555555;
+
+.navbar-links button.dark-mode-button-nav {
+  background: none;
+  border: none;
+  color: #464646;
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+  text-justify: center;
 }
 
-.navbar.dark-mode .dark-mode-button:hover {
-  background-color: #555555;
-  border-color: #666666;
+.navbar-links button.dark-mode-button-nav:hover {
+  background: none;
+  border: none;
+  color: #939393;
+}
+
+
+.navbar.dark-mode .navbar-links button.dark-mode-button-nav {
+  background: none;
+  border: none;
+  color: #e0e0e0;
+  font-size: 18px;
+  text-align: center;
+  text-justify: center;
+}
+
+.navbar.dark-mode .navbar-links button.dark-mode-button-nav:hover {
+  background: none;
+  border: none;
+  color: #7c7c7c;
 }
 
 /* Dark Mode for Select Dropdown */

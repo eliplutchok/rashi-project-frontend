@@ -1,0 +1,8 @@
+need 3 documents:
+1. the textArray from the db (originally from sefaria)
+2. need the lines as jsonPassages also stored in a db (scraped from mercava)
+3. then we need mapping json files, also stored in db (created by an LLM like gpt-mini, give it one example, should be enough)
+the mapping is from the words in the jsonPassages to the textArray, it assigns passage ids to the words
+this needs to be done seperately for talmud and rashi. For tosafost we only need the jsonPassages, since we have no translations now
+
+const [isTHD, setIsTHD] = useState(false); on page.jsx controls which version to show

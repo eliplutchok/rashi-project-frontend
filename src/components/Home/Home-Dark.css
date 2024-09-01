@@ -24,8 +24,12 @@
     color: #f0f0f0;
 }
 
-.home-container.dark-mode .home-card.profile-card {
+.home-container.dark-mode .home-card.query-card {
     background: linear-gradient(135deg, #8a4d4b, #6f3a38);
+}
+
+.home-container.dark-mode .home-card.profile-card {
+    background: linear-gradient(135deg, #46574e, #112718);
 }
 
 .home-container.dark-mode .home-card.continue-reading-card {
@@ -41,7 +45,7 @@
 }
 
 .home-container.dark-mode .home-card.how-to-card {
-    background: linear-gradient(135deg, #282b2d, #646e76);
+    background: linear-gradient(135deg, #4a4650, #110d14);
 }
 
 .home-container.dark-mode .card-content h4 {
