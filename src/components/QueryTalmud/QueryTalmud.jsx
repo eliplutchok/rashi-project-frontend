@@ -47,7 +47,7 @@ const QueryTalmud = () => {
 
         try {
             const raw_response = await axiosInstance.get(
-                `${process.env.REACT_APP_FLASK_API_URL}/query`,
+                `${process.env.REACT_APP_API_URL}/queryTalmud`,
                 {
                     params: { query },
                     headers: { 'Content-Type': 'application/json' },
@@ -95,7 +95,7 @@ const QueryTalmud = () => {
                 transition: Slide,
             });
             await axiosInstance.get(
-                `${process.env.REACT_APP_FLASK_API_URL}/feedback`,
+                `${process.env.REACT_APP_API_URL}/submitFeedback`,
                 {
                     params: {score, comment, run_id},
                     headers: { 'Content-Type': 'application/json' },
