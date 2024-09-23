@@ -88,3 +88,44 @@
 .modal.dark-mode .modal-content button:hover {
     background-color: #555555;
 }
+
+
+
+/* Style the toolbar of the Quill editor */
+.modal.dark-mode .edit-translation .ql-toolbar.ql-snow {
+  background-color: #181818;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  border-radius: 5px 5px 0 0;
+}
+
+/* Style the editor area */
+.edit-translation .ql-container.ql-snow {
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  height: 200px; /* Set desired height */
+  overflow-y: auto;
+}
+
+.modal.dark-mode .edit-translation .ql-container.ql-snow button {
+  color: #fff;
+}
+
+.modal.dark-mode .edit-translation {
+    color: #e0e0e0;
+}
+
+.modal.dark-mode .modal-content button {
+    background: none;
+}
+
+/* Adjust the editor's content area */
+.edit-translation .ql-editor {
+  height: 160px; /* Adjust as needed */
+}
+
+/* Ensure the Quill editor fits within its container */
+.edit-translation {
+  box-sizing: border-box;
+}
