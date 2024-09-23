@@ -35,7 +35,7 @@ const navbarLinks = {
       { label: 'Halacha', path: '/library/Halacha' },
       { label: 'Kabbalah', path: '/library/Kabbalah' },
       { label: 'Other', path: '/library/Other' },
-      {label: 'Queries (beta)', path: '/query-talmud'},
+      {label: 'Queries (beta)', path: '/query-talmud'}
     ],
   },
   admin: {

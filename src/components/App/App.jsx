@@ -17,6 +17,7 @@ import About from '../About/About';
 import HowToUse from '../HowToUse/HowToUse';
 import AdminInfoPage from '../AdminInfo/AdminInfoPage';
 import QueryTalmud from '../QueryTalmud/QueryTalmud';
+import QueryTalmudDeep from '../QueryTalmud/QueryTalmudDeep';
 import authService from '../../utils/authService';
 import PrivateRoute from '../../PrivateRoute';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -140,6 +141,14 @@ const App = () => {
           }
         />
         <Route
+          path="/query-talmud-deep"
+          element={
+            <PrivateRoute>
+              <QueryTalmudDeep />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/admin"
           element={
             <PrivateRoute>
@@ -179,6 +188,7 @@ const App = () => {
             </PrivateRoute>
           }
         />
+        
         <Route path="/how-to-use" element={<HowToUse />} />
         <Route path="*" element={<Navigate to="/home" />} />
       </Routes>
